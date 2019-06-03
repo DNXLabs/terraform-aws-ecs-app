@@ -1,12 +1,12 @@
 resource "aws_codedeploy_app" "ecs" {
   compute_platform = "ECS"
-  name             = "${var.name}"
+  name             = "${var.cluster_name}-${var.name}"
 }
 
 resource "aws_codedeploy_deployment_group" "ecs" {
   app_name               = "${aws_codedeploy_app.ecs.name}"
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
-  deployment_group_name  = "${var.name}"
+  deployment_group_name  = "${var.cluster_name}-${var.name}"
   service_role_arn       = "${aws_iam_role.codedeploy_service.arn}"
 
   auto_rollback_configuration {
