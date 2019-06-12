@@ -1,14 +1,8 @@
-resource "aws_iam_service_linked_role" "autoscaling" {
-  aws_service_name = "autoscaling.amazonaws.com"
-  custom_suffix    = "${var.cluster_name}-${var.name}"
-}
-
 resource "aws_appautoscaling_target" "ecs" {
   count              = "${var.autoscaling_cpu ? 1 : 0}"
   max_capacity       = "${var.autoscaling_max}"
   min_capacity       = "${var.autoscaling_min}"
   resource_id        = "service/${var.cluster_name}/${aws_ecs_service.default.name}"
-  role_arn           = "${aws_iam_service_linked_role.autoscaling.arn}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
