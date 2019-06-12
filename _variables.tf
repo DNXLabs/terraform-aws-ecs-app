@@ -5,44 +5,76 @@ variable "name" {
 }
 
 variable "container_port" {
-  default = "8080"
+  default     = "8080"
+  description = "Port your container listens (used in the placeholder task definition)"
 }
 
 variable "port" {
-  default = "80"
+  default     = "80"
+  description = "Port for target group to listen"
 }
 
 variable "memory" {
-  default = "512"
+  default     = "512"
+  description = "Hard memory of the container"
 }
 
 variable "cpu" {
-  default = "0"
+  default     = "0"
+  description = "Hard limit for CPU for the container"
 }
 
-variable "hostname" {}
-variable "hostname_blue" {}
-variable "hostname_origin" {}
+variable "hostname" {
+  description = "Hostname to create DNS record for this app"
+}
+
+variable "hostname_blue" {
+  description = "Blue hostname for testing the app"
+}
+
+variable "hostname_origin" {
+  description = "A hostname covered by the ALB certificate for HTTPS traffic between CloudFront and ALB"
+}
 
 variable "healthcheck_path" {
   default = "/"
 }
 
-variable "hosted_zone" {}
+variable "hosted_zone" {
+  description = "Existing Hosted Zone domain to add hostnames as DNS records"
+}
 
-variable "cluster_name" {}
+variable "cluster_name" {
+  default = "Name of existing ECS Cluster to deploy this app to"
+}
 
-variable "service_role_arn" {}
-variable "task_role_arn" {}
+variable "service_role_arn" {
+  description = "Existing service role ARN created by ECS cluster module"
+}
 
-variable "image" {}
+variable "task_role_arn" {
+  description = "Existing task role ARN created by ECS cluster module"
+}
 
-variable "vpc_id" {}
+variable "image" {
+  description = "Docker image to deploy (can be a placeholder)"
+}
 
-variable "alb_listener_https_arn" {}
-variable "alb_dns_name" {}
+variable "vpc_id" {
+  description = "VPC ID to deploy this app to"
+}
 
-variable "certificate_arn" {}
+variable "alb_listener_https_arn" {
+  description = "ALB HTTPS Listener created by ECS cluster module"
+}
+
+variable "alb_dns_name" {
+  description = "ALB DNS Name that CloudFront will point as origin"
+}
+
+variable "certificate_arn" {
+  description = "Certificate for this app to use in CloudFront (US), must cover `hostname` and (ideally) `hostname_blue` passed."
+}
 
 variable "autoscaling_cpu" {
   default     = false
