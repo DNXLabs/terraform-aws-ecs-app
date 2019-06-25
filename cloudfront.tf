@@ -3,7 +3,17 @@ resource "aws_cloudfront_distribution" "default" {
   is_ipv6_enabled = true
   comment         = "${var.name}"
   aliases         = ["${var.hostname}", "${var.hostname_blue}"]
-  price_class     = "PriceClass_All"
+
+  # multiple hosts not yet supported on ALB Listener Rules until this PR
+  # https://github.com/terraform-providers/terraform-provider-aws/pull/8268
+  # is merged. It's done manually for now, so we only support one hostname
+  # and ignore changes to avoid rolling back manual changes
+  # aliases         = ["${concat(split(",", var.hostname), var.hostname_blue)}"]
+  lifecycle {
+    ignore_changes = ["aliases"]
+  }
+
+  price_class = "PriceClass_All"
 
   origin {
     domain_name = "${aws_route53_record.hostname_origin.name}"

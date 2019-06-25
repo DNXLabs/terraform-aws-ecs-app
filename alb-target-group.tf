@@ -12,7 +12,15 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   lifecycle {
-    ignore_changes = ["action.0.target_group_arn"]
+    ignore_changes = [
+      "action.0.target_group_arn",
+      "condition.0.values",
+    ]
+
+    # multiple hosts not yet supported until this PR
+    # https://github.com/terraform-providers/terraform-provider-aws/pull/8268
+    # is merged. It's done manually for now, so we need to ignore changes to
+    # the condition host-header above
   }
 }
 
