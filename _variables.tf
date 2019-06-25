@@ -25,7 +25,7 @@ variable "cpu" {
 }
 
 variable "hostname" {
-  description = "Hostname to create DNS record for this app"
+  description = "Hostname(s) to create DNS record for this app, comma-separated"
 }
 
 variable "hostname_blue" {

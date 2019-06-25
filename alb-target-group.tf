@@ -8,7 +8,7 @@ resource "aws_lb_listener_rule" "green" {
 
   condition {
     field  = "host-header"
-    values = ["${var.hostname}"]
+    values = ["${split(",", var.hostname)}"]
   }
 
   lifecycle {
