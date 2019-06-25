@@ -10,7 +10,7 @@ resource "aws_cloudfront_distribution" "default" {
   # and ignore changes to avoid rolling back manual changes
   # aliases         = ["${concat(split(",", var.hostname), var.hostname_blue)}"]
   lifecycle {
-    ignore_changes = ["aliases"]
+    ignore_changes = ["aliases.*"]
   }
 
   price_class = "PriceClass_All"
