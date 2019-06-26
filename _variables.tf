@@ -29,6 +29,16 @@ variable "hostname" {
   description = "Hostname to create DNS record for this app"
 }
 
+variable "hostname_create" {
+  description = "Create hostname in the hosted zone passed?"
+  default     = true
+}
+
+variable "hostname_redirects" {
+  description = "List of hostnames to redirect to the main one, comma-separated"
+  default     = ""
+}
+
 variable "hostname_blue" {
   description = "Blue hostname for testing the app"
 }

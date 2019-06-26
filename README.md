@@ -24,7 +24,9 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | hosted\_zone | Existing Hosted Zone domain to add hostnames as DNS records | string | n/a | yes |
 | hostname | Hostname to create DNS record for this app | string | n/a | yes |
 | hostname\_blue | Blue hostname for testing the app | string | n/a | yes |
+| hostname\_create | Create hostname in the hosted zone passed? | string | `"true"` | no |
 | hostname\_origin | A hostname covered by the ALB certificate for HTTPS traffic between CloudFront and ALB | string | n/a | yes |
+| hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | string | `""` | no |
 | image | Docker image to deploy (can be a placeholder) | string | n/a | yes |
 | memory | Hard memory of the container | string | `"512"` | no |
 | name | Name of your ECS service | string | n/a | yes |

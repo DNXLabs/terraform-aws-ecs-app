@@ -16,11 +16,6 @@ resource "aws_lb_listener_rule" "green" {
       "action.0.target_group_arn",
       "condition.0.values",
     ]
-
-    # multiple hosts not yet supported until this PR
-    # https://github.com/terraform-providers/terraform-provider-aws/pull/8268
-    # is merged. It's done manually for now, so we need to ignore changes to
-    # the condition host-header above
   }
 }
 
@@ -39,6 +34,27 @@ resource "aws_lb_listener_rule" "blue" {
 
   lifecycle {
     ignore_changes = ["action.0.target_group_arn"]
+  }
+}
+
+resource "aws_lb_listener_rule" "redirects" {
+  count        = "${length(compact(split(",", var.hostname_redirects)))}"
+  listener_arn = "${var.alb_listener_https_arn}"
+
+  action {
+    type = "redirect"
+
+    redirect {
+      host        = "${var.hostname}"
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = ["${element(split(",", var.hostname_redirects), count.index)}"]
   }
 }
 
