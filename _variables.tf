@@ -67,6 +67,11 @@ variable "task_role_arn" {
   description = "Existing task role ARN created by ECS cluster module"
 }
 
+variable "service_health_check_grace_period_seconds" {
+  default     = 0
+  description = "Time until your container starts serving requests"
+}
+
 variable "image" {
   description = "Docker image to deploy (can be a placeholder)"
 }
