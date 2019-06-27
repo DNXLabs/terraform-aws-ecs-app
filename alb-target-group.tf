@@ -66,7 +66,8 @@ resource "aws_lb_target_group" "green" {
   deregistration_delay = 10
 
   health_check {
-    path = "${var.healthcheck_path}"
+    path     = "${var.healthcheck_path}"
+    interval = 10
   }
 }
 
