@@ -51,6 +51,10 @@ variable "healthcheck_path" {
   default = "/"
 }
 
+variable "healthcheck_interval" {
+  default = "10"
+}
+
 variable "hosted_zone" {
   description = "Existing Hosted Zone domain to add hostnames as DNS records"
 }

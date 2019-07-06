@@ -67,7 +67,7 @@ resource "aws_lb_target_group" "green" {
 
   health_check {
     path     = "${var.healthcheck_path}"
-    interval = 10
+    interval = "${var.healthcheck_interval}"
   }
 }
 
@@ -79,6 +79,7 @@ resource "aws_lb_target_group" "blue" {
   deregistration_delay = 10
 
   health_check {
-    path = "${var.healthcheck_path}"
+    path     = "${var.healthcheck_path}"
+    interval = "${var.healthcheck_interval}"
   }
 }
