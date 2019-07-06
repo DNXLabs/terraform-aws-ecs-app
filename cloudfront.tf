@@ -15,6 +15,11 @@ resource "aws_cloudfront_distribution" "default" {
       https_port             = 443
       origin_ssl_protocols   = ["SSLv3", "TLSv1.1", "TLSv1.2", "TLSv1"]
     }
+
+    custom_header {
+      name  = "fromcloudfront"
+      value = "${var.alb_cloudfront_key}"
+    }
   }
 
   default_cache_behavior {
