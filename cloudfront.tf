@@ -54,4 +54,6 @@ resource "aws_cloudfront_distribution" "default" {
       restriction_type = "none"
     }
   }
+
+  web_acl_id = "${var.cloudfront_web_acl_id != "" ? var.cloudfront_web_acl_id : ""}"
 }
