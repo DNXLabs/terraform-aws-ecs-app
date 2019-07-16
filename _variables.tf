@@ -134,3 +134,8 @@ variable "cloudfront_web_acl_id" {
   default     = ""
   description = "Optional web acl (WAF) to attach to CloudFront"
 }
+
+variable "customized_task_definition_arn" {
+  default     = ""
+  description = "task definition ARN custom"
+}

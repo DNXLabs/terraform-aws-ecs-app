@@ -1,5 +1,6 @@
 resource "aws_ecs_task_definition" "default" {
-  family = "${var.name}"
+
+  family = "${var.customized_task_definition_arn != "" ? format("%s-default", var.name) : var.name}"
 
   execution_role_arn = "${var.task_role_arn}"
   task_role_arn      = "${var.task_role_arn}"
@@ -22,7 +23,7 @@ resource "aws_ecs_task_definition" "default" {
       "options": {
           "awslogs-group": "${aws_cloudwatch_log_group.default.arn}",
           "awslogs-region": "ap-southeast-2",
-          "awslogs-stream-prefix": ""
+          "awslogs-stream-prefix": "${var.name}"
       }
     }
   }
