@@ -135,6 +135,11 @@ variable "cloudfront_web_acl_id" {
   description = "Optional web acl (WAF) to attach to CloudFront"
 }
 
+variable "cloudfront_forward_headers" {
+  default     = ["*"]
+  description = "Headers to forward to origin from CloudFront"
+}
+
 variable "customized_task_definition_arn" {
   default     = ""
   description = "task definition ARN custom"

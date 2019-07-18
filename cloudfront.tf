@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "default" {
 
     forwarded_values {
       query_string = true
-      headers      = ["*"]
+      headers      = ["${var.cloudfront_forward_headers}"]
 
       cookies {
         forward = "all"
