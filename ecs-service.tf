@@ -1,9 +1,3 @@
-data "aws_ecs_task_definition" "default" {
-  task_definition   =   "${var.name}"
-  depends_on = ["aws_ecs_task_definition.custom"] 
-#   ["aws_ecs_task_definition.custom","aws_ecs_task_definition.default"]
-}
-
 
 resource "aws_ecs_service" "default" {
   name                              = "${var.name}"
