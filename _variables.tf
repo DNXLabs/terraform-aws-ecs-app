@@ -144,3 +144,22 @@ variable "customized_task_definition_arn" {
   default     = ""
   description = "task definition ARN custom"
 }
+
+variable "customized_definitions" {
+  default     = ""
+  description = "definitions outside of module"
+}
+
+variable "container_definitions_default" { 
+  default = ""
+}
+variable "container_definitions_flag" { 
+  default = false
+}
+
+variable "volume_name" { 
+  default = ""
+}
+variable "host_path" { 
+  default = ""
+}

@@ -1,7 +1,14 @@
+data "aws_ecs_task_definition" "default" {
+  task_definition   =   "${var.name}"
+  depends_on = ["aws_ecs_task_definition.custom"] 
+#   ["aws_ecs_task_definition.custom","aws_ecs_task_definition.default"]
+}
+
+
 resource "aws_ecs_service" "default" {
   name                              = "${var.name}"
   cluster                           = "${var.cluster_name}"
-  task_definition                   = "${var.customized_task_definition_arn != "" ? var.customized_task_definition_arn : aws_ecs_task_definition.default.arn}"
+  task_definition                   = "${data.aws_ecs_task_definition.default.task_role_arn}"
   
   
   desired_count                     = 1
