@@ -1,9 +1,7 @@
 resource "aws_ecs_service" "default" {
   name                              = "${var.name}"
   cluster                           = "${var.cluster_name}"
-  task_definition                   = "${var.customized_task_definition_arn != "" ? var.customized_task_definition_arn : aws_ecs_task_definition.default.arn}"
-  
-  
+  task_definition                   = "${aws_ecs_task_definition.default.arn}"
   desired_count                     = 1
   iam_role                          = "${var.service_role_arn}"
   health_check_grace_period_seconds = "${var.service_health_check_grace_period_seconds}"

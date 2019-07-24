@@ -139,8 +139,3 @@ variable "cloudfront_forward_headers" {
   default     = ["*"]
   description = "Headers to forward to origin from CloudFront"
 }
-
-variable "customized_task_definition_arn" {
-  default     = ""
-  description = "task definition ARN custom"
-}
