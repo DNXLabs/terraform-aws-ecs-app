@@ -56,4 +56,9 @@ resource "aws_cloudfront_distribution" "default" {
   }
 
   web_acl_id = "${var.cloudfront_web_acl_id != "" ? var.cloudfront_web_acl_id : ""}"
+
+  lifecycle {
+    ignore_changes = ["ordered_cache_behavior", "default_cache_behavior", "origin"]
+  }
+
 }
