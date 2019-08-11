@@ -2,7 +2,7 @@ resource "aws_cloudfront_distribution" "default" {
   enabled         = true
   is_ipv6_enabled = true
   comment         = "${var.name}"
-  aliases         = ["${concat(list(var.hostname), compact(split(",", var.hostname_redirects)), list(var.hostname_blue))}"]
+  aliases         = concat(list(var.hostname), compact(split(",", var.hostname_redirects)), list(var.hostname_blue))
   price_class     = "PriceClass_All"
 
   origin {
@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "default" {
 
     forwarded_values {
       query_string = true
-      headers      = ["${var.cloudfront_forward_headers}"]
+      headers      = var.cloudfront_forward_headers
 
       cookies {
         forward = "all"

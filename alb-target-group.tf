@@ -8,13 +8,13 @@ resource "aws_lb_listener_rule" "green" {
 
   condition {
     field  = "host-header"
-    values = ["${split(",", var.hostname)}"]
+    values = split(",", var.hostname)
   }
 
   lifecycle {
     ignore_changes = [
-      "action.0.target_group_arn",
-      "condition.0.values",
+      action[0].target_group_arn,
+      condition,
     ]
   }
 }
@@ -33,7 +33,7 @@ resource "aws_lb_listener_rule" "blue" {
   }
 
   lifecycle {
-    ignore_changes = ["action.0.target_group_arn"]
+    ignore_changes = ["action[0].target_group_arn"]
   }
 }
 
