@@ -140,7 +140,7 @@ variable "cloudfront_forward_headers" {
   description = "Headers to forward to origin from CloudFront"
 }
 
-variable "alarm_sns_topic" {
-  default = ""
-  description = "Alarm topic to create and alert on ECS cluster metrics"
+variable "alarm_sns_topics" {
+  default = []
+  description = "Alarm topics to create and alert on ECS service metrics"
 }
