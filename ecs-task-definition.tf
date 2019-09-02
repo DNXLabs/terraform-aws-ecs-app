@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "default" {
-  family = "${var.name}"
+  family = "${var.cluster_name}-${var.name}"
 
   execution_role_arn = "${var.task_role_arn}"
   task_role_arn      = "${var.task_role_arn}"
