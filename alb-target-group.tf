@@ -59,7 +59,7 @@ resource "aws_lb_listener_rule" "redirects" {
 }
 
 resource "aws_lb_target_group" "green" {
-  name                 = "ecs-${var.cluster_name}-${var.name}-green"
+  name                 = "ecs-${var.cluster_name}-${var.name}-gr"
   port                 = "${var.port}"
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
@@ -72,7 +72,7 @@ resource "aws_lb_target_group" "green" {
 }
 
 resource "aws_lb_target_group" "blue" {
-  name                 = "ecs-${var.cluster_name}-${var.name}-blue"
+  name                 = "ecs-${var.cluster_name}-${var.name}-bl"
   port                 = "${var.port}"
   protocol             = "HTTP"
   vpc_id               = "${var.vpc_id}"
