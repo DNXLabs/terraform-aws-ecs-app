@@ -4,7 +4,7 @@ locals {
     values = var.path
   }
     
-  path_condition = "${var.path != "" ? local.path_condition_def : map()}"
+  path_condition = "${var.path != "" ? local.path_condition_def : map("field","path-pattern","values","*")}"
 }
 
 resource "aws_lb_listener_rule" "green" {
@@ -16,9 +16,9 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   dynamic "condition" {
-    for_each = [local.path_condition]
+    for_each = var.path != "" ? [local.path_condition] : [] 
     content {
-      field  = lookup(condition.value, "field")
+       field  = lookup(condition.value, "field")
       values = list(lookup(condition.value, "values"))
     }
   }
