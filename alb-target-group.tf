@@ -1,3 +1,12 @@
+locals {
+  path_condition_def = {
+    field  = "path-pattern"
+    values = var.path
+  }
+    
+  path_condition = "${var.path != "" ? local.path_condition_def : map()}"
+}
+
 resource "aws_lb_listener_rule" "green" {
   listener_arn = "${var.alb_listener_https_arn}"
 
@@ -6,9 +15,17 @@ resource "aws_lb_listener_rule" "green" {
     target_group_arn = "${aws_lb_target_group.green.arn}"
   }
 
+  dynamic "condition" {
+    for_each = [local.path_condition]
+    content {
+      field  = lookup(condition.value, "field")
+      values = list(lookup(condition.value, "values"))
+    }
+  }
+
   condition {
     field  = "host-header"
-    values = split(",", var.hostname)
+    values = list(var.hostname)
   }
 
   lifecycle {

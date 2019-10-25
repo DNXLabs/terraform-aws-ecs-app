@@ -24,6 +24,11 @@ variable "cpu" {
   description = "Hard limit for CPU for the container"
 }
 
+variable "path" {
+  default = ""
+  description = "Optional path to use on listener rule"
+}
+
 variable "hostname" {
   # description = "Hostname(s) to create DNS record for this app, comma-separated"
   description = "Hostname to create DNS record for this app"
