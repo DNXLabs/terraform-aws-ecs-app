@@ -1,4 +1,5 @@
 resource "aws_cloudfront_distribution" "default" {
+  count   = var.path == "" || var.path == "/*"  ? 1 : 0
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "${var.cluster_name}-${var.name}"
@@ -7,7 +8,7 @@ resource "aws_cloudfront_distribution" "default" {
   wait_for_deployment = false
 
   origin {
-    domain_name = "${aws_route53_record.hostname_origin.name}"
+    domain_name = "${element(aws_route53_record.hostname_origin.*.name, count.index)}"
     origin_id   = "${var.name}"
 
     custom_origin_config {

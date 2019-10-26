@@ -43,19 +43,33 @@ resource "aws_lb_listener_rule" "blue" {
     target_group_arn = "${aws_lb_target_group.blue.arn}"
   }
 
+  dynamic "condition" {
+    for_each = var.path != "" ? [local.path_condition] : [] 
+    content {
+       field  = lookup(condition.value, "field")
+      values = list(lookup(condition.value, "values"))
+    }
+  }
+
   condition {
     field  = "host-header"
     values = ["${var.hostname_blue}"]
   }
 
   lifecycle {
-    ignore_changes = ["action[0].target_group_arn"]
+    ignore_changes = [
+      action[0].target_group_arn
+    ]
   }
+
+  
 }
 
 resource "aws_lb_listener_rule" "redirects" {
   count        = "${length(compact(split(",", var.hostname_redirects)))}"
   listener_arn = "${var.alb_listener_https_arn}"
+  priority     = var.priority
+
 
   action {
     type = "redirect"

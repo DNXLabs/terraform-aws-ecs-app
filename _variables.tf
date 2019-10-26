@@ -149,3 +149,14 @@ variable "alarm_sns_topics" {
   default = []
   description = "Alarm topics to create and alert on ECS service metrics"
 }
+
+variable "priority" {
+  default = 0
+  description = "priority rules ALB"
+}
+
+
+variable "app_group" {
+  default = ""
+  description = "name of group of apps"
+}
