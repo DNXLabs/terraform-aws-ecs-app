@@ -31,22 +31,22 @@ resource "aws_codedeploy_deployment_group" "ecs" {
   }
 
   ecs_service {
-    cluster_name = "${var.cluster_name}"
-    service_name = "${aws_ecs_service.default.name}"
+    cluster_name = var.cluster_name
+    service_name = aws_ecs_service.default.name
   }
 
   load_balancer_info {
     target_group_pair_info {
       prod_traffic_route {
-        listener_arns = ["${var.alb_listener_https_arn}"]
+        listener_arns = list(var.alb_listener_https_arn)
       }
 
       target_group {
-        name = "${aws_lb_target_group.blue.name}"
+        name = aws_lb_target_group.blue.name
       }
 
       target_group {
-        name = "${aws_lb_target_group.green.name}"
+        name = aws_lb_target_group.green.name
       }
     }
   }
