@@ -21,6 +21,8 @@ resource "aws_lb_listener_rule" "green" {
       action[0].target_group_arn
     ]
   }
+
+  priority = var.alb_priority != 0 ? var.alb_priority : null
 }
 
 resource "aws_lb_listener_rule" "blue" {
@@ -46,6 +48,8 @@ resource "aws_lb_listener_rule" "blue" {
       action[0].target_group_arn
     ]
   }
+
+  priority = var.alb_priority != 0 ? var.alb_priority + 1 : null
 }
 
 resource "aws_lb_listener_rule" "redirects" {
