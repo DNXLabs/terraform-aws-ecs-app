@@ -1,51 +1,66 @@
 resource "aws_lb_listener_rule" "green" {
-  listener_arn = "${var.alb_listener_https_arn}"
+  listener_arn = var.alb_listener_https_arn
 
   action {
     type             = "forward"
-    target_group_arn = "${aws_lb_target_group.green.arn}"
+    target_group_arn = aws_lb_target_group.green.arn
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = list(var.path)
   }
 
   condition {
     field  = "host-header"
-    values = split(",", var.hostname)
+    values = list(var.hostname)
   }
 
   lifecycle {
     ignore_changes = [
-      action[0].target_group_arn,
-      condition,
+      action[0].target_group_arn
     ]
   }
+
+  priority = var.alb_priority != 0 ? var.alb_priority : null
 }
 
 resource "aws_lb_listener_rule" "blue" {
-  listener_arn = "${var.alb_listener_https_arn}"
+  listener_arn = var.alb_listener_https_arn
 
   action {
     type             = "forward"
-    target_group_arn = "${aws_lb_target_group.blue.arn}"
+    target_group_arn = aws_lb_target_group.blue.arn
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = list(var.path)
   }
 
   condition {
     field  = "host-header"
-    values = ["${var.hostname_blue}"]
+    values = list(var.hostname_blue)
   }
 
   lifecycle {
-    ignore_changes = ["action[0].target_group_arn"]
+    ignore_changes = [
+      action[0].target_group_arn
+    ]
   }
+
+  priority = var.alb_priority != 0 ? var.alb_priority + 1 : null
 }
 
 resource "aws_lb_listener_rule" "redirects" {
-  count        = "${length(compact(split(",", var.hostname_redirects)))}"
-  listener_arn = "${var.alb_listener_https_arn}"
+  count        = length(compact(split(",", var.hostname_redirects)))
+  listener_arn = var.alb_listener_https_arn
 
   action {
     type = "redirect"
 
     redirect {
-      host        = "${var.hostname}"
+      host        = var.hostname
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"
@@ -54,32 +69,32 @@ resource "aws_lb_listener_rule" "redirects" {
 
   condition {
     field  = "host-header"
-    values = ["${element(split(",", var.hostname_redirects), count.index)}"]
+    values = list(element(split(",", var.hostname_redirects), count.index))
   }
 }
 
 resource "aws_lb_target_group" "green" {
-  name                 = "ecs-${var.cluster_name}-${var.name}-green"
-  port                 = "${var.port}"
+  name                 = "${var.cluster_name}-${var.name}-gr"
+  port                 = var.port
   protocol             = "HTTP"
-  vpc_id               = "${var.vpc_id}"
+  vpc_id               = var.vpc_id
   deregistration_delay = 10
 
   health_check {
-    path     = "${var.healthcheck_path}"
-    interval = "${var.healthcheck_interval}"
+    path     = var.healthcheck_path
+    interval = var.healthcheck_interval
   }
 }
 
 resource "aws_lb_target_group" "blue" {
-  name                 = "ecs-${var.cluster_name}-${var.name}-blue"
-  port                 = "${var.port}"
+  name                 = "${var.cluster_name}-${var.name}-bl"
+  port                 = var.port
   protocol             = "HTTP"
-  vpc_id               = "${var.vpc_id}"
+  vpc_id               = var.vpc_id
   deregistration_delay = 10
 
   health_check {
-    path     = "${var.healthcheck_path}"
-    interval = "${var.healthcheck_interval}"
+    path     = var.healthcheck_path
+    interval = var.healthcheck_interval
   }
 }
