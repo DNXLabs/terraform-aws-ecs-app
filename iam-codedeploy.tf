@@ -1,5 +1,5 @@
 resource "aws_iam_role" "codedeploy_service" {
-  name = "codedeploy-service-${var.cluster_name}-${var.name}"
+  name = "codedeploy-service-${var.cluster_name}-${var.name}-${data.aws_region.current.name}"
 
   assume_role_policy = <<EOF
 {
