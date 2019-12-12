@@ -81,8 +81,13 @@ resource "aws_lb_target_group" "green" {
   deregistration_delay = 10
 
   health_check {
-    path     = var.healthcheck_path
-    interval = var.healthcheck_interval
+    path                = var.healthcheck_path
+    interval            = var.healthcheck_interval
+    healthy_threshold   = var.healthy_threshold
+    unhealthy_threshold = var.unhealthy_threshold
+    timeout             = var.healthcheck_timeout
+    matcher             = var.healthcheck_matcher
+
   }
 }
 
@@ -94,7 +99,11 @@ resource "aws_lb_target_group" "blue" {
   deregistration_delay = 10
 
   health_check {
-    path     = var.healthcheck_path
-    interval = var.healthcheck_interval
+    path                = var.healthcheck_path
+    interval            = var.healthcheck_interval
+    healthy_threshold   = var.healthy_threshold
+    unhealthy_threshold = var.unhealthy_threshold
+    timeout             = var.healthcheck_timeout
+    matcher             = var.healthcheck_matcher
   }
 }

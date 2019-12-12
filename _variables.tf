@@ -117,3 +117,24 @@ variable "alarm_sns_topics" {
   default = []
   description = "Alarm topics to create and alert on ECS service metrics"
 }
+
+variable "healthy_threshold" {
+  default     = 3
+  description = "The number of consecutive health checks successes required before considering an unhealthy target healthy"
+}
+
+variable "unhealthy_threshold" {
+  default     = 3
+  description = "The number of consecutive health check failures required before considering the target unhealthy"
+}
+
+variable "healthcheck_timeout" {
+  default     = 5
+  description = "The amount of time, in seconds, during which no response"
+}
+
+variable "healthcheck_matcher" {
+  default     = 200
+  description = "The HTTP codes to use when checking for a successful response from a target"
+}
+ 
