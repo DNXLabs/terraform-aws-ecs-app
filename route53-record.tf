@@ -9,7 +9,7 @@ resource "aws_route53_record" "hostname" {
   name    = var.hostname
   type    = "CNAME"
   ttl     = "300"
-  records = list(element(var.alb_dns_name, 0))
+  records = list(var.alb_dns_name))
 }
 
 resource "aws_route53_record" "hostname_blue" {
@@ -18,5 +18,5 @@ resource "aws_route53_record" "hostname_blue" {
   name    = var.hostname_blue
   type    = "CNAME"
   ttl     = "300"
-  records = list(element(var.alb_dns_name, 0))
+  records = list(var.alb_dns_name))
 }
