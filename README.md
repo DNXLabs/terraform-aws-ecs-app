@@ -8,6 +8,7 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| alb_only | Whether to deploy only an alb and no cloudFront or not with the cluster | string | `"false"` | no |
 | alb\_dns\_name | ALB DNS Name that CloudFront will point as origin | string | n/a | yes |
 | alb\_listener\_https\_arn | ALB HTTPS Listener created by ECS cluster module | string | n/a | yes |
 | autoscaling\_cpu | Enables autoscaling based on average CPU tracking | string | `"false"` | no |
