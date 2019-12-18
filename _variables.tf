@@ -27,6 +27,15 @@ variable "path" {
   description = "Optional path to use on listener rule"
 }
 
+variable "hosted_zone" {
+  default     = ""
+  description = "Hosted Zone to create DNS record for this app"
+}
+variable "hostname_create" {
+  default     = "false"
+  description = "Optional parameter to create or not a Route53 record"
+}
+
 variable "hostname" {
   # description = "Hostname(s) to create DNS record for this app, comma-separated"
   description = "Hostname to create DNS record for this app"
@@ -77,6 +86,11 @@ variable "vpc_id" {
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
+variable "alb_dns_name" {
+ description = "ALB DNS Name"
+ default= ""
+}
+
 
 variable "alb_priority" {
   default = 0
@@ -136,5 +150,10 @@ variable "healthcheck_timeout" {
 variable "healthcheck_matcher" {
   default     = 200
   description = "The HTTP codes to use when checking for a successful response from a target"
+}
+
+variable "alb_only" {
+  default     = false
+  description = "Whether to deploy only an alb and no cloudFront or not with the cluster"
 }
  
