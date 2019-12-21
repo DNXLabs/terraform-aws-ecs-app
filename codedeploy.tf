@@ -16,13 +16,15 @@ resource "aws_codedeploy_deployment_group" "ecs" {
 
   blue_green_deployment_config {
     deployment_ready_option {
-      action_on_timeout = "CONTINUE_DEPLOYMENT"
+      action_on_timeout = "STOP_DEPLOYMENT"
+      wait_time_in_minutes = "${var.codedeploy_wait_time_for_cutover}"
     }
 
     terminate_blue_instances_on_deployment_success {
       action                           = "TERMINATE"
-      termination_wait_time_in_minutes = 0
+      termination_wait_time_in_minutes = "${var.codedeploy_wait_time_for_termination}"
     }
+
   }
 
   deployment_style {

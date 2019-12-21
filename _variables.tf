@@ -156,4 +156,12 @@ variable "alb_only" {
   default     = false
   description = "Whether to deploy only an alb and no cloudFront or not with the cluster"
 }
+variable "codedeploy_wait_time_for_cutover" {
+  default     = 5
+  description = "Time in minutes to route the traffic to the new application deployment"
+}
+variable "codedeploy_wait_time_for_termination" {
+  default     = 0
+  description = "Time in minutes to terminate the new deployment"
+}
  
