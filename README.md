@@ -35,7 +35,9 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | string | n/a | yes |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | string | n/a | yes |
 | vpc\_id | VPC ID to deploy this app to | string | n/a | yes |
-
+| codedeploy_wait_time_for_cutover | Time in minutes to route the traffic to the new application deployment | string | `"5"` | no |
+| codedeploy_wait_time_for_termination | Time in minutes to terminate the new deployment | string | `"0"` | no |
+ 
 ## Authors
 
 Module managed by [Allan Denot](https://github.com/adenot).
