@@ -1,6 +1,6 @@
 # resource "null_resource" "deployment" {
 #   triggers {
-#     image = "${var.image}"
+#     image = var.image
 #   }
 #   provisioner "local-exec" {
 #     command = <<EOF
@@ -12,11 +12,11 @@
 #   }
 # }
 # data "template_file" "app_spec" {
-#   template = "${file("${path.module}/app-spec.tpl.json")}"
+#   template = file("${path.module}/app-spec.tpl.json")
 #   vars = {
-#     task_definition_arn = "${aws_ecs_task_definition.default.arn}"
-#     container_name      = "${var.name}"
-#     container_port      = "${var.container_port}"
+#     task_definition_arn = aws_ecs_task_definition.default.arn
+#     container_name      = var.name
+#     container_port      = var.container_port
 #   }
 # }
 
