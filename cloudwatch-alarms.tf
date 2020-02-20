@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "high_memory" {
-  count = "${length(var.alarm_sns_topics) > 0 ? 1 : 0}"
+  count = length(var.alarm_sns_topics) > 0 ? 1 : 0
 
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-memory"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "high_memory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu" {
-  count = "${length(var.alarm_sns_topics) > 0 ? 1 : 0}"
+  count = length(var.alarm_sns_topics) > 0 ? 1 : 0
 
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-cpu"
   comparison_operator       = "GreaterThanOrEqualToThreshold"

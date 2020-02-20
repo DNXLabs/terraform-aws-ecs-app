@@ -37,7 +37,6 @@ variable "hostname_create" {
 }
 
 variable "hostname" {
-  # description = "Hostname(s) to create DNS record for this app, comma-separated"
   description = "Hostname to create DNS record for this app"
 }
 
