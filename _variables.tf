@@ -23,7 +23,7 @@ variable "cpu" {
 }
 
 variable "path" {
-  default = "/*"
+  default     = "/*"
   description = "Optional path to use on listener rule"
 }
 
@@ -86,13 +86,13 @@ variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
 variable "alb_dns_name" {
- description = "ALB DNS Name"
- default= ""
+  description = "ALB DNS Name"
+  default     = ""
 }
 
 
 variable "alb_priority" {
-  default = 0
+  default     = 0
   description = "priority rules ALB"
 }
 
@@ -127,7 +127,7 @@ variable "autoscaling_scale_out_cooldown" {
 }
 
 variable "alarm_sns_topics" {
-  default = []
+  default     = []
   description = "Alarm topics to create and alert on ECS service metrics"
 }
 
@@ -163,4 +163,3 @@ variable "codedeploy_wait_time_for_termination" {
   default     = 0
   description = "Time in minutes to terminate the new deployment"
 }
- 

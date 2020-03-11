@@ -16,7 +16,7 @@ resource "aws_codedeploy_deployment_group" "ecs" {
 
   blue_green_deployment_config {
     deployment_ready_option {
-      action_on_timeout = var.codedeploy_wait_time_for_cutover == 0 ? "CONTINUE_DEPLOYMENT" : "STOP_DEPLOYMENT"
+      action_on_timeout    = var.codedeploy_wait_time_for_cutover == 0 ? "CONTINUE_DEPLOYMENT" : "STOP_DEPLOYMENT"
       wait_time_in_minutes = var.codedeploy_wait_time_for_cutover
     }
 
