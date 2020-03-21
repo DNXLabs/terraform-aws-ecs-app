@@ -163,3 +163,8 @@ variable "codedeploy_wait_time_for_termination" {
   default     = 0
   description = "Time in minutes to terminate the new deployment"
 }
+
+variable "cloudwatch_logs_retention" {
+  default     = 120
+  description = "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
+}
