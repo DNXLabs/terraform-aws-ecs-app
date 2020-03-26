@@ -42,10 +42,14 @@ resource "aws_codedeploy_deployment_group" "ecs" {
       prod_traffic_route {
         listener_arns = list(var.alb_listener_https_arn)
       }
+      
+      test_traffic_route {
+        listener_arns = list(var.test_traffic_route_listener_arns)
+      }
 
       target_group {
         name = aws_lb_target_group.blue.name
-      }
+        }
 
       target_group {
         name = aws_lb_target_group.green.name

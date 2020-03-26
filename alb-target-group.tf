@@ -26,11 +26,11 @@ resource "aws_lb_listener_rule" "green" {
 }
 
 resource "aws_lb_listener_rule" "blue" {
-  listener_arn = var.alb_listener_https_arn
+  listener_arn = var.test_traffic_route_listener_arns
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.green.arn
+    target_group_arn = aws_lb_target_group.blue.arn
   }
 
   condition {
@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "blue" {
 
   condition {
     field  = "host-header"
-    values = list(var.hostname_blue)
+    values = list(var.hostname)
   }
 
   lifecycle {
@@ -73,8 +73,14 @@ resource "aws_lb_listener_rule" "redirects" {
   }
 }
 
+# Generate a random string to add it to the name of the Target Group
+resource "random_string" "alb_prefix" {
+  length  = 4
+  upper   = false
+  special = false
+}
 resource "aws_lb_target_group" "green" {
-  name                 = "${var.cluster_name}-${var.name}-gr"
+  name                 = substr("${var.cluster_name}-${var.name}-gr-${random_string.alb_prefix.result}",0,32)
   port                 = var.port
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -89,10 +95,14 @@ resource "aws_lb_target_group" "green" {
     matcher             = var.healthcheck_matcher
 
   }
+
+   lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_lb_target_group" "blue" {
-  name                 = "${var.cluster_name}-${var.name}-bl"
+  name                 = substr("${var.cluster_name}-${var.name}-bl-${random_string.alb_prefix.result}",0,32)
   port                 = var.port
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -105,5 +115,9 @@ resource "aws_lb_target_group" "blue" {
     unhealthy_threshold = var.unhealthy_threshold
     timeout             = var.healthcheck_timeout
     matcher             = var.healthcheck_matcher
+  }
+
+   lifecycle {
+    create_before_destroy = true
   }
 }

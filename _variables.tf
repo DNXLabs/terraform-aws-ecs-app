@@ -40,10 +40,6 @@ variable "hostname" {
   description = "Hostname to create DNS record for this app"
 }
 
-variable "hostname_blue" {
-  description = "Blue hostname for testing the app"
-}
-
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
@@ -85,10 +81,15 @@ variable "vpc_id" {
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
+
+variable "test_traffic_route_listener_arns" {
+  description = "ALB HTTPS Listener for Test Traffic created by ECS cluster module"
+}
 variable "alb_dns_name" {
   description = "ALB DNS Name"
   default     = ""
 }
+
 
 variable "alb_priority" {
   default     = 0
@@ -123,16 +124,6 @@ variable "autoscaling_scale_in_cooldown" {
 variable "autoscaling_scale_out_cooldown" {
   default     = 300
   description = "Cooldown in seconds to wait between scale out events"
-}
-
-variable "alarm_ecs_high_memory_threshold" {
-  description = "Max threshold average Memory percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
-  default     = 80
-}
-
-variable "alarm_ecs_high_cpu_threshold" {
-  description = "Max threshold average CPU percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
-  default     = 80
 }
 
 variable "alarm_sns_topics" {
