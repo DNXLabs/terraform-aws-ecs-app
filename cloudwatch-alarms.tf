@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "high_memory" {
-  count = length(var.alarm_sns_topics) > 0 ? 1 : 0
+  count = length(var.alarm_sns_topics) > 0 && var.alarm_ecs_high_memory_threshold != 0 ? 1 : 0
 
   alarm_name          = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-memory"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -8,8 +8,8 @@ resource "aws_cloudwatch_metric_alarm" "high_memory" {
   namespace           = "AWS/ECS"
   period              = "300"
   statistic           = "Maximum"
-  threshold           = "80"
-  alarm_description   = "Cluster node memory above threshold"
+  threshold           = var.alarm_ecs_high_memory_threshold
+  alarm_description   = "ECS service memory above threshold"
   alarm_actions       = var.alarm_sns_topics
   ok_actions          = var.alarm_sns_topics
 
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "high_memory" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu" {
-  count = length(var.alarm_sns_topics) > 0 ? 1 : 0
+  count = length(var.alarm_sns_topics) > 0 && var.alarm_ecs_high_cpu_threshold != 0 ? 1 : 0
 
   alarm_name          = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-cpu"
   comparison_operator = "GreaterThanOrEqualToThreshold"
@@ -29,7 +29,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   namespace           = "AWS/ECS"
   period              = "300"
   statistic           = "Maximum"
-  threshold           = "80"
+  threshold           = var.alarm_ecs_high_cpu_threshold
   alarm_description   = "ECS service CPU utilization above threshold"
   alarm_actions       = var.alarm_sns_topics
   ok_actions          = var.alarm_sns_topics
