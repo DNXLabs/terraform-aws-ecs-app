@@ -26,7 +26,7 @@ resource "aws_lb_listener_rule" "green" {
 }
 
 resource "aws_lb_listener_rule" "blue" {
-  listener_arn = var.test_traffic_route_listener_arns
+  listener_arn = var.test_traffic_route_listener_arn
 
   action {
     type             = "forward"

@@ -44,7 +44,7 @@ resource "aws_codedeploy_deployment_group" "ecs" {
       }
       
       test_traffic_route {
-        listener_arns = list(var.test_traffic_route_listener_arns)
+        listener_arns = list(var.test_traffic_route_listener_arn)
       }
 
       target_group {

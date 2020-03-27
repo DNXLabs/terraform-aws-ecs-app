@@ -82,9 +82,10 @@ variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
 
-variable "test_traffic_route_listener_arns" {
+variable "test_traffic_route_listener_arn" {
   description = "ALB HTTPS Listener for Test Traffic created by ECS cluster module"
 }
+
 variable "alb_dns_name" {
   description = "ALB DNS Name"
   default     = ""
