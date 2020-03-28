@@ -127,6 +127,16 @@ variable "autoscaling_scale_out_cooldown" {
   description = "Cooldown in seconds to wait between scale out events"
 }
 
+variable "alarm_ecs_high_memory_threshold" {
+  description = "Max threshold average Memory percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
+  default     = 80
+}
+
+variable "alarm_ecs_high_cpu_threshold" {
+  description = "Max threshold average CPU percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
+  default     = 80
+}
+
 variable "alarm_sns_topics" {
   default     = []
   description = "Alarm topics to create and alert on ECS service metrics"
