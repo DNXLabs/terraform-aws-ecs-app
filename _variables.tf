@@ -40,10 +40,6 @@ variable "hostname" {
   description = "Hostname to create DNS record for this app"
 }
 
-variable "hostname_blue" {
-  description = "Blue hostname for testing the app"
-}
-
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
@@ -85,10 +81,16 @@ variable "vpc_id" {
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
+
+variable "test_traffic_route_listener_arn" {
+  description = "ALB HTTPS Listener for Test Traffic created by ECS cluster module"
+}
+
 variable "alb_dns_name" {
   description = "ALB DNS Name"
   default     = ""
 }
+
 
 variable "alb_priority" {
   default     = 0

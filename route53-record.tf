@@ -11,12 +11,3 @@ resource "aws_route53_record" "hostname" {
   ttl     = "300"
   records = list(var.alb_dns_name)
 }
-
-resource "aws_route53_record" "hostname_blue" {
-  count   = var.alb_only ? 1 : 0
-  zone_id = data.aws_route53_zone.selected.*.zone_id[0]
-  name    = var.hostname_blue
-  type    = "CNAME"
-  ttl     = "300"
-  records = list(var.alb_dns_name)
-}
