@@ -180,6 +180,11 @@ variable "cloudwatch_logs_retention" {
   description = "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653."
 }
 
+variable "cloudwatch_logs_export" {
+  default     = false
+  description = "Whether to mark the log group to export to an S3 bucket (needs terraform-aws-log-exporter to be deployed in the account/region)"
+}
+
 variable "compat_keep_target_group_naming" {
   default     = false
   description = "Keeps old naming convention for target groups to avoid recreation of resource in production environments"
