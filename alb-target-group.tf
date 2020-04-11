@@ -80,7 +80,7 @@ resource "random_string" "alb_prefix" {
   special = false
 }
 resource "aws_lb_target_group" "green" {
-  name                 = substr("${var.cluster_name}-${var.name}-gr-${random_string.alb_prefix.result}", 0, 32)
+  name                 = var.compat_keep_target_group_naming ? "${var.cluster_name}-${var.name}-gr" : substr("${var.cluster_name}-${var.name}-gr-${random_string.alb_prefix.result}", 0, 32)
   port                 = var.port
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
@@ -102,7 +102,7 @@ resource "aws_lb_target_group" "green" {
 }
 
 resource "aws_lb_target_group" "blue" {
-  name                 = substr("${var.cluster_name}-${var.name}-bl-${random_string.alb_prefix.result}", 0, 32)
+  name                 = var.compat_keep_target_group_naming ? "${var.cluster_name}-${var.name}-bl" : substr("${var.cluster_name}-${var.name}-bl-${random_string.alb_prefix.result}", 0, 32)
   port                 = var.port
   protocol             = "HTTP"
   vpc_id               = var.vpc_id
