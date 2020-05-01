@@ -91,7 +91,6 @@ variable "alb_dns_name" {
   default     = ""
 }
 
-
 variable "alb_priority" {
   default     = 0
   description = "priority rules ALB"
@@ -127,19 +126,14 @@ variable "autoscaling_scale_out_cooldown" {
   description = "Cooldown in seconds to wait between scale out events"
 }
 
-variable "alarm_ecs_high_memory_threshold" {
-  description = "Max threshold average Memory percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
-  default     = 80
-}
-
-variable "alarm_ecs_high_cpu_threshold" {
-  description = "Max threshold average CPU percentage allowed in a 2 minutes interval (use 0 to disable this alarm)"
-  default     = 80
+variable "alarm_min_healthy_tasks" {
+  default     = 2
+  description = "Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm)"
 }
 
 variable "alarm_sns_topics" {
   default     = []
-  description = "Alarm topics to create and alert on ECS service metrics"
+  description = "Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms."
 }
 
 variable "healthy_threshold" {
