@@ -1,4 +1,6 @@
 resource "aws_ecs_task_definition" "default" {
+  count = var.image != "" ? 1 : 0
+
   family = "${var.cluster_name}-${var.name}"
 
   execution_role_arn = var.task_role_arn
@@ -21,7 +23,7 @@ resource "aws_ecs_task_definition" "default" {
       "log_driver": "awslogs",
       "options": {
           "awslogs-group": "${aws_cloudwatch_log_group.default.arn}",
-          "awslogs-region": "ap-southeast-2",
+          "awslogs-region": "${data.aws_region.current.name}",
           "awslogs-stream-prefix": "app"
       }
     }

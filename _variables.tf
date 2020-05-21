@@ -70,8 +70,29 @@ variable "service_health_check_grace_period_seconds" {
   description = "Time until your container starts serving requests"
 }
 
+variable "service_deployment_maximum_percent" {
+  default     = 200
+  description = "Maximum percentage of tasks to run during deployments"
+}
+
+variable "service_desired_count" {
+  default     = 1
+  description = "Desired count for this service (for use when auto scaling is disabled)"
+}
+
+variable "service_deployment_minimum_healthy_percent" {
+  default     = 100
+  description = "Minimum healthy percentage during deployments"
+}
+
 variable "image" {
   description = "Docker image to deploy (can be a placeholder)"
+  default     = ""
+}
+
+variable "task_definition_arn" {
+  description = "Task definition to use for this service (optional)"
+  default     = ""
 }
 
 variable "vpc_id" {
