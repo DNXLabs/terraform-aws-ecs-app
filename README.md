@@ -48,13 +48,17 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | hostname | Hostname to create DNS record for this app | `any` | n/a | yes |
 | hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
-| image | Docker image to deploy (can be a placeholder) | `any` | n/a | yes |
+| image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
 | path | Optional path to use on listener rule | `string` | `"/*"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
+| service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
+| service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
+| service\_desired\_count | Desired count for this service (for use when auto scaling is disabled) | `number` | `1` | no |
 | service\_health\_check\_grace\_period\_seconds | Time until your container starts serving requests | `number` | `0` | no |
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | n/a | yes |
+| task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
 | test\_traffic\_route\_listener\_arn | ALB HTTPS Listener for Test Traffic created by ECS cluster module | `any` | n/a | yes |
 | unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy | `number` | `3` | no |
