@@ -8,6 +8,12 @@ AWS ECS Application Module
 This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 
 <!--- BEGIN_TF_DOCS --->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12.20 |
+
 ## Providers
 
 | Name | Version |
@@ -18,7 +24,7 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | alarm\_min\_healthy\_tasks | Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm) | `number` | `2` | no |
 | alarm\_sns\_topics | Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms. | `list` | `[]` | no |
 | alb\_dns\_name | ALB DNS Name | `string` | `""` | no |
@@ -69,6 +75,7 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | Name | Description |
 |------|-------------|
 | aws\_cloudwatch\_log\_group\_arn | n/a |
+
 <!--- END_TF_DOCS --->
 
 ## Authors
