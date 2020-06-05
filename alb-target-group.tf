@@ -13,7 +13,7 @@ resource "aws_lb_listener_rule" "green" {
 
   condition {
     field  = "host-header"
-    values = list(var.hostname)
+    values = var.hostname != "" ? list(var.hostname) : var.hostnames
   }
 
   lifecycle {
@@ -40,7 +40,7 @@ resource "aws_lb_listener_rule" "blue" {
 
   condition {
     field  = "host-header"
-    values = list(var.hostname)
+    values = var.hostname != "" ? list(var.hostname) : var.hostnames
   }
 
   lifecycle {
@@ -60,7 +60,7 @@ resource "aws_lb_listener_rule" "redirects" {
     type = "redirect"
 
     redirect {
-      host        = var.hostname
+      host        = var.hostname != "" ? var.hostname : var.hostnames[0]
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"

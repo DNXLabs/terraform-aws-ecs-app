@@ -37,7 +37,13 @@ variable "hostname_create" {
 }
 
 variable "hostname" {
-  description = "Hostname to create DNS record for this app"
+  default     = ""
+  description = "Hostname to create DNS record for this app (DEPRECATED - use hostnames)"
+}
+
+variable "hostnames" {
+  default     = []
+  description = "List of hostnames to create DNS record for this app"
 }
 
 variable "hostname_redirects" {
