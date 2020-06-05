@@ -7,13 +7,15 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   condition {
-    field  = "path-pattern"
-    values = list(var.path)
+    path_pattern {
+      values = list(var.path)
+    }
   }
 
   condition {
-    field  = "host-header"
-    values = var.hostname != "" ? list(var.hostname) : var.hostnames
+    host_header {
+      values = var.hostname != "" ? list(var.hostname) : var.hostnames
+    }
   }
 
   lifecycle {
@@ -34,13 +36,15 @@ resource "aws_lb_listener_rule" "blue" {
   }
 
   condition {
-    field  = "path-pattern"
-    values = list(var.path)
+    path_pattern {
+      values = list(var.path)
+    }
   }
 
   condition {
-    field  = "host-header"
-    values = var.hostname != "" ? list(var.hostname) : var.hostnames
+    host_header {
+      values = var.hostname != "" ? list(var.hostname) : var.hostnames
+    }
   }
 
   lifecycle {
@@ -68,8 +72,9 @@ resource "aws_lb_listener_rule" "redirects" {
   }
 
   condition {
-    field  = "host-header"
-    values = list(element(split(",", var.hostname_redirects), count.index))
+    host_header {
+      values = list(element(split(",", var.hostname_redirects), count.index))
+    }
   }
 }
 
