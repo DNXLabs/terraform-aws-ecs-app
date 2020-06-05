@@ -8,6 +8,7 @@ AWS ECS Application Module
 This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 
 <!--- BEGIN_TF_DOCS --->
+
 ## Requirements
 
 | Name | Version |
@@ -51,9 +52,10 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | healthcheck\_timeout | The amount of time, in seconds, during which no response | `number` | `5` | no |
 | healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy | `number` | `3` | no |
 | hosted\_zone | Hosted Zone to create DNS record for this app | `string` | `""` | no |
-| hostname | Hostname to create DNS record for this app | `any` | n/a | yes |
+| hostname | Hostname to create DNS record for this app (DEPRECATED - use hostnames) | `string` | `""` | no |
 | hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
+| hostnames | List of hostnames to create DNS record for this app | `list` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
