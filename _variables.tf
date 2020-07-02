@@ -223,10 +223,10 @@ variable "platform_version" {
 
 variable "subnets" {
   default = null
-  description = "The subnets associated with the task or service"
+  description = "The subnets associated with the task or service. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
 }
 
 variable "network_mode" {
   default = null
-  description = "The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host"
+  description = "The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
 }
