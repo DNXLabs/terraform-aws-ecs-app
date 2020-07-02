@@ -57,15 +57,19 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
 | hostnames | List of hostnames to create DNS record for this app | `list` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
+| launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
+| network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | path | Optional path to use on listener rule | `string` | `"/*"` | no |
+| platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
 | service\_desired\_count | Desired count for this service (for use when auto scaling is disabled) | `number` | `1` | no |
 | service\_health\_check\_grace\_period\_seconds | Time until your container starts serving requests | `number` | `0` | no |
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | n/a | yes |
+| subnets | The subnets associated with the task or service. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
 | test\_traffic\_route\_listener\_arn | ALB HTTPS Listener for Test Traffic created by ECS cluster module | `any` | n/a | yes |
