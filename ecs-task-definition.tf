@@ -9,8 +9,8 @@ resource "aws_ecs_task_definition" "default" {
   requires_compatibilities = [var.launch_type]
 
   network_mode = var.launch_type == "FARGATE" ? "awsvpc" : var.network_mode
-  cpu = var.launch_type == "FARGATE" ? var.cpu : null
-  memory = var.launch_type == "FARGATE" ? var.memory : null
+  cpu          = var.launch_type == "FARGATE" ? var.cpu : null
+  memory       = var.launch_type == "FARGATE" ? var.memory : null
 
   container_definitions = <<EOT
 [
