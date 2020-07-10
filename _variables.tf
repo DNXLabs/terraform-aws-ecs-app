@@ -212,21 +212,21 @@ variable "compat_keep_target_group_naming" {
 }
 
 variable "launch_type" {
-  default = "EC2"
+  default     = "EC2"
   description = "The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2."
 }
 
 variable "platform_version" {
-  default = "LATEST"
+  default     = "LATEST"
   description = "The platform version on which to run your service. Only applicable for launch_type set to FARGATE. Defaults to LATEST."
 }
 
 variable "subnets" {
-  default = null
+  default     = null
   description = "The subnets associated with the task or service. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
 }
 
 variable "network_mode" {
-  default = null
+  default     = null
   description = "The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
 }
