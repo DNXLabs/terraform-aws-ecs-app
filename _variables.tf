@@ -235,23 +235,15 @@ variable "log_subscription_filter_enabled" {
   type = string
 }
 
-variable "log_subscription_filter_name" {
-  type = string
-}
-
 variable "log_subscription_filter_role_arn" {
   type = string
 }
 
-variable "log_subscription_filter_log_group_name" {
+variable "log_subscription_filter_destination_arn" {
   type = string
 }
 
 variable "log_subscription_filter_filter_pattern" {
   default = ""
-  type = string
-}
-
-variable "log_subscription_filter_destination_arn" {
   type = string
 }
