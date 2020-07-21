@@ -61,8 +61,6 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | log\_subscription\_filter\_destination\_arn | n/a | `string` | n/a | yes |
 | log\_subscription\_filter\_enabled | n/a | `string` | n/a | yes |
 | log\_subscription\_filter\_filter\_pattern | n/a | `string` | `""` | no |
-| log\_subscription\_filter\_log\_group\_name | n/a | `string` | n/a | yes |
-| log\_subscription\_filter\_name | n/a | `string` | n/a | yes |
 | log\_subscription\_filter\_role\_arn | n/a | `string` | n/a | yes |
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
