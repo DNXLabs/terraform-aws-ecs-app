@@ -231,6 +231,10 @@ variable "network_mode" {
   description = "The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
 }
 
+variable "security_groups" {
+  default     = null
+  description = "The security groups associated with the task or service"
+}
 variable "log_subscription_filter_enabled" {
   type = string
 }

@@ -13,7 +13,8 @@ resource "aws_ecs_service" "default" {
   dynamic "network_configuration" {
     for_each = var.launch_type == "FARGATE" ? [var.subnets] : []
     content {
-      subnets = var.subnets
+      subnets         = var.subnets
+      security_groups = var.security_groups == "" ? null : var.security_groups
     }
   }
 
