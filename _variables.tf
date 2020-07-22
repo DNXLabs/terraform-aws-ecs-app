@@ -235,3 +235,19 @@ variable "security_groups" {
   default     = null
   description = "The security groups associated with the task or service"
 }
+variable "log_subscription_filter_enabled" {
+  type = string
+}
+
+variable "log_subscription_filter_role_arn" {
+  type = string
+}
+
+variable "log_subscription_filter_destination_arn" {
+  type = string
+}
+
+variable "log_subscription_filter_filter_pattern" {
+  default = ""
+  type = string
+}
