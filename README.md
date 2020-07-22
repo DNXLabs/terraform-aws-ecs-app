@@ -58,6 +58,10 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | hostnames | List of hostnames to create DNS record for this app | `list` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
+| log\_subscription\_filter\_destination\_arn | n/a | `string` | n/a | yes |
+| log\_subscription\_filter\_enabled | n/a | `string` | n/a | yes |
+| log\_subscription\_filter\_filter\_pattern | n/a | `string` | `""` | no |
+| log\_subscription\_filter\_role\_arn | n/a | `string` | n/a | yes |
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
