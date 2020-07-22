@@ -68,6 +68,7 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | path | Optional path to use on listener rule | `string` | `"/*"` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
+| security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
 | service\_desired\_count | Desired count for this service (for use when auto scaling is disabled) | `number` | `1` | no |
