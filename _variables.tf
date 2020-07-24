@@ -27,6 +27,12 @@ variable "path" {
   description = "Optional path to use on listener rule"
 }
 
+variable "paths" {
+  default     = null
+  description = "List of path to use on listener rule"
+  type = list(string)
+}
+
 variable "hosted_zone" {
   default     = ""
   description = "Hosted Zone to create DNS record for this app"
