@@ -66,6 +66,7 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | path | Optional path to use on listener rule | `string` | `"/*"` | no |
+| paths | List of path to use on listener rule | `list(string)` | `null` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
