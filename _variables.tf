@@ -30,7 +30,7 @@ variable "path" {
 variable "paths" {
   default     = null
   description = "List of path to use on listener rule"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "hosted_zone" {
@@ -242,18 +242,21 @@ variable "security_groups" {
   description = "The security groups associated with the task or service"
 }
 variable "log_subscription_filter_enabled" {
-  type = string
+  type    = string
+  default = false
 }
 
 variable "log_subscription_filter_role_arn" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "log_subscription_filter_destination_arn" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "log_subscription_filter_filter_pattern" {
   default = ""
-  type = string
+  type    = string
 }
