@@ -28,7 +28,7 @@ variable "path" {
 }
 
 variable "paths" {
-  default     = null
+  default     = []
   description = "List of path to use on listener rule"
   type        = list(string)
 }

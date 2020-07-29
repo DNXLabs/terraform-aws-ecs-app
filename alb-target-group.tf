@@ -8,7 +8,7 @@ resource "aws_lb_listener_rule" "green" {
 
   condition {
     path_pattern {
-      values = var.path != "/*" ? list(var.path) : var.paths
+      values = length(var.paths) > 0 ? var.paths : list(var.path)
     }
   }
 
@@ -37,7 +37,7 @@ resource "aws_lb_listener_rule" "blue" {
 
   condition {
     path_pattern {
-      values = var.path != "/*" ? list(var.path) : var.paths
+      values = length(var.paths) > 0 ? var.paths : list(var.path)
     }
   }
 
