@@ -6,15 +6,21 @@ resource "aws_lb_listener_rule" "green" {
     target_group_arn = aws_lb_target_group.green.arn
   }
 
-  condition {
-    path_pattern {
-      values = length(var.paths) > 0 ? var.paths : list(var.path)
+  dynamic "condition" {
+    for_each = length(var.paths) > 0 ? [var.paths] : []
+    content {
+      path_pattern {
+        values = toset(condition.value)
+      }
     }
   }
 
-  condition {
-    host_header {
-      values = var.hostname != "" ? list(var.hostname) : var.hostnames
+  dynamic "condition" {
+    for_each = length(var.hostnames) > 0 ? [var.hostnames] : []
+    content {
+      host_header {
+        values = toset(condition.value)
+      }
     }
   }
 
@@ -35,15 +41,21 @@ resource "aws_lb_listener_rule" "blue" {
     target_group_arn = aws_lb_target_group.blue.arn
   }
 
-  condition {
-    path_pattern {
-      values = length(var.paths) > 0 ? var.paths : list(var.path)
+  dynamic "condition" {
+    for_each = length(var.paths) > 0 ? [var.paths] : []
+    content {
+      path_pattern {
+        values = toset(condition.value)
+      }
     }
   }
 
-  condition {
-    host_header {
-      values = var.hostname != "" ? list(var.hostname) : var.hostnames
+  dynamic "condition" {
+    for_each = length(var.hostnames) > 0 ? [var.hostnames] : []
+    content {
+      host_header {
+        values = toset(condition.value)
+      }
     }
   }
 
@@ -64,7 +76,7 @@ resource "aws_lb_listener_rule" "redirects" {
     type = "redirect"
 
     redirect {
-      host        = var.hostname != "" ? var.hostname : var.hostnames[0]
+      host        = var.hostnames[0]
       port        = "443"
       protocol    = "HTTPS"
       status_code = "HTTP_301"

@@ -22,11 +22,6 @@ variable "cpu" {
   description = "Hard limit for CPU for the container"
 }
 
-variable "path" {
-  default     = "/*"
-  description = "Optional path to use on listener rule"
-}
-
 variable "paths" {
   default     = []
   description = "List of path to use on listener rule"
@@ -42,14 +37,9 @@ variable "hostname_create" {
   description = "Optional parameter to create or not a Route53 record"
 }
 
-variable "hostname" {
-  default     = ""
-  description = "Hostname to create DNS record for this app (DEPRECATED - use hostnames)"
-}
-
 variable "hostnames" {
   default     = []
-  description = "List of hostnames to create DNS record for this app"
+  description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
 }
 
 variable "hostname_redirects" {
