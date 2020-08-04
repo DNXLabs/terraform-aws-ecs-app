@@ -52,10 +52,9 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | healthcheck\_timeout | The amount of time, in seconds, during which no response | `number` | `5` | no |
 | healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy | `number` | `3` | no |
 | hosted\_zone | Hosted Zone to create DNS record for this app | `string` | `""` | no |
-| hostname | Hostname to create DNS record for this app (DEPRECATED - use hostnames) | `string` | `""` | no |
 | hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
-| hostnames | List of hostnames to create DNS record for this app | `list` | `[]` | no |
+| hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
 | log\_subscription\_filter\_destination\_arn | n/a | `string` | `""` | no |
@@ -65,7 +64,6 @@ This module is designed to be used with `DNXLabs/terraform-aws-ecs`.
 | memory | Hard memory of the container | `string` | `"512"` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
-| path | Optional path to use on listener rule | `string` | `"/*"` | no |
 | paths | List of path to use on listener rule | `list(string)` | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
