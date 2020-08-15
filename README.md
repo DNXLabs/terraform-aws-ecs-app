@@ -3,11 +3,9 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-ecs-app/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-ecs-app/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-ecs-app)](https://github.com/DNXLabs/terraform-aws-ecs-app/blob/master/LICENSE)
 
-This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer (ALB)
+This terraform module is an AWS ECS Application Module for Scheduler without an Application Load Balancer(ALB), designed to be used with `DNXLabs/terraform-aws-ecs` (https://github.com/DNXLabs/terraform-aws-ecs).
 
-This module is designed to be used with `DNXLabs/terraform-aws-ecs` (https://github.com/DNXLabs/terraform-aws-ecs).
-
-This modules creates the following resources:
+The following resources will be created:
  - Cloudwatch Metrics alarm - Provides a CloudWatch Metric Alarm resource.
    - Service has less than minimum healthy tasks} healthy tasks
  - IAM roles - The cloudwatch event needs an IAM Role to run the ECS task definition. A role is created and a policy will be granted via IAM policy.
