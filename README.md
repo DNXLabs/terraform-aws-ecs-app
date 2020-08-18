@@ -46,7 +46,7 @@ In addition you have the option to create or not :
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.20 |
+| terraform | >= 0.12.0 |
 
 ## Providers
 
