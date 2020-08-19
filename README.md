@@ -76,6 +76,7 @@ In addition you have the option to create or not :
 | cluster\_name | n/a | `string` | `"Name of existing ECS Cluster to deploy this app to"` | no |
 | codedeploy\_wait\_time\_for\_cutover | Time in minutes to route the traffic to the new application deployment | `number` | `0` | no |
 | codedeploy\_wait\_time\_for\_termination | Time in minutes to terminate the new deployment | `number` | `0` | no |
+| codedeploy\_deployment\_config\_name | Specifies the deployment configuration for CodeDeploy | `string` | `CodeDeployDefault.ECSAllAtOnce` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
 | container\_port | Port your container listens (used in the placeholder task definition) | `string` | `"8080"` | no |
 | cpu | Hard limit for CPU for the container | `string` | `"0"` | no |
