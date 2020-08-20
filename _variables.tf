@@ -183,13 +183,20 @@ variable "alb_only" {
   default     = false
   description = "Whether to deploy only an alb and no cloudFront or not with the cluster"
 }
+
 variable "codedeploy_wait_time_for_cutover" {
   default     = 0
   description = "Time in minutes to route the traffic to the new application deployment"
 }
+
 variable "codedeploy_wait_time_for_termination" {
   default     = 0
   description = "Time in minutes to terminate the new deployment"
+}
+
+variable "codedeploy_deployment_config_name" {
+  default     = "CodeDeployDefault.ECSAllAtOnce"
+  description = "Specifies the deployment configuration for CodeDeploy"
 }
 
 variable "cloudwatch_logs_retention" {
