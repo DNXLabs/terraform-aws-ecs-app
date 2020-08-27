@@ -36,4 +36,12 @@ resource "aws_ecs_task_definition" "default" {
   }
 ]
 EOT
+
+  tags = merge(
+    var.tags,
+    {
+      "EcsService"    = var.name
+      "EcsCluster"    = var.cluster_name
+    },
+  ) 
 }

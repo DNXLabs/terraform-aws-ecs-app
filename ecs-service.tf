@@ -32,6 +32,14 @@ resource "aws_ecs_service" "default" {
     ignore_changes = [load_balancer, task_definition, desired_count]
   }
 
+  tags = merge(
+    var.tags,
+    {
+      "EcsService"    = var.name
+      "EcsCluster"    = var.cluster_name
+    },
+  ) 
+
   depends_on = [
     aws_lb_listener_rule.green,
     aws_lb_listener_rule.blue

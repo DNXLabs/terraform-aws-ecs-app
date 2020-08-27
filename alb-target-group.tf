@@ -117,6 +117,14 @@ resource "aws_lb_target_group" "green" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "EcsService"    = "${var.name}"
+      "EcsCluster" = var.cluster_name
+    },
+  )
 }
 
 resource "aws_lb_target_group" "blue" {
@@ -139,4 +147,12 @@ resource "aws_lb_target_group" "blue" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "EcsService"    = var.name
+      "EcsCluster"    = var.cluster_name
+    },
+  ) 
 }
