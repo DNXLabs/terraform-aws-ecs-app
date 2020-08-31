@@ -259,7 +259,7 @@ variable "log_subscription_filter_filter_pattern" {
 }
 
 variable "tags" {
-	  type        = map(string)
-	  default     = {}
-	  description = "Extra tags to attach to resources"
-	}
+  type        = map(string)
+  default     = {}
+  description = "Extra tags to attach to resources"
+}

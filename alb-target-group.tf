@@ -121,7 +121,7 @@ resource "aws_lb_target_group" "green" {
   tags = merge(
     var.tags,
     {
-      "EcsService"    = "${var.name}"
+      "EcsService" = "${var.name}"
       "EcsCluster" = var.cluster_name
     },
   )
@@ -151,8 +151,8 @@ resource "aws_lb_target_group" "blue" {
   tags = merge(
     var.tags,
     {
-      "EcsService"    = var.name
-      "EcsCluster"    = var.cluster_name
+      "EcsService" = var.name
+      "EcsCluster" = var.cluster_name
     },
-  ) 
+  )
 }

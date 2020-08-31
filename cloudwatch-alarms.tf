@@ -55,8 +55,8 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
   tags = merge(
     var.tags,
     {
-      "EcsService"    = var.name
-      "EcsCluster"    = var.cluster_name
+      "EcsService" = var.name
+      "EcsCluster" = var.cluster_name
     },
-  ) 
+  )
 }

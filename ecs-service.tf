@@ -35,10 +35,10 @@ resource "aws_ecs_service" "default" {
   tags = merge(
     var.tags,
     {
-      "EcsService"    = var.name
-      "EcsCluster"    = var.cluster_name
+      "EcsService" = var.name
+      "EcsCluster" = var.cluster_name
     },
-  ) 
+  )
 
   depends_on = [
     aws_lb_listener_rule.green,

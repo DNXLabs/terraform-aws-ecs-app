@@ -40,8 +40,8 @@ EOT
   tags = merge(
     var.tags,
     {
-      "EcsService"    = var.name
-      "EcsCluster"    = var.cluster_name
+      "EcsService" = var.name
+      "EcsCluster" = var.cluster_name
     },
-  ) 
+  )
 }
