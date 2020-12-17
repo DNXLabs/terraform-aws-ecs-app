@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
   count = length(var.alarm_sns_topics) > 0 && var.alarm_min_healthy_tasks != 0 ? 1 : 0
 
-  alarm_name                = "${var.ignore_iam_account_alias[0] ? "ecs-${var.name}-min-healthy-tasks" : data.aws_iam_account_alias.current[0]}-ecs-${var.name}-min-healthy-tasks"
+  alarm_name                = "${length(var.ignore_iam_account_alias[0]) > 0 ? "ecs-${var.name}-min-healthy-tasks" : data.aws_iam_account_alias.current[0]}-ecs-${var.name}-min-healthy-tasks"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "2"
   threshold                 = var.alarm_min_healthy_tasks
