@@ -1,41 +1,54 @@
-resource "aws_cloudwatch_metric_alarm" "high_memory" {
-  count = "${length(var.alarm_sns_topics) > 0 ? 1 : 0}"
+resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
+  count = length(var.alarm_sns_topics) > 0 && var.alarm_min_healthy_tasks != 0 ? 1 : 0
 
-  alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-memory"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "3"
-  metric_name               = "MemoryUtilization"
-  namespace                 = "AWS/ECS"
-  period                    = "300"
-  statistic                 = "Maximum"
-  threshold                 = "80"
-  alarm_description         = "Cluster node memory above threshold"
+  alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-min-healthy-tasks"
+  comparison_operator       = "LessThanThreshold"
+  evaluation_periods        = "2"
+  threshold                 = var.alarm_min_healthy_tasks
+  alarm_description         = "Service has less than ${var.alarm_min_healthy_tasks} healthy tasks"
   alarm_actions             = var.alarm_sns_topics
   ok_actions                = var.alarm_sns_topics
+  insufficient_data_actions = []
+  treat_missing_data        = "ignore"
 
-  dimensions = {
-    ClusterName = var.cluster_name
-    ServiceName = aws_ecs_service.default.name
+  metric_query {
+    id          = "e1"
+    expression  = "MAX(REMOVE_EMPTY([m1, m2]))"
+    label       = "HealthyHostCountCombined"
+    return_data = "true"
   }
-}
 
-resource "aws_cloudwatch_metric_alarm" "high_cpu" {
-  count = "${length(var.alarm_sns_topics) > 0 ? 1 : 0}"
+  metric_query {
+    id = "m1"
 
-  alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-high-cpu"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "3"
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/ECS"
-  period                    = "300"
-  statistic                 = "Maximum"
-  threshold                 = "80"
-  alarm_description         = "ECS service CPU utilization above threshold"
-  alarm_actions             = var.alarm_sns_topics
-  ok_actions                = var.alarm_sns_topics
+    metric {
+      metric_name = "HealthyHostCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "60"
+      stat        = "Maximum"
+      unit        = "Count"
 
-  dimensions = {
-    ClusterName = var.cluster_name
-    ServiceName = aws_ecs_service.default.name
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.blue.arn_suffix
+      }
+    }
+  }
+
+  metric_query {
+    id = "m2"
+
+    metric {
+      metric_name = "HealthyHostCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "60"
+      stat        = "Maximum"
+      unit        = "Count"
+
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.green.arn_suffix
+      }
+    }
   }
 }

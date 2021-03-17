@@ -154,3 +154,8 @@ variable "alarm_sns_topics" {
   default = []
   description = "Alarm topics to create and alert on ECS service metrics"
 }
+
+variable "alarm_min_healthy_tasks" {
+  default     = 2
+  description = "Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm)"
+}
