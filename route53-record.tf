@@ -14,7 +14,7 @@ resource "aws_route53_record" "hostnames" {
 }
 
 data "aws_lb" "alb_selected" {
-  count = var.alb_only && var.hostname_create && length(var.hostnames) != 0 ? length(var.hostnames) : 0
+  count = var.hosted_zone_is_internal && var.alb_only && var.hostname_create && length(var.hostnames) != 0 ? length(var.hostnames) : 0
   name = var.alb_name
 }
 
