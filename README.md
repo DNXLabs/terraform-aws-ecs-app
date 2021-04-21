@@ -61,9 +61,9 @@ In addition you have the option to create or not :
 |------|-------------|------|---------|:--------:|
 | alarm\_min\_healthy\_tasks | Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm) | `number` | `2` | no |
 | alarm\_sns\_topics | Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms. | `list` | `[]` | no |
-| alb\_name | ALB Name - Required if it's internal | `string` | `""` | no |
 | alb\_dns\_name | ALB DNS Name | `string` | `""` | no |
 | alb\_listener\_https\_arn | ALB HTTPS Listener created by ECS cluster module | `any` | n/a | yes |
+| alb\_name | ALB name - Required if it is an internal one | `string` | `""` | no |
 | alb\_only | Whether to deploy only an alb and no cloudFront or not with the cluster | `bool` | `false` | no |
 | alb\_priority | priority rules ALB | `number` | `0` | no |
 | autoscaling\_cpu | Enables autoscaling based on average CPU tracking | `bool` | `false` | no |
@@ -87,7 +87,7 @@ In addition you have the option to create or not :
 | healthcheck\_timeout | The amount of time, in seconds, during which no response | `number` | `5` | no |
 | healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy | `number` | `3` | no |
 | hosted\_zone | Hosted Zone to create DNS record for this app | `string` | `""` | no |
-| hosted\_zone\_is\_internal | Weather Hosted Zone is internal | `bool` | `"false"` | no |
+| hosted\_zone\_is\_internal | Set true in case the hosted zone is in an internal VPC, otherwise false | `string` | `"false"` | no |
 | hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
 | hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list` | `[]` | no |
