@@ -28,6 +28,11 @@ variable "paths" {
   type        = list(string)
 }
 
+variable "hosted_zone_is_internal" {
+  default     = "false"
+  description = "Set true in case the hosted zone is in an internal VPC, otherwise false"
+}
+
 variable "hosted_zone" {
   default     = ""
   description = "Hosted Zone to create DNS record for this app"
@@ -111,6 +116,11 @@ variable "test_traffic_route_listener_arn" {
 
 variable "alb_dns_name" {
   description = "ALB DNS Name"
+  default     = ""
+}
+
+variable "alb_name" {
+  description = "ALB name - Required if it is an internal one"
   default     = ""
 }
 
