@@ -164,6 +164,11 @@ variable "alarm_min_healthy_tasks" {
   description = "Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm)"
 }
 
+variable "alarm_evaluation_periods" {
+  default     = "2"
+  description = "The number of minutes the alarm must be below the threshold before entering the alarm state."
+}
+
 variable "alarm_sns_topics" {
   default     = []
   description = "Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms."

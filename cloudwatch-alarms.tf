@@ -3,7 +3,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
 
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-min-healthy-tasks"
   comparison_operator       = "LessThanThreshold"
-  evaluation_periods        = "2"
+  evaluation_periods        = var.alarm_evaluation_periods
   threshold                 = var.alarm_min_healthy_tasks
   alarm_description         = "Service has less than ${var.alarm_min_healthy_tasks} healthy tasks"
   alarm_actions             = var.alarm_sns_topics
