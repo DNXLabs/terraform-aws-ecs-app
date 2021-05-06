@@ -59,6 +59,7 @@ In addition you have the option to create or not :
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| alarm\_evaluation\_periods | The number of minutes the alarm must be below the threshold before entering the alarm state. | `string` | `"2"` | no |
 | alarm\_min\_healthy\_tasks | Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm) | `number` | `2` | no |
 | alarm\_sns\_topics | Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms. | `list` | `[]` | no |
 | alb\_dns\_name | ALB DNS Name | `string` | `""` | no |
