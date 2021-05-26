@@ -18,6 +18,22 @@ resource "aws_ecs_service" "default" {
     }
   }
 
+  dynamic "placement_constraints" {
+    for_each = var.launch_type == "FARGATE" ? [] : var.placement_constraints
+    content {
+      expression = lookup(placement_constraints.value, "expression", null)
+      type       = placement_constraints.value.type
+    }
+  }
+
+  dynamic "ordered_placement_strategy" {
+    for_each = var.launch_type == "FARGATE" ? [] : var.ordered_placement_strategy
+    content {
+      field = lookup(ordered_placement_strategy.value, "field", null)
+      type  = ordered_placement_strategy.value.type
+    }
+  }
+
   load_balancer {
     target_group_arn = aws_lb_target_group.green.arn
     container_name   = var.name
