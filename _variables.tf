@@ -149,6 +149,11 @@ variable "autoscaling_target_cpu" {
   description = "Target average CPU percentage to track for autoscaling"
 }
 
+variable "autoscaling_target_mem" {
+  default     = 0
+  description = "Target average Memory percentage to track for autoscaling"
+}
+
 variable "autoscaling_scale_in_cooldown" {
   default     = 300
   description = "Cooldown in seconds to wait between scale in events"
