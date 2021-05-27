@@ -134,6 +134,11 @@ variable "autoscaling_cpu" {
   description = "Enables autoscaling based on average CPU tracking"
 }
 
+variable "autoscaling_memory" {
+  default     = false
+  description = "Enables autoscaling based on average Memory tracking"
+}
+
 variable "autoscaling_max" {
   default     = 4
   description = "Max number of containers to scale with autoscaling"
@@ -150,7 +155,7 @@ variable "autoscaling_target_cpu" {
 }
 
 variable "autoscaling_target_mem" {
-  default     = 0
+  default     = 90
   description = "Target average Memory percentage to track for autoscaling"
 }
 

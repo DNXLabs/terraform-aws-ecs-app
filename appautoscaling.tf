@@ -1,5 +1,5 @@
 resource "aws_appautoscaling_target" "ecs" {
-  count              = var.launch_type == "FARGATE" ? 0 : var.autoscaling_cpu || var.autoscaling_mem ? 1 : 0
+  count              = var.launch_type == "FARGATE" ? 0 : var.autoscaling_cpu || var.autoscaling_memory ? 1 : 0
   max_capacity       = var.autoscaling_max
   min_capacity       = var.autoscaling_min
   resource_id        = "service/${var.cluster_name}/${aws_ecs_service.default.name}"
@@ -28,7 +28,7 @@ resource "aws_appautoscaling_policy" "scale_cpu" {
 }
 
 resource "aws_appautoscaling_policy" "scale_mem" {
-  count              = var.launch_type == "FARGATE" ? 0 : var.autoscaling_mem ? 1 : 0
+  count              = var.launch_type == "FARGATE" ? 0 : var.autoscaling_memory ? 1 : 0
   name               = "scale-mem"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ecs[0].resource_id
