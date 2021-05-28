@@ -85,7 +85,7 @@ resource "aws_lb_listener_rule" "redirects" {
 
   condition {
     host_header {
-      values = list(element(split(",", var.hostname_redirects), count.index))
+      values = tolist([element(split(",", var.hostname_redirects), count.index)])
     }
   }
 }
