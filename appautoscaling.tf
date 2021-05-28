@@ -27,16 +27,16 @@ resource "aws_appautoscaling_policy" "scale_cpu" {
   }
 }
 
-resource "aws_appautoscaling_policy" "scale_mem" {
+resource "aws_appautoscaling_policy" "scale_memory" {
   count              = var.launch_type == "FARGATE" ? 0 : var.autoscaling_memory ? 1 : 0
-  name               = "scale-mem"
+  name               = "scale-memory"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.ecs[0].resource_id
   scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
   service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
 
   target_tracking_scaling_policy_configuration {
-    target_value       = var.autoscaling_target_mem
+    target_value       = var.autoscaling_target_memory
     disable_scale_in   = false
     scale_in_cooldown  = var.autoscaling_scale_in_cooldown
     scale_out_cooldown = var.autoscaling_scale_out_cooldown

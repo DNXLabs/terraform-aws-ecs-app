@@ -154,7 +154,7 @@ variable "autoscaling_target_cpu" {
   description = "Target average CPU percentage to track for autoscaling"
 }
 
-variable "autoscaling_target_mem" {
+variable "autoscaling_target_memory" {
   default     = 90
   description = "Target average Memory percentage to track for autoscaling"
 }
