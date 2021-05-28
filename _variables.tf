@@ -134,6 +134,11 @@ variable "autoscaling_cpu" {
   description = "Enables autoscaling based on average CPU tracking"
 }
 
+variable "autoscaling_memory" {
+  default     = false
+  description = "Enables autoscaling based on average Memory tracking"
+}
+
 variable "autoscaling_max" {
   default     = 4
   description = "Max number of containers to scale with autoscaling"
@@ -147,6 +152,11 @@ variable "autoscaling_min" {
 variable "autoscaling_target_cpu" {
   default     = 50
   description = "Target average CPU percentage to track for autoscaling"
+}
+
+variable "autoscaling_target_memory" {
+  default     = 90
+  description = "Target average Memory percentage to track for autoscaling"
 }
 
 variable "autoscaling_scale_in_cooldown" {
@@ -271,4 +281,24 @@ variable "log_subscription_filter_destination_arn" {
 variable "log_subscription_filter_filter_pattern" {
   default = ""
   type    = string
+}
+
+variable "ordered_placement_strategy" {
+  # This variable may not be used with Fargate!
+  description = "Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5."
+  type = list(object({
+    field      = string
+    expression = string
+  }))
+  default = []
+}
+
+variable "placement_constraints" {
+  # This variables may not be used with Fargate!
+  description = "Rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10."
+  type = list(object({
+    type       = string
+    expression = string
+  }))
+  default = []
 }
