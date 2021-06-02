@@ -114,6 +114,7 @@ In addition you have the option to create or not :
 | service\_desired\_count | Desired count for this service (for use when auto scaling is disabled) | `number` | `1` | no |
 | service\_health\_check\_grace\_period\_seconds | Time until your container starts serving requests | `number` | `0` | no |
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | n/a | yes |
+| source\_ips | List of source ip to use on listerner rule | `list` | `[]` | no |
 | subnets | The subnets associated with the task or service. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
