@@ -47,6 +47,11 @@ variable "hostnames" {
   description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
 }
 
+variable "source_ips" {
+  default     = []
+  description = "List of source ip to use on listerner rule"
+}
+
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
