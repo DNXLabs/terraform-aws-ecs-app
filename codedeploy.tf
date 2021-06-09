@@ -40,11 +40,11 @@ resource "aws_codedeploy_deployment_group" "ecs" {
   load_balancer_info {
     target_group_pair_info {
       prod_traffic_route {
-        listener_arns = list(var.alb_listener_https_arn)
+        listener_arns = [var.alb_listener_https_arn]
       }
 
       test_traffic_route {
-        listener_arns = list(var.test_traffic_route_listener_arn)
+        listener_arns = [var.test_traffic_route_listener_arn]
       }
 
       target_group {
