@@ -108,6 +108,7 @@ In addition you have the option to create or not :
 | placement\_constraints | Rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. | <pre>list(object({<br>    type       = string<br>    expression = string<br>  }))</pre> | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `string` | `"80"` | no |
+| protocol | Protocol to use (HTTP or HTTPS) | `string` | `"HTTP"` | no |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
