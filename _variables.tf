@@ -13,7 +13,7 @@ variable "port" {
 }
 
 variable "protocol" {
-  default = "HTTP"
+  default     = "HTTP"
   description = "Protocol to use (HTTP or HTTPS)"
 }
 
@@ -76,6 +76,11 @@ variable "cluster_name" {
 
 variable "service_role_arn" {
   description = "Existing service role ARN created by ECS cluster module"
+}
+
+variable "codedeploy_role_arn" {
+  default = null
+  description = "Existing IAM CodeDeploy role ARN created by ECS cluster module"
 }
 
 variable "task_role_arn" {
@@ -311,4 +316,10 @@ variable "placement_constraints" {
     expression = string
   }))
   default = []
+}
+
+variable "create_iam_codedeployrole" {
+  type        = bool
+  default     = true
+  description = "Create Codedeploy IAM Role for ECS or not."
 }
