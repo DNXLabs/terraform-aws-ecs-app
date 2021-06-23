@@ -79,7 +79,7 @@ variable "service_role_arn" {
 }
 
 variable "codedeploy_role_arn" {
-  default = null
+  default     = null
   description = "Existing IAM CodeDeploy role ARN created by ECS cluster module"
 }
 
