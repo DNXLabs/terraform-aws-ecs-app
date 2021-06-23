@@ -79,11 +79,13 @@ In addition you have the option to create or not :
 | cloudwatch\_logs\_retention | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653. | `number` | `120` | no |
 | cluster\_name | n/a | `string` | `"Name of existing ECS Cluster to deploy this app to"` | no |
 | codedeploy\_deployment\_config\_name | Specifies the deployment configuration for CodeDeploy | `string` | `"CodeDeployDefault.ECSAllAtOnce"` | no |
+| codedeploy\_role\_arn | Existing IAM CodeDeploy role ARN created by ECS cluster module | `any` | `null` | no |
 | codedeploy\_wait\_time\_for\_cutover | Time in minutes to route the traffic to the new application deployment | `number` | `0` | no |
 | codedeploy\_wait\_time\_for\_termination | Time in minutes to terminate the new deployment | `number` | `0` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
 | container\_port | Port your container listens (used in the placeholder task definition) | `string` | `"8080"` | no |
 | cpu | Hard limit for CPU for the container | `string` | `"0"` | no |
+| create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
 | healthcheck\_matcher | The HTTP codes to use when checking for a successful response from a target | `number` | `200` | no |
 | healthcheck\_path | n/a | `string` | `"/"` | no |
