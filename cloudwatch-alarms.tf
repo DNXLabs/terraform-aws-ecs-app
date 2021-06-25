@@ -54,6 +54,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
 }
 
 resource "aws_appautoscaling_policy" "scale_alb" {
+  count              =  var.autoscaling_cpu ? 1 : 0
   name               = "alb_scaling"
   policy_type        = "StepScaling"
   resource_id        = aws_appautoscaling_target.ecs[0].resource_id
@@ -76,6 +77,7 @@ resource "aws_appautoscaling_policy" "scale_alb" {
 
 
 resource "aws_cloudwatch_metric_alarm" "alb-connections" {
+  count = var.log_subscription_filter_enabled ? 1 : 0
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-alb-average-connections"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "2"

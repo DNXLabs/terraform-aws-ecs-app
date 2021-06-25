@@ -277,3 +277,10 @@ variable "log_subscription_filter_filter_pattern" {
   default = ""
   type    = string
 }
+
+variable "cloudwatch_metric_alb_connections" {
+  description = "Create or Not metric to scale the ECS Service based on the number of connections"
+  default = "false"
+  type    = string
+}
+
