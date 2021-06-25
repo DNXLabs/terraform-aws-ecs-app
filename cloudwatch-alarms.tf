@@ -87,17 +87,17 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
   threshold                 = var.alb_connections
   alarm_description         = "RequestCountPerTarget"
   insufficient_data_actions = []
-  alarm_actions             = [aws_appautoscaling_policy.scale_alb.arn]
+  alarm_actions             = [aws_appautoscaling_policy.scale_alb[0].arn]
   metric_query {
     id          = "e1"
-    expression  = "m1+m2"
+    expression  = "SUM([m1,m2])"
     label       = "Error Rate"
     return_data = "true"
   }
   metric_query {
     id = "m1"
     metric {
-      metric_name = "RequestCount"
+      metric_name = "Requestcount"
       namespace   = "AWS/ApplicationELB"
       period      = "120"
       stat        = "Sum"
@@ -112,7 +112,7 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
   metric_query {
     id = "m2"
     metric {
-      metric_name = "HTTPCode_ELB_5XX_Count"
+      metric_name = "Requestcount"
       namespace   = "AWS/ApplicationELB"
       period      = "120"
       stat        = "Sum"
