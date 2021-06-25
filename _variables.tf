@@ -263,6 +263,11 @@ variable "log_subscription_filter_enabled" {
   default = false
 }
 
+variable "source_ips" {
+  default     = []
+  description = "List of source ip to use on listerner rule"
+}
+
 variable "log_subscription_filter_role_arn" {
   type    = string
   default = ""
