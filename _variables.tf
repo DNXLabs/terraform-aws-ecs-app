@@ -12,11 +12,6 @@ variable "port" {
   description = "Port for target group to listen"
 }
 
-variable "protocol" {
-  default     = "HTTP"
-  description = "Protocol to use (HTTP or HTTPS)"
-}
-
 variable "memory" {
   default     = "512"
   description = "Hard memory of the container"
@@ -52,11 +47,6 @@ variable "hostnames" {
   description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
 }
 
-variable "source_ips" {
-  default     = []
-  description = "List of source ip to use on listerner rule"
-}
-
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
@@ -76,11 +66,6 @@ variable "cluster_name" {
 
 variable "service_role_arn" {
   description = "Existing service role ARN created by ECS cluster module"
-}
-
-variable "codedeploy_role_arn" {
-  default     = null
-  description = "Existing IAM CodeDeploy role ARN created by ECS cluster module"
 }
 
 variable "task_role_arn" {
@@ -121,10 +106,13 @@ variable "vpc_id" {
   description = "VPC ID to deploy this app to"
 }
 
+variable "alb_arn" {
+  description = "The ARN ALB."
+}
+
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
-
 variable "test_traffic_route_listener_arn" {
   description = "ALB HTTPS Listener for Test Traffic created by ECS cluster module"
 }
@@ -149,11 +137,6 @@ variable "autoscaling_cpu" {
   description = "Enables autoscaling based on average CPU tracking"
 }
 
-variable "autoscaling_memory" {
-  default     = false
-  description = "Enables autoscaling based on average Memory tracking"
-}
-
 variable "autoscaling_max" {
   default     = 4
   description = "Max number of containers to scale with autoscaling"
@@ -169,10 +152,12 @@ variable "autoscaling_target_cpu" {
   description = "Target average CPU percentage to track for autoscaling"
 }
 
-variable "autoscaling_target_memory" {
-  default     = 90
-  description = "Target average Memory percentage to track for autoscaling"
+
+variable "alb_connections" {
+  description = "Target average Alb Connections to track for autoscaling"
 }
+
+
 
 variable "autoscaling_scale_in_cooldown" {
   default     = 300
@@ -187,11 +172,6 @@ variable "autoscaling_scale_out_cooldown" {
 variable "alarm_min_healthy_tasks" {
   default     = 2
   description = "Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm)"
-}
-
-variable "alarm_evaluation_periods" {
-  default     = "2"
-  description = "The number of minutes the alarm must be below the threshold before entering the alarm state."
 }
 
 variable "alarm_sns_topics" {
@@ -296,30 +276,4 @@ variable "log_subscription_filter_destination_arn" {
 variable "log_subscription_filter_filter_pattern" {
   default = ""
   type    = string
-}
-
-variable "ordered_placement_strategy" {
-  # This variable may not be used with Fargate!
-  description = "Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5."
-  type = list(object({
-    field      = string
-    expression = string
-  }))
-  default = []
-}
-
-variable "placement_constraints" {
-  # This variables may not be used with Fargate!
-  description = "Rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10."
-  type = list(object({
-    type       = string
-    expression = string
-  }))
-  default = []
-}
-
-variable "create_iam_codedeployrole" {
-  type        = bool
-  default     = true
-  description = "Create Codedeploy IAM Role for ECS or not."
 }

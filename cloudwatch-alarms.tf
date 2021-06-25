@@ -3,7 +3,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
 
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-min-healthy-tasks"
   comparison_operator       = "LessThanThreshold"
-  evaluation_periods        = var.alarm_evaluation_periods
+  evaluation_periods        = "2"
   threshold                 = var.alarm_min_healthy_tasks
   alarm_description         = "Service has less than ${var.alarm_min_healthy_tasks} healthy tasks"
   alarm_actions             = var.alarm_sns_topics
@@ -45,6 +45,74 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
       stat        = "Maximum"
       unit        = "Count"
 
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.green.arn_suffix
+      }
+    }
+  }
+}
+
+resource "aws_appautoscaling_policy" "scale_alb" {
+  name               = "alb_scaling"
+  policy_type        = "StepScaling"
+  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = 300
+    metric_aggregation_type = "Average"
+    
+
+    step_adjustment {
+      metric_interval_upper_bound = 0
+      scaling_adjustment          = 1
+    }
+  }
+  
+}
+
+
+resource "aws_cloudwatch_metric_alarm" "alb-connections" {
+  alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-alb-average-connections"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = "2"
+  datapoints_to_alarm       = "2"
+  threshold                 = var.alb_connections
+  alarm_description         = "RequestCountPerTarget"
+  insufficient_data_actions = []
+  alarm_actions             = [aws_appautoscaling_policy.scale_alb.arn]
+  metric_query {
+    id          = "e1"
+    expression  = "m1+m2"
+    label       = "Error Rate"
+    return_data = "true"
+  }
+  metric_query {
+    id = "m1"
+    metric {
+      metric_name = "RequestCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.blue.arn_suffix
+
+      }
+    }
+  }
+  metric_query {
+    id = "m2"
+    metric {
+      metric_name = "HTTPCode_ELB_5XX_Count"
+      namespace   = "AWS/ApplicationELB"
+      period      = "120"
+      stat        = "Sum"
+      unit        = "Count"
       dimensions = {
         LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
         TargetGroup  = aws_lb_target_group.green.arn_suffix
