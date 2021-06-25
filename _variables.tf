@@ -137,6 +137,10 @@ variable "autoscaling_cpu" {
   description = "Enables autoscaling based on average CPU tracking"
 }
 
+variable "autoscaling_memory" {
+  default     = false
+  description = "Enables autoscaling based on average Memory tracking"
+}
 variable "autoscaling_max" {
   default     = 4
   description = "Max number of containers to scale with autoscaling"
@@ -157,6 +161,10 @@ variable "alb_connections" {
   description = "Target average Alb Connections to track for autoscaling"
 }
 
+variable "autoscaling_target_memory" {
+  default     = 90
+  description = "Target average Memory percentage to track for autoscaling"
+}
 
 
 variable "autoscaling_scale_in_cooldown" {
