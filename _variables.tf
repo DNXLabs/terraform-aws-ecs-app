@@ -259,6 +259,11 @@ variable "launch_type" {
   description = "The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2."
 }
 
+variable "fargate_spot" {
+  default     = false
+  description = "Set true to use FARGATE_SPOT capacity provider by default (only when launch_type=FARGATE)"
+}
+
 variable "platform_version" {
   default     = "LATEST"
   description = "The platform version on which to run your service. Only applicable for launch_type set to FARGATE. Defaults to LATEST."
@@ -278,6 +283,7 @@ variable "security_groups" {
   default     = null
   description = "The security groups associated with the task or service"
 }
+
 variable "log_subscription_filter_enabled" {
   type    = string
   default = false
