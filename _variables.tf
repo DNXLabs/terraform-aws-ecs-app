@@ -284,3 +284,19 @@ variable "cloudwatch_metric_alb_connections" {
   type    = string
 }
 
+variable "protocol" {
+  default = "HTTP"
+  description = "Protocol to use (HTTP or HTTPS)"
+}
+
+
+variable "codedeploy_role_arn" {
+  default = null
+  description = "Existing IAM CodeDeploy role ARN created by ECS cluster module"
+}
+
+variable "create_iam_codedeployrole" {
+  type        = bool
+  default     = true
+  description = "Create Codedeploy IAM Role for ECS or not."
+} 
