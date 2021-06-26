@@ -25,10 +25,10 @@ resource "aws_ecs_task_definition" "default" {
         "containerPort": ${var.container_port}
       }
     ],
-    "log_configuration": {
-      "log_driver": "awslogs",
+    "logConfiguration": {
+      "logDriver": "awslogs",
       "options": {
-          "awslogs-group": "${aws_cloudwatch_log_group.default.arn}",
+          "awslogs-group": "${aws_cloudwatch_log_group.default.name}",
           "awslogs-region": "${data.aws_region.current.name}",
           "awslogs-stream-prefix": "app"
       }
