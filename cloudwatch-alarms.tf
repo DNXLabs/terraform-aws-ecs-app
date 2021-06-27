@@ -97,7 +97,7 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
   metric_query {
     id = "m1"
     metric {
-      metric_name = "Requestcount"
+      metric_name = "RequestCountPerTarget"
       namespace   = "AWS/ApplicationELB"
       period      = "120"
       stat        = "Sum"
@@ -112,7 +112,7 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
   metric_query {
     id = "m2"
     metric {
-      metric_name = "Requestcount"
+      metric_name = "RequestCountPerTarget"
       namespace   = "AWS/ApplicationELB"
       period      = "120"
       stat        = "Sum"
