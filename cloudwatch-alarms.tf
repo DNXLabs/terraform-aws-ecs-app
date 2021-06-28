@@ -68,7 +68,7 @@ resource "aws_appautoscaling_policy" "scale_alb" {
     
 
     step_adjustment {
-      metric_interval_upper_bound = 0
+      metric_interval_lower_bound = 0
       scaling_adjustment          = 1
     }
   }
@@ -81,25 +81,25 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
 
   
   alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-alb-average-connections"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  comparison_operator       = "GreaterThanThreshold"
   evaluation_periods        = "2"
   datapoints_to_alarm       = "2"
   threshold                 = var.alb_connections
-  alarm_description         = "RequestCountPerTarget"
+  alarm_description         = "RequestCount"
   insufficient_data_actions = []
   alarm_actions             = [aws_appautoscaling_policy.scale_alb[0].arn]
   metric_query {
     id          = "e1"
-    expression  = "SUM([m1,m2])"
-    label       = "Error Rate"
+    expression  = "m1+m2"
+    label       = "Connections"
     return_data = "true"
   }
   metric_query {
     id = "m1"
     metric {
-      metric_name = "RequestCountPerTarget"
+      metric_name = "RequestCount"
       namespace   = "AWS/ApplicationELB"
-      period      = "120"
+      period      = "60"
       stat        = "Sum"
       unit        = "Count"
       dimensions = {
@@ -112,9 +112,9 @@ resource "aws_cloudwatch_metric_alarm" "alb-connections" {
   metric_query {
     id = "m2"
     metric {
-      metric_name = "RequestCountPerTarget"
+      metric_name = "RequestCount"
       namespace   = "AWS/ApplicationELB"
-      period      = "120"
+      period      = "60"
       stat        = "Sum"
       unit        = "Count"
       dimensions = {
