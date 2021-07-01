@@ -86,6 +86,7 @@ In addition you have the option to create or not :
 | container\_port | Port your container listens (used in the placeholder task definition) | `string` | `"8080"` | no |
 | cpu | Hard limit for CPU for the container | `string` | `"0"` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
+| fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
 | healthcheck\_matcher | The HTTP codes to use when checking for a successful response from a target | `number` | `200` | no |
 | healthcheck\_path | n/a | `string` | `"/"` | no |
