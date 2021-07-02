@@ -52,3 +52,75 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
     }
   }
 }
+
+resource "aws_appautoscaling_policy" "scale_alb" {
+  count              =  var.cloudwatch_metric_alb_connections ? 1 : 0
+  name               = "alb_scaling"
+  policy_type        = "StepScaling"
+  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = 300
+    metric_aggregation_type = "Average"
+    
+
+    step_adjustment {
+      metric_interval_lower_bound = 0
+      scaling_adjustment          = 1
+    }
+  }
+  
+}
+
+
+resource "aws_cloudwatch_metric_alarm" "alb-connections" {
+  count = var.cloudwatch_metric_alb_connections ? 1 : 0
+
+  
+  alarm_name                = "${data.aws_iam_account_alias.current.account_alias}-ecs-${var.cluster_name}-${var.name}-alb-average-connections"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = "2"
+  datapoints_to_alarm       = "2"
+  threshold                 = var.alb_connections
+  alarm_description         = "RequestCount"
+  insufficient_data_actions = []
+  alarm_actions             = [aws_appautoscaling_policy.scale_alb[0].arn]
+  metric_query {
+    id          = "e1"
+    expression  = "m1+m2"
+    label       = "Connections"
+    return_data = "true"
+  }
+  metric_query {
+    id = "m1"
+    metric {
+      metric_name = "RequestCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "60"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.blue.arn_suffix
+
+      }
+    }
+  }
+  metric_query {
+    id = "m2"
+    metric {
+      metric_name = "RequestCount"
+      namespace   = "AWS/ApplicationELB"
+      period      = "60"
+      stat        = "Sum"
+      unit        = "Count"
+      dimensions = {
+        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+        TargetGroup  = aws_lb_target_group.green.arn_suffix
+      }
+    }
+  }
+}

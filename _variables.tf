@@ -106,6 +106,10 @@ variable "vpc_id" {
   description = "VPC ID to deploy this app to"
 }
 
+variable "alb_arn" {
+  description = "The ARN ALB."
+}
+
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
 }
@@ -147,6 +151,10 @@ variable "autoscaling_min" {
 variable "autoscaling_target_cpu" {
   default     = 50
   description = "Target average CPU percentage to track for autoscaling"
+}
+
+variable "alb_connections" {
+  description = "Target average Alb Connections to track for autoscaling"
 }
 
 variable "autoscaling_scale_in_cooldown" {
@@ -270,5 +278,10 @@ variable "log_subscription_filter_destination_arn" {
 
 variable "log_subscription_filter_filter_pattern" {
   default = ""
+  type    = string
+}
+variable "cloudwatch_metric_alb_connections" {
+  description = "Create or Not metric to scale the ECS Service based on the number of connections"
+  default = "false"
   type    = string
 }
