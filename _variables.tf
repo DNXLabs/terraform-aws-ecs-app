@@ -42,6 +42,12 @@ variable "hosted_zone" {
   default     = ""
   description = "Hosted Zone to create DNS record for this app"
 }
+
+variable "hosted_zone_id" {
+  default = ""
+  description = "Hosted Zone ID to create DNS record for this app (use this to avoid data lookup when using `hosted_zone`)"
+}
+
 variable "hostname_create" {
   default     = "false"
   description = "Optional parameter to create or not a Route53 record"
@@ -328,4 +334,10 @@ variable "create_iam_codedeployrole" {
   type        = bool
   default     = true
   description = "Create Codedeploy IAM Role for ECS or not."
+}
+
+variable "alarm_prefix" {
+  type        = string
+  description = "String prefix for cloudwatch alarms. (Optional)"
+  default     = "alarm"
 }
