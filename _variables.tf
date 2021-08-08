@@ -44,7 +44,7 @@ variable "hosted_zone" {
 }
 
 variable "hosted_zone_id" {
-  default = ""
+  default     = ""
   description = "Hosted Zone ID to create DNS record for this app (use this to avoid data lookup when using `hosted_zone`)"
 }
 
