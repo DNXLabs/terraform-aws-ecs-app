@@ -33,6 +33,16 @@ resource "aws_lb_listener_rule" "green" {
     }
   }
 
+  dynamic "condition" {
+    for_each = var.http_header
+    content {
+      http_header {
+        http_header_name = condition.value.name
+        values           = condition.value.values
+      }
+    }
+  }
+
   lifecycle {
     ignore_changes = [
       action[0].target_group_arn

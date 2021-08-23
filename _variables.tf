@@ -63,6 +63,12 @@ variable "source_ips" {
   description = "List of source ip to use on listerner rule"
 }
 
+variable "http_header" {
+  default     = []
+  description = "Header to use on listerner rule with name e values"
+  type        = list(any)
+}
+
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
