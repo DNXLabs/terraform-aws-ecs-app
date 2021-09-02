@@ -99,6 +99,7 @@ In addition you have the option to create or not :
 | hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
 | hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list` | `[]` | no |
+| http\_header | Header to use on listerner rule with name e values | `list(any)` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
 | log\_subscription\_filter\_destination\_arn | n/a | `string` | `""` | no |
