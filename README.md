@@ -87,6 +87,7 @@ In addition you have the option to create or not :
 | container\_port | Port your container listens (used in the placeholder task definition) | `string` | `"8080"` | no |
 | cpu | Hard limit for CPU for the container | `string` | `"0"` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
+| efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
 | healthcheck\_matcher | The HTTP codes to use when checking for a successful response from a target | `number` | `200` | no |
@@ -122,6 +123,8 @@ In addition you have the option to create or not :
 | service\_health\_check\_grace\_period\_seconds | Time until your container starts serving requests | `number` | `0` | no |
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | n/a | yes |
 | source\_ips | List of source ip to use on listerner rule | `list` | `[]` | no |
+| ssm\_variables | Map of variables and SSM locations to add to the task definition | `map(string)` | `{}` | no |
+| static\_variables | Map of variables and static values to add to the task definition | `map(string)` | `{}` | no |
 | subnets | The subnets associated with the task or service. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
