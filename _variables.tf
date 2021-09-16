@@ -347,3 +347,21 @@ variable "alarm_prefix" {
   description = "String prefix for cloudwatch alarms. (Optional)"
   default     = "alarm"
 }
+
+variable "efs_mapping" {
+  type        = map(string)
+  description = "A map of efs volume ids and paths to mount into the default task definition"
+  default     = {}
+}
+
+variable "ssm_variables" {
+  type = map(string)
+  description = "Map of variables and SSM locations to add to the task definition"
+  default = {}
+}
+
+variable "static_variables" {
+  type = map(string)
+  description = "Map of variables and static values to add to the task definition"
+  default = {}
+}
