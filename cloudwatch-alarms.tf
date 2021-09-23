@@ -52,3 +52,29 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
     }
   }
 }
+
+resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
+  count = length(var.alarm_sns_topics) > 0 && var.alarm_high_cpu_usage_above != 0 ? 1 : 0
+
+  alarm_name                = "${try(data.aws_iam_account_alias.current[0].account_alias, var.alarm_prefix)}-ecs-${var.cluster_name}-${var.name}-high-cpu-usage"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = var.alarm_evaluation_periods
+  threshold                 = var.alarm_high_cpu_usage_above
+  alarm_description         = "Service CPU usage average is above ${var.alarm_high_cpu_usage_above} percent"
+  alarm_actions             = var.alarm_sns_topics
+  ok_actions                = var.alarm_sns_topics
+  insufficient_data_actions = []
+  treat_missing_data        = "ignore"
+
+  metric_name = "CPUUtilization"
+  namespace   = "AWS/ECS"
+  period      = "60"
+  statistic   = "Average"
+  unit        = "Percent"
+
+  dimensions = {
+    ClusterName = var.cluster_name
+    ServiceName = aws_ecs_service.default.name
+  }
+
+}

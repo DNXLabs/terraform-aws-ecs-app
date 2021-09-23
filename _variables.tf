@@ -201,6 +201,11 @@ variable "alarm_min_healthy_tasks" {
   description = "Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm)"
 }
 
+variable "alarm_high_cpu_usage_above" {
+  default     = 80
+  description = "Alarm when CPU is above a certain value (use 0 to disable this alarm)"
+}
+
 variable "alarm_evaluation_periods" {
   default     = "2"
   description = "The number of minutes the alarm must be below the threshold before entering the alarm state."
@@ -355,13 +360,13 @@ variable "efs_mapping" {
 }
 
 variable "ssm_variables" {
-  type = map(string)
+  type        = map(string)
   description = "Map of variables and SSM locations to add to the task definition"
-  default = {}
+  default     = {}
 }
 
 variable "static_variables" {
-  type = map(string)
+  type        = map(string)
   description = "Map of variables and static values to add to the task definition"
-  default = {}
+  default     = {}
 }
