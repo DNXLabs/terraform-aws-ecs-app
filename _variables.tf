@@ -3,12 +3,12 @@ variable "name" {
 }
 
 variable "container_port" {
-  default     = "8080"
+  default     = 8080
   description = "Port your container listens (used in the placeholder task definition)"
 }
 
 variable "port" {
-  default     = "80"
+  default     = 80
   description = "Port for target group to listen"
 }
 
@@ -18,12 +18,12 @@ variable "protocol" {
 }
 
 variable "memory" {
-  default     = "512"
+  default     = 512
   description = "Hard memory of the container"
 }
 
 variable "cpu" {
-  default     = "0"
+  default     = 0
   description = "Hard limit for CPU for the container"
 }
 
