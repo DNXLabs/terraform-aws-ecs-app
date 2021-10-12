@@ -38,6 +38,7 @@ resource "aws_ecs_task_definition" "default" {
       }]
       secrets     = [for k, v in var.ssm_variables : { name : k, valueFrom : v }]
       environment = [for k, v in var.static_variables : { name : k, value : v }]
+      ulimits     = var.ulimits
     }
   ])
 
