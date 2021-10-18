@@ -424,8 +424,19 @@ variable "auth_oidc_user_info_endpoint" {
   default     = ""
   description = "User Info Endpoint URL for OIDC authentication (Google: https://openidconnect.googleapis.com/v1/userinfo)"
 }
+
 variable "auth_oidc_session_timeout" {
   type        = number
   default     = 43200
   description = "Session timeout for OIDC authentication (default 12 hours)"
+}
+
+variable "ulimits" {
+  type = list(object({
+    name      = string
+    hardLimit = number
+    softLimit = number
+  }))
+  description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
+  default     = null
 }

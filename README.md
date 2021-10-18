@@ -85,8 +85,8 @@ In addition you have the option to create or not :
 | codedeploy\_wait\_time\_for\_cutover | Time in minutes to route the traffic to the new application deployment | `number` | `0` | no |
 | codedeploy\_wait\_time\_for\_termination | Time in minutes to terminate the new deployment | `number` | `0` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
-| container\_port | Port your container listens (used in the placeholder task definition) | `string` | `"8080"` | no |
-| cpu | Hard limit for CPU for the container | `string` | `"0"` | no |
+| container\_port | Port your container listens (used in the placeholder task definition) | `number` | `8080` | no |
+| cpu | Hard limit for CPU for the container | `number` | `0` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
@@ -108,14 +108,14 @@ In addition you have the option to create or not :
 | log\_subscription\_filter\_enabled | n/a | `string` | `false` | no |
 | log\_subscription\_filter\_filter\_pattern | n/a | `string` | `""` | no |
 | log\_subscription\_filter\_role\_arn | n/a | `string` | `""` | no |
-| memory | Hard memory of the container | `string` | `"512"` | no |
+| memory | Hard memory of the container | `number` | `512` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. | <pre>list(object({<br>    field      = string<br>    expression = string<br>  }))</pre> | `[]` | no |
 | paths | List of path to use on listener rule | `list(string)` | `[]` | no |
 | placement\_constraints | Rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. | <pre>list(object({<br>    type       = string<br>    expression = string<br>  }))</pre> | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
-| port | Port for target group to listen | `string` | `"80"` | no |
+| port | Port for target group to listen | `number` | `80` | no |
 | protocol | Protocol to use (HTTP or HTTPS) | `string` | `"HTTP"` | no |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
@@ -130,6 +130,7 @@ In addition you have the option to create or not :
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | n/a | yes |
 | test\_traffic\_route\_listener\_arn | ALB HTTPS Listener for Test Traffic created by ECS cluster module | `any` | n/a | yes |
+| ulimits | Container ulimit settings. This is a list of maps, where each map should contain "name", "hardLimit" and "softLimit" | <pre>list(object({<br>    name      = string<br>    hardLimit = number<br>    softLimit = number<br>  }))</pre> | `null` | no |
 | unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy | `number` | `3` | no |
 | vpc\_id | VPC ID to deploy this app to | `any` | n/a | yes |
 
