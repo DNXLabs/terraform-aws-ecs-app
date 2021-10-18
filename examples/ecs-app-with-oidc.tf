@@ -9,16 +9,16 @@ module "ecs_app_my_app" {
 
   vpc_id                           = "vpc-0000000"
   cluster_name                     = "dev-apps"
-  service_role_arn                 = module.ecs_apps.ecs_service_iam_role_arn # from https://github.com/DNXLabs/terraform-aws-ecs
-  task_role_arn                    = module.ecs_apps.ecs_task_iam_role_arn # from https://github.com/DNXLabs/terraform-aws-ecs
-  alb_listener_https_arn           = element(module.ecs_apps.alb_listener_https_arn, 0) # from https://github.com/DNXLabs/terraform-aws-ecs
+  service_role_arn                 = module.ecs_apps.ecs_service_iam_role_arn                  # from https://github.com/DNXLabs/terraform-aws-ecs
+  task_role_arn                    = module.ecs_apps.ecs_task_iam_role_arn                     # from https://github.com/DNXLabs/terraform-aws-ecs
+  alb_listener_https_arn           = element(module.ecs_apps.alb_listener_https_arn, 0)        # from https://github.com/DNXLabs/terraform-aws-ecs
   test_traffic_route_listener_arn  = element(module.ecs_apps.alb_listener_test_traffic_arn, 0) # from https://github.com/DNXLabs/terraform-aws-ecs
   codedeploy_wait_time_for_cutover = 1440
 
   hostnames          = ["my-app.dev.dnx.one"]
   hostname_redirects = ["www.my-app.dev.dnx.one"]
   hostname_create    = true
-  alb_only           = true # cluster also need this option to disable ALB WAF
+  alb_only           = true                                     # cluster also need this option to disable ALB WAF
   alb_dns_name       = element(module.ecs_apps.alb_dns_name, 0) # from # https://github.com/DNXLabs/terraform-aws-ecs
   hosted_zone        = "dev.dnx.one"
   paths              = ["/*"]
@@ -53,7 +53,7 @@ module "ecs_app_my_app" {
 
 module "ecs_apps" {
   source = "git::https://github.com/DNXLabs/terraform-aws-ecs.git?ref=5.6.0" # check for latest version
-  
+
   name         = "dev-apps"
   fargate_only = true
 
