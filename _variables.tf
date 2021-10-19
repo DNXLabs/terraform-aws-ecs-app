@@ -29,7 +29,7 @@ variable "cpu" {
 
 variable "paths" {
   default     = []
-  description = "List of path to use on listener rule"
+  description = "List of paths to use on listener rule (example: ['/*'])"
   type        = list(string)
 }
 
@@ -153,7 +153,7 @@ variable "alb_name" {
 
 variable "alb_priority" {
   default     = 0
-  description = "priority rules ALB"
+  description = "priority rules ALB (leave 0 to let terraform calculate)"
 }
 
 variable "autoscaling_cpu" {
@@ -369,6 +369,66 @@ variable "static_variables" {
   type        = map(string)
   description = "Map of variables and static values to add to the task definition"
   default     = {}
+}
+
+variable "auth_oidc_enabled" {
+  type        = bool
+  default     = false
+  description = "Enables OIDC-authenticated listener rule"
+}
+
+variable "auth_oidc_paths" {
+  type        = list(string)
+  default     = []
+  description = "List of paths to use as a condition to authenticate (example: ['/admin*'])"
+}
+
+variable "auth_oidc_hostnames" {
+  type        = list(string)
+  default     = []
+  description = "List of hostnames to use as a condition to authenticate with OIDC"
+}
+
+variable "auth_oidc_authorization_endpoint" {
+  type        = string
+  default     = ""
+  description = "Authorization endpoint for OIDC (Google: https://accounts.google.com/o/oauth2/v2/auth)"
+}
+
+variable "auth_oidc_client_id" {
+  type        = string
+  default     = ""
+  description = "Client ID for OIDC authentication"
+}
+
+variable "auth_oidc_client_secret" {
+  type        = string
+  default     = ""
+  description = "Client Secret for OIDC authentication"
+}
+
+variable "auth_oidc_issuer" {
+  type        = string
+  default     = ""
+  description = "Issuer URL for OIDC authentication (Google: https://accounts.google.com)"
+}
+
+variable "auth_oidc_token_endpoint" {
+  type        = string
+  default     = ""
+  description = "Token Endpoint URL for OIDC authentication (Google: https://oauth2.googleapis.com/token)"
+}
+
+variable "auth_oidc_user_info_endpoint" {
+  type        = string
+  default     = ""
+  description = "User Info Endpoint URL for OIDC authentication (Google: https://openidconnect.googleapis.com/v1/userinfo)"
+}
+
+variable "auth_oidc_session_timeout" {
+  type        = number
+  default     = 43200
+  description = "Session timeout for OIDC authentication (default 12 hours)"
 }
 
 variable "ulimits" {

@@ -49,7 +49,7 @@ resource "aws_lb_listener_rule" "green" {
     ]
   }
 
-  priority = var.alb_priority != 0 ? var.alb_priority : null
+  priority = try(aws_lb_listener_rule.green_auth_oidc[0].priority + 1, var.alb_priority != 0 ? var.alb_priority : null)
 }
 
 resource "aws_lb_listener_rule" "blue" {

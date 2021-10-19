@@ -68,7 +68,17 @@ In addition you have the option to create or not :
 | alb\_listener\_https\_arn | ALB HTTPS Listener created by ECS cluster module | `any` | n/a | yes |
 | alb\_name | ALB name - Required if it is an internal one | `string` | `""` | no |
 | alb\_only | Whether to deploy only an alb and no cloudFront or not with the cluster | `bool` | `false` | no |
-| alb\_priority | priority rules ALB | `number` | `0` | no |
+| alb\_priority | priority rules ALB (leave 0 to let terraform calculate) | `number` | `0` | no |
+| auth\_oidc\_authorization\_endpoint | Authorization endpoint for OIDC (Google: https://accounts.google.com/o/oauth2/v2/auth) | `string` | `""` | no |
+| auth\_oidc\_client\_id | Client ID for OIDC authentication | `string` | `""` | no |
+| auth\_oidc\_client\_secret | Client Secret for OIDC authentication | `string` | `""` | no |
+| auth\_oidc\_enabled | Enables OIDC-authenticated listener rule | `bool` | `false` | no |
+| auth\_oidc\_hostnames | List of hostnames to use as a condition to authenticate with OIDC | `list(string)` | `[]` | no |
+| auth\_oidc\_issuer | Issuer URL for OIDC authentication (Google: https://accounts.google.com) | `string` | `""` | no |
+| auth\_oidc\_paths | List of paths to use as a condition to authenticate (example: ['/admin\*']) | `list(string)` | `[]` | no |
+| auth\_oidc\_session\_timeout | Session timeout for OIDC authentication (default 12 hours) | `number` | `43200` | no |
+| auth\_oidc\_token\_endpoint | Token Endpoint URL for OIDC authentication (Google: https://oauth2.googleapis.com/token) | `string` | `""` | no |
+| auth\_oidc\_user\_info\_endpoint | User Info Endpoint URL for OIDC authentication (Google: https://openidconnect.googleapis.com/v1/userinfo) | `string` | `""` | no |
 | autoscaling\_cpu | Enables autoscaling based on average CPU tracking | `bool` | `false` | no |
 | autoscaling\_max | Max number of containers to scale with autoscaling | `number` | `4` | no |
 | autoscaling\_memory | Enables autoscaling based on average Memory tracking | `bool` | `false` | no |
@@ -112,7 +122,7 @@ In addition you have the option to create or not :
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. | <pre>list(object({<br>    field      = string<br>    expression = string<br>  }))</pre> | `[]` | no |
-| paths | List of path to use on listener rule | `list(string)` | `[]` | no |
+| paths | List of paths to use on listener rule (example: ['/\*']) | `list(string)` | `[]` | no |
 | placement\_constraints | Rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. | <pre>list(object({<br>    type       = string<br>    expression = string<br>  }))</pre> | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `number` | `80` | no |
