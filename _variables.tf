@@ -441,16 +441,22 @@ variable "ulimits" {
   default     = null
 }
 
+# variable "autoscaling_custom" {
+#   type = map(object({
+#     name               = string
+#     scale_in_cooldown  = number
+#     scale_out_cooldown = number
+#     target_value       = number
+#     metric_name        = string
+#     namespace          = string
+#     statistic          = string
+#   }))
+#   default     = null
+#   description = "Set app autoscaling by customized metric "
+# }
+
 variable "autoscaling_custom" {
-  type = map(object({
-    name               = string
-    scale_in_cooldown  = number
-    scale_out_cooldown = number
-    target_value       = number
-    metric_name        = string
-    namespace          = string
-    statistic          = string
-  }))
-  default     = null
-  description = "Set app autoscaling by customized metric "
+  # type        = map(string)
+  default     = []
+  description = "Set app autoscaling by customized metric"
 }
