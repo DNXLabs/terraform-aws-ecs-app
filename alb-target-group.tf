@@ -133,6 +133,17 @@ resource "aws_lb_target_group" "green" {
     matcher             = var.healthcheck_matcher
     protocol            = var.protocol
   }
+
+  dynamic "stickiness" {
+    for_each = var.dynamic_stickiness
+    iterator = stickiness
+
+    content {
+      cookie_duration = stickiness.value.cookie_duration
+      cookie_name     = stickiness.value.cookie_name
+      type            = stickiness.value.type
+    }
+  }
 }
 
 resource "aws_lb_target_group" "blue" {
@@ -151,5 +162,16 @@ resource "aws_lb_target_group" "blue" {
     timeout             = var.healthcheck_timeout
     matcher             = var.healthcheck_matcher
     protocol            = var.protocol
+  }
+
+  dynamic "stickiness" {
+    for_each = var.dynamic_stickiness
+    iterator = stickiness
+
+    content {
+      cookie_duration = stickiness.value.cookie_duration
+      cookie_name     = stickiness.value.cookie_name
+      type            = stickiness.value.type
+    }
   }
 }

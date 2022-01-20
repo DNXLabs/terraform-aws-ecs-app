@@ -440,3 +440,9 @@ variable "ulimits" {
   description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
   default     = null
 }
+
+variable "dynamic_stickiness" {
+  type        = any
+  default     = []
+  description = "Target Group stickiness. Used in dynamic block."
+}
