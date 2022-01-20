@@ -80,6 +80,7 @@ In addition you have the option to create or not :
 | auth\_oidc\_token\_endpoint | Token Endpoint URL for OIDC authentication (Google: https://oauth2.googleapis.com/token) | `string` | `""` | no |
 | auth\_oidc\_user\_info\_endpoint | User Info Endpoint URL for OIDC authentication (Google: https://openidconnect.googleapis.com/v1/userinfo) | `string` | `""` | no |
 | autoscaling\_cpu | Enables autoscaling based on average CPU tracking | `bool` | `false` | no |
+| autoscaling\_custom | Set one or more app autoscaling by customized metric | <pre>list(object({<br>    name               = string<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>    target_value       = number<br>    metric_name        = string<br>    namespace          = string<br>    statistic          = string<br>  }))</pre> | `[]` | no |
 | autoscaling\_max | Max number of containers to scale with autoscaling | `number` | `4` | no |
 | autoscaling\_memory | Enables autoscaling based on average Memory tracking | `bool` | `false` | no |
 | autoscaling\_min | Min number of containers to scale with autoscaling | `number` | `1` | no |
