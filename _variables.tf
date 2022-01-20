@@ -440,3 +440,17 @@ variable "ulimits" {
   description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
   default     = null
 }
+
+variable "autoscaling_custom" {
+  type = map(object({
+    name               = string
+    scale_in_cooldown  = number
+    scale_out_cooldown = number
+    target_value       = number
+    metric_name        = string
+    namespace          = string
+    statistic          = string
+  }))
+  default     = null
+  description = "Set app autoscaling by customized metric "
+}
