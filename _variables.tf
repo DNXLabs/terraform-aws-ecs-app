@@ -441,6 +441,20 @@ variable "ulimits" {
   default     = null
 }
 
+variable "autoscaling_custom" {
+  type = list(object({
+    name               = string
+    scale_in_cooldown  = number
+    scale_out_cooldown = number
+    target_value       = number
+    metric_name        = string
+    namespace          = string
+    statistic          = string
+  }))
+  default     = []
+  description = "Set one or more app autoscaling by customized metric"
+}
+
 variable "dynamic_stickiness" {
   type        = any
   default     = []
