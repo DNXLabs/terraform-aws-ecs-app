@@ -325,8 +325,8 @@ variable "ordered_placement_strategy" {
   # This variable may not be used with Fargate!
   description = "Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5."
   type = list(object({
-    field      = string
-    expression = string
+    field = string
+    type  = string
   }))
   default = []
 }
@@ -453,4 +453,10 @@ variable "autoscaling_custom" {
   }))
   default     = []
   description = "Set one or more app autoscaling by customized metric"
+}
+
+variable "dynamic_stickiness" {
+  type        = any
+  default     = []
+  description = "Target Group stickiness. Used in dynamic block."
 }
