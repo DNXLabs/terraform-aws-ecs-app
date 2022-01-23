@@ -99,6 +99,7 @@ In addition you have the option to create or not :
 | container\_port | Port your container listens (used in the placeholder task definition) | `number` | `8080` | no |
 | cpu | Hard limit for CPU for the container | `number` | `0` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
+| dynamic\_stickiness | Target Group stickiness. Used in dynamic block. | `any` | `[]` | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
@@ -122,7 +123,7 @@ In addition you have the option to create or not :
 | memory | Hard memory of the container | `number` | `512` | no |
 | name | Name of your ECS service | `any` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
-| ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. | <pre>list(object({<br>    field      = string<br>    expression = string<br>  }))</pre> | `[]` | no |
+| ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. | <pre>list(object({<br>    field = string<br>    type  = string<br>  }))</pre> | `[]` | no |
 | paths | List of paths to use on listener rule (example: ['/\*']) | `list(string)` | `[]` | no |
 | placement\_constraints | Rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. | <pre>list(object({<br>    type       = string<br>    expression = string<br>  }))</pre> | `[]` | no |
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
