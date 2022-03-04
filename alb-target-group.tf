@@ -49,7 +49,12 @@ resource "aws_lb_listener_rule" "green" {
     ]
   }
 
-  priority = try(aws_lb_listener_rule.green_auth_oidc[0].priority + 1, var.alb_priority != 0 ? var.alb_priority : null)
+  priority = try(
+    aws_lb_listener_rule.path_redirects[length(aws_lb_listener_rule.path_redirects) - 1].priority + 1,
+    try(
+      aws_lb_listener_rule.green_auth_oidc[0].priority + 1, var.alb_priority != 0 ? var.alb_priority : null
+    )
+  )
 }
 
 resource "aws_lb_listener_rule" "blue" {
@@ -108,6 +113,34 @@ resource "aws_lb_listener_rule" "redirects" {
     }
   }
 }
+
+resource "aws_lb_listener_rule" "path_redirects" {
+  count        = length(var.redirects)
+  listener_arn = var.alb_listener_https_arn
+
+  action {
+    type = "redirect"
+
+    redirect {
+      path        = keys(var.redirects)[count.index]
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = [values(var.redirects)[count.index]]
+    }
+  }
+
+  priority = try(aws_lb_listener_rule.green_auth_oidc[0].priority + 1,
+    var.alb_priority != 0 ? var.alb_priority : null
+  )
+}
+
+
 
 # Generate a random string to add it to the name of the Target Group
 resource "random_string" "alb_prefix" {
