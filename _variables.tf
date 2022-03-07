@@ -74,6 +74,7 @@ variable "hostname_redirects" {
   default     = ""
 }
 
+
 variable "healthcheck_path" {
   default = "/"
 }
@@ -459,4 +460,9 @@ variable "dynamic_stickiness" {
   type        = any
   default     = []
   description = "Target Group stickiness. Used in dynamic block."
+}
+
+variable "redirects" {
+  description = "Map of path redirects to add to the listener"
+  default     = {}
 }
