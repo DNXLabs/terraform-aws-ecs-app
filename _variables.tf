@@ -466,3 +466,15 @@ variable "redirects" {
   description = "Map of path redirects to add to the listener"
   default     = {}
 }
+
+variable "ssm_parameters_secure_strings" {
+  type        = any
+  default     = []
+  description = "List of app's secure variables to be created in SSM Parameter Store"
+}
+
+variable "ssm_parameters_strings" {
+  type        = any
+  default     = {}
+  description = "List of objects of app's variables to create in SSM Parameter Store"
+}
