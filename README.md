@@ -99,6 +99,7 @@ In addition you have the option to create or not :
 | container\_port | Port your container listens (used in the placeholder task definition) | `number` | `8080` | no |
 | cpu | Hard limit for CPU for the container | `number` | `0` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
+| deployment\_controller | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. | `string` | `"CODE_DEPLOY"` | no |
 | dynamic\_stickiness | Target Group stickiness. Used in dynamic block. | `any` | `[]` | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
