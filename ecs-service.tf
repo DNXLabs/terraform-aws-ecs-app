@@ -40,7 +40,7 @@ resource "aws_ecs_service" "default" {
   }
 
   deployment_controller {
-    type = "CODE_DEPLOY"
+    type = var.deployment_controller  # default "CODE_DEPLOY"
   }
 
   capacity_provider_strategy {

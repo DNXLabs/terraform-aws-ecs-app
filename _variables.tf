@@ -466,3 +466,8 @@ variable "redirects" {
   description = "Map of path redirects to add to the listener"
   default     = {}
 }
+
+variable "deployment_controller" {
+  default     = "CODE_DEPLOY"
+  description = "Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL."
+}
