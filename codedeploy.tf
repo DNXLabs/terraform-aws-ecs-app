@@ -1,10 +1,12 @@
 resource "aws_codedeploy_app" "ecs" {
+  count            = var.deployment_controller == "CODE_DEPLOY" ? 1 : 0
   compute_platform = "ECS"
   name             = "${var.cluster_name}-${var.name}"
 }
 
 resource "aws_codedeploy_deployment_group" "ecs" {
-  app_name               = aws_codedeploy_app.ecs.name
+  count                  = var.deployment_controller == "CODE_DEPLOY" ? 1 : 0
+  app_name               = aws_codedeploy_app.ecs[0].name
   deployment_config_name = var.codedeploy_deployment_config_name
   deployment_group_name  = "${var.cluster_name}-${var.name}"
   service_role_arn       = var.create_iam_codedeployrole == true ? aws_iam_role.codedeploy_service[0].arn : var.codedeploy_role_arn
