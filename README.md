@@ -46,13 +46,14 @@ In addition you have the option to create or not :
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13.0 |
+| terraform | >= 0.13 |
+| aws | >= 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | >= 4.0.0 |
 | random | n/a |
 
 ## Inputs
@@ -101,6 +102,7 @@ In addition you have the option to create or not :
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
 | deployment\_controller | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. | `string` | `"CODE_DEPLOY"` | no |
 | dynamic\_stickiness | Target Group stickiness. Used in dynamic block. | `any` | `[]` | no |
+| ecs\_service\_capacity\_provider\_strategy | (Optional) The capacity provider strategy to use for the service. Can be one or more. These can be updated without destroying and recreating the service only if set to [] and not changing from 0 capacity\_provider\_strategy blocks to greater than 0, or vice versa. | `list` | <pre>[<br>  {}<br>]</pre> | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
