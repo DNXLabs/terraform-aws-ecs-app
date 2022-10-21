@@ -40,17 +40,22 @@ resource "aws_ecs_service" "default" {
   }
 
   deployment_controller {
-    type = var.deployment_controller  # default "CODE_DEPLOY"
+    type = var.deployment_controller # default "CODE_DEPLOY"
   }
 
-  capacity_provider_strategy {
-    capacity_provider = var.launch_type == "FARGATE" ? (var.fargate_spot ? "FARGATE_SPOT" : "FARGATE") : "${var.cluster_name}-capacity-provider"
-    weight            = 1
-    base              = 0
+  dynamic "capacity_provider_strategy" {
+    iterator = capacity_provider_strategy
+
+    for_each = var.ecs_service_capacity_provider_strategy
+    content {
+      capacity_provider = lookup(capacity_provider_strategy.value, "capacity_provider", var.launch_type == "FARGATE" ? (var.fargate_spot ? "FARGATE_SPOT" : "FARGATE") : "${var.cluster_name}-capacity-provider")
+      weight            = lookup(capacity_provider_strategy.value, "weight", 1)
+      base              = lookup(capacity_provider_strategy.value, "base", 0)
+    }
   }
 
   lifecycle {
-    ignore_changes = [load_balancer, task_definition, desired_count, capacity_provider_strategy]
+    ignore_changes = [load_balancer, task_definition, desired_count]
   }
 
   depends_on = [
