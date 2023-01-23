@@ -60,6 +60,7 @@ In addition you have the option to create or not :
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| alarm\_ecs\_running\_tasks\_threshold | Alarm when the number of ecs service running tasks is lower than a certain value. CloudWatch Container Insights must be enabled for the cluster. | `number` | `0` | no |
 | alarm\_evaluation\_periods | The number of minutes the alarm must be below the threshold before entering the alarm state. | `string` | `"2"` | no |
 | alarm\_high\_cpu\_usage\_above | Alarm when CPU is above a certain value (use 0 to disable this alarm) | `number` | `80` | no |
 | alarm\_min\_healthy\_tasks | Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm) | `number` | `2` | no |

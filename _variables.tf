@@ -476,3 +476,9 @@ variable "ecs_service_capacity_provider_strategy" {
   description = "(Optional) The capacity provider strategy to use for the service. Can be one or more. These can be updated without destroying and recreating the service only if set to [] and not changing from 0 capacity_provider_strategy blocks to greater than 0, or vice versa."
   default     = [{}]
 }
+
+variable "alarm_ecs_running_tasks_threshold" {
+  type        = number
+  default     = 0
+  description = "Alarm when the number of ecs service running tasks is lower than a certain value. CloudWatch Container Insights must be enabled for the cluster."
+}

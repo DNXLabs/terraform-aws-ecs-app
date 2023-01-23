@@ -78,3 +78,26 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
   }
 
 }
+
+resource "aws_cloudwatch_metric_alarm" "ecs_running_tasks" {
+  count = length(var.alarm_sns_topics) > 0 && var.alarm_ecs_running_tasks_threshold > 0 ? 1 : 0
+
+  alarm_name                = "${try(data.aws_iam_account_alias.current[0].account_alias, var.alarm_prefix)}-ecs-${var.name}-running-tasks"
+  comparison_operator       = "LessThanThreshold"
+  evaluation_periods        = "1"
+  metric_name               = "RunningTaskCount"
+  namespace                 = "ECS/ContainerInsights"
+  period                    = "30"
+  statistic                 = "Average"
+  threshold                 = var.alarm_ecs_running_tasks_threshold
+  alarm_description         = "Ecs service running tasks is lower than the threshold"
+  alarm_actions             = var.alarm_sns_topics
+  ok_actions                = var.alarm_sns_topics
+  insufficient_data_actions = []
+  treat_missing_data        = "ignore"
+
+  dimensions = {
+    ClusterName = var.cluster_name
+    ServiceName = aws_ecs_service.default.name
+  }
+}
