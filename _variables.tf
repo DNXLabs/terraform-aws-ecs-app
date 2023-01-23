@@ -479,6 +479,6 @@ variable "ecs_service_capacity_provider_strategy" {
 
 variable "alarm_ecs_running_tasks_threshold" {
   type        = number
-  default     = 1
-  description = "Alarm when the number of ecs service running tasks is lower than a certain value (use 0 to disable this alarm)"
+  default     = 0
+  description = "Alarm when the number of ecs service running tasks is lower than a certain value. CloudWatch Container Insights must be enabled for the cluster."
 }
