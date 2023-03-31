@@ -87,8 +87,8 @@ resource "aws_appautoscaling_scheduled_action" "scale_service_out" {
   timezone           = "UTC"
 
   scalable_target_action {
-    min_capacity = 0 
-    max_capacity = 0 
+    min_capacity = 0
+    max_capacity = 0
   }
 }
 
