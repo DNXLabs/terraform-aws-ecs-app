@@ -105,6 +105,7 @@ In addition you have the option to create or not :
 | dynamic\_stickiness | Target Group stickiness. Used in dynamic block. | `any` | `[]` | no |
 | ecs\_service\_capacity\_provider\_strategy | (Optional) The capacity provider strategy to use for the service. Can be one or more. These can be updated without destroying and recreating the service only if set to [] and not changing from 0 capacity\_provider\_strategy blocks to greater than 0, or vice versa. | `list` | <pre>[<br>  {}<br>]</pre> | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
+| enable\_schedule | Enables schedule to shut down and start up instances outside business hours. | `bool` | `false` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `string` | `"10"` | no |
 | healthcheck\_matcher | The HTTP codes to use when checking for a successful response from a target | `number` | `200` | no |
@@ -134,6 +135,8 @@ In addition you have the option to create or not :
 | port | Port for target group to listen | `number` | `80` | no |
 | protocol | Protocol to use (HTTP or HTTPS) | `string` | `"HTTP"` | no |
 | redirects | Map of path redirects to add to the listener | `map` | `{}` | no |
+| schedule\_cron\_start | Cron expression to define when to trigger a start of the auto-scaling group. E.g. 'cron(00 21 ? \* SUN-THU \*)' to start at 8am UTC time. | `string` | `""` | no |
+| schedule\_cron\_stop | Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? \* MON-FRI \*)' to start at 8am UTC time | `string` | `""` | no |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |

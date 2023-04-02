@@ -76,3 +76,33 @@ resource "aws_appautoscaling_policy" "scale_custom" {
     }
   }
 }
+
+resource "aws_appautoscaling_scheduled_action" "scale_service_out" {
+  count              = var.enable_schedule ? 1 : 0
+  name               = "${var.name}-scale-out"
+  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+  schedule           = var.schedule_cron_stop
+  timezone           = "UTC"
+
+  scalable_target_action {
+    min_capacity = 0
+    max_capacity = 0
+  }
+}
+
+resource "aws_appautoscaling_scheduled_action" "scale_service_in" {
+  count              = var.enable_schedule ? 1 : 0
+  name               = "${var.name}-scale-in"
+  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+  schedule           = var.schedule_cron_start
+  timezone           = "UTC"
+
+  scalable_target_action {
+    min_capacity = var.autoscaling_min
+    max_capacity = var.autoscaling_max
+  }
+}
