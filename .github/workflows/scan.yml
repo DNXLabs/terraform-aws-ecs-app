@@ -1,9 +1,9 @@
-name: Checkov
+name: Scan
 
 on: [push]
 
 jobs:
-  Scan:
+  scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -14,5 +14,3 @@ jobs:
         with:
           directory: .
           framework: terraform
-          quiet: true
-          soft_fail: true
