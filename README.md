@@ -90,6 +90,7 @@ In addition you have the option to create or not :
 | autoscaling\_scale\_out\_cooldown | Cooldown in seconds to wait between scale out events | `number` | `300` | no |
 | autoscaling\_target\_cpu | Target average CPU percentage to track for autoscaling | `number` | `50` | no |
 | autoscaling\_target\_memory | Target average Memory percentage to track for autoscaling | `number` | `90` | no |
+| cloudwatch\_logs\_create | Whether to create cloudwatch log resources or not | `bool` | `true` | no |
 | cloudwatch\_logs\_export | Whether to mark the log group to export to an S3 bucket (needs terraform-aws-log-exporter to be deployed in the account/region) | `bool` | `false` | no |
 | cloudwatch\_logs\_retention | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653. | `number` | `120` | no |
 | cluster\_name | n/a | `string` | `"Name of existing ECS Cluster to deploy this app to"` | no |
