@@ -504,3 +504,9 @@ variable "schedule_cron_stop" {
   default     = ""
   description = "Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? * MON-FRI *)' to start at 8am UTC time"
 }
+
+variable "command" {
+  type        = list(string)
+  default     = null
+  description = "Command to run on container"
+}

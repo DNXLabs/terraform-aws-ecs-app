@@ -19,6 +19,7 @@ resource "aws_ecs_task_definition" "default" {
       cpu       = var.cpu
       memory    = var.memory
       essential = true
+      command   = var.command
       portMappings = [
         {
           containerPort = var.container_port
