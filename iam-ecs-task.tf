@@ -1,6 +1,6 @@
 resource "aws_iam_role" "ecs_task" {
   count = var.task_role_arn != null ? 0 : 1
-  name = "ecs-task-${var.cluster_name}-${var.name}-${data.aws_region.current.name}"
+  name  = "ecs-task-${var.cluster_name}-${var.name}-${data.aws_region.current.name}"
 
   assume_role_policy = <<EOF
 {
@@ -20,17 +20,17 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task" {
-  count = var.task_role_arn != null ? 0 : 1
+  count      = var.task_role_arn != null ? 0 : 1
   role       = aws_iam_role.ecs_task[0].name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 
-  depends_on = [ aws_iam_role.ecs_task ]
+  depends_on = [aws_iam_role.ecs_task]
 }
 
 resource "aws_iam_role_policy" "ssm_policy" {
   count = var.task_role_arn != null ? 0 : 1
-  name = "ecs-ssm-policy"
-  role = aws_iam_role.ecs_task[0].name
+  name  = "ecs-ssm-policy"
+  role  = aws_iam_role.ecs_task[0].name
 
   policy = <<EOF
 {
@@ -73,5 +73,5 @@ resource "aws_iam_role_policy" "ssm_policy" {
 }
 EOF
 
-depends_on = [ aws_iam_role.ecs_task ]
+  depends_on = [aws_iam_role.ecs_task]
 }
