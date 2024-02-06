@@ -89,6 +89,7 @@ variable "cluster_name" {
 
 variable "service_role_arn" {
   description = "Existing service role ARN created by ECS cluster module"
+  default     = null
 }
 
 variable "codedeploy_role_arn" {
@@ -98,6 +99,7 @@ variable "codedeploy_role_arn" {
 
 variable "task_role_arn" {
   description = "Existing task role ARN created by ECS cluster module"
+  default     = null
 }
 
 variable "service_health_check_grace_period_seconds" {
@@ -503,4 +505,14 @@ variable "schedule_cron_stop" {
   type        = string
   default     = ""
   description = "Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? * MON-FRI *)' to start at 8am UTC time"
+}
+
+variable "task_role_policies_managed" {
+  default     = []
+  description = "AWS Managed policies to be added on the task role."
+}
+
+variable "task_role_policies" {
+  default     = []
+  description = "Custom policies to be added on the task role."
 }
