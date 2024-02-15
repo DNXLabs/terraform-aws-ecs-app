@@ -57,4 +57,10 @@ resource "aws_ecs_task_definition" "default" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      container_definitions
+    ]
+  }
 }
