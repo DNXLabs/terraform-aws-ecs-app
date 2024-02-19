@@ -98,6 +98,7 @@ In addition you have the option to create or not :
 | codedeploy\_role\_arn | Existing IAM CodeDeploy role ARN created by ECS cluster module | `any` | `null` | no |
 | codedeploy\_wait\_time\_for\_cutover | Time in minutes to route the traffic to the new application deployment | `number` | `0` | no |
 | codedeploy\_wait\_time\_for\_termination | Time in minutes to terminate the new deployment | `number` | `0` | no |
+| command | Command to run on container | `list(string)` | `null` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
 | container\_port | Port your container listens (used in the placeholder task definition) | `number` | `8080` | no |
 | cpu | Hard limit for CPU for the container | `number` | `0` | no |
