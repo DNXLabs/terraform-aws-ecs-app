@@ -89,6 +89,7 @@ variable "cluster_name" {
 
 variable "service_role_arn" {
   description = "Existing service role ARN created by ECS cluster module"
+  default     = null
 }
 
 variable "codedeploy_role_arn" {
@@ -98,6 +99,7 @@ variable "codedeploy_role_arn" {
 
 variable "task_role_arn" {
   description = "Existing task role ARN created by ECS cluster module"
+  default     = null
 }
 
 variable "service_health_check_grace_period_seconds" {
@@ -510,3 +512,14 @@ variable "command" {
   default     = null
   description = "Command to run on container"
 }
+
+variable "task_role_policies_managed" {
+  default     = []
+  description = "AWS Managed policies to be added on the task role."
+}
+
+variable "task_role_policies" {
+  default     = []
+  description = "Custom policies to be added on the task role."
+}
+
