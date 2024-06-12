@@ -149,6 +149,7 @@ In addition you have the option to create or not :
 | ssm\_variables | Map of variables and SSM locations to add to the task definition | `map(string)` | `{}` | no |
 | static\_variables | Map of variables and static values to add to the task definition | `map(string)` | `{}` | no |
 | subnets | The subnets associated with the task or service. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
+| tags | Map of tags that will be added to created resources. By default resources will be tagged with terraform=true. | `map(string)` | `{}` | no |
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | `null` | no |
 | task\_role\_policies | Custom policies to be added on the task role. | `list` | `[]` | no |
