@@ -55,6 +55,13 @@ resource "aws_lb_listener_rule" "green" {
       aws_lb_listener_rule.green_auth_oidc[0].priority + 1, var.alb_priority != 0 ? var.alb_priority : null
     )
   )
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_lb_listener_rule" "blue" {
@@ -90,6 +97,14 @@ resource "aws_lb_listener_rule" "blue" {
   }
 
   priority = var.alb_priority != 0 ? var.alb_priority + 1 : null
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
+
 }
 
 resource "aws_lb_listener_rule" "redirects" {
@@ -138,6 +153,13 @@ resource "aws_lb_listener_rule" "path_redirects" {
   priority = try(aws_lb_listener_rule.green_auth_oidc[0].priority + 1,
     var.alb_priority != 0 ? var.alb_priority : null
   )
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 
@@ -177,6 +199,13 @@ resource "aws_lb_target_group" "green" {
       type            = stickiness.value.type
     }
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_lb_target_group" "blue" {
@@ -207,4 +236,11 @@ resource "aws_lb_target_group" "blue" {
       type            = stickiness.value.type
     }
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }

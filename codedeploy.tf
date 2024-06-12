@@ -2,6 +2,13 @@ resource "aws_codedeploy_app" "ecs" {
   count            = var.deployment_controller == "CODE_DEPLOY" ? 1 : 0
   compute_platform = "ECS"
   name             = "${var.cluster_name}-${var.name}"
+  tags = merge(
+    var.tags,
+    {
+      "terraform" = "true"
+    },
+  )
+
 }
 
 resource "aws_codedeploy_deployment_group" "ecs" {
@@ -58,4 +65,12 @@ resource "aws_codedeploy_deployment_group" "ecs" {
       }
     }
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "terraform" = "true"
+    },
+  )
+
 }

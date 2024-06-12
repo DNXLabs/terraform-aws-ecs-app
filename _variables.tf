@@ -279,6 +279,13 @@ variable "compat_keep_target_group_naming" {
   description = "Keeps old naming convention for target groups to avoid recreation of resource in production environments"
 }
 
+
+variable "tags" {
+  description = "Map of tags that will be added to created resources. By default resources will be tagged with terraform=true."
+  type        = map(string)
+  default     = {}
+}
+
 variable "launch_type" {
   default     = "EC2"
   description = "The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2."

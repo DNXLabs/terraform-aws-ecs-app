@@ -17,6 +17,14 @@ resource "aws_iam_role" "ecs_service" {
   ]
 }
 EOF
+
+  tags = merge(
+    var.tags,
+    {
+      "terraform" = "true"
+    },
+  )
+
 }
 
 data "aws_iam_policy_document" "ecs_service_policy" {

@@ -11,6 +11,13 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
   insufficient_data_actions = []
   treat_missing_data        = "ignore"
 
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
+
   metric_query {
     id          = "e1"
     expression  = "MAX(REMOVE_EMPTY([m1, m2]))"
@@ -33,6 +40,8 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
         TargetGroup  = aws_lb_target_group.blue.arn_suffix
       }
     }
+
+
   }
 
   metric_query {
@@ -72,6 +81,12 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
   statistic   = "Average"
   unit        = "Percent"
 
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
   dimensions = {
     ClusterName = var.cluster_name
     ServiceName = aws_ecs_service.default.name
@@ -95,7 +110,12 @@ resource "aws_cloudwatch_metric_alarm" "ecs_running_tasks" {
   ok_actions                = var.alarm_sns_topics
   insufficient_data_actions = []
   treat_missing_data        = "ignore"
-
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
   dimensions = {
     ClusterName = var.cluster_name
     ServiceName = aws_ecs_service.default.name
