@@ -22,6 +22,12 @@ resource "aws_cloudwatch_event_rule" "ecs_events" {
   }
 }
 EOF
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_cloudwatch_event_target" "ecs_events" {
@@ -52,4 +58,5 @@ resource "aws_cloudwatch_log_resource_policy" "ecs_events" {
   count           = var.cloudwatch_logs_create ? 1 : 0
   policy_document = data.aws_iam_policy_document.ecs_events[0].json
   policy_name     = "capture-ecs-events-${var.cluster_name}-${var.name}"
+
 }

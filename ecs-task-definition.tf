@@ -64,4 +64,12 @@ resource "aws_ecs_task_definition" "default" {
       container_definitions
     ]
   }
+
+  tags = merge(
+    var.tags,
+    {
+      "terraform" = "true"
+    },
+  )
+
 }
