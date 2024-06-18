@@ -5,6 +5,13 @@ resource "aws_appautoscaling_target" "ecs" {
   resource_id        = "service/${var.cluster_name}/${aws_ecs_service.default.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_appautoscaling_policy" "scale_cpu" {
@@ -25,4 +32,6 @@ resource "aws_appautoscaling_policy" "scale_cpu" {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
     }
   }
+
+  
 }

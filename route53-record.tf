@@ -10,4 +10,5 @@ resource "aws_route53_record" "hostnames" {
   type    = "CNAME"
   ttl     = "300"
   records = list(var.alb_dns_name)
+  
 }

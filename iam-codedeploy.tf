@@ -16,6 +16,13 @@ resource "aws_iam_role" "codedeploy_service" {
   ]
 }
 EOF
+
+  tags = merge(
+    var.tags,
+    {
+      "terraform" = "true"
+    },
+  )
 }
 
 resource "aws_iam_role_policy_attachment" "codedeploy_service" {

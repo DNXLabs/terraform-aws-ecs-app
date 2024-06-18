@@ -17,6 +17,12 @@ variable "memory" {
   description = "Hard memory of the container"
 }
 
+variable "tags" {
+  description = "Map of tags that will be added to created resources. By default resources will be tagged with terraform=true."
+  type        = map(string)
+  default     = {}
+}
+
 variable "cpu" {
   default     = "0"
   description = "Hard limit for CPU for the container"

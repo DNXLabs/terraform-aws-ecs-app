@@ -51,4 +51,11 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
       }
     }
   }
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }

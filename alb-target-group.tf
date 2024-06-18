@@ -31,6 +31,13 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   priority = var.alb_priority != 0 ? var.alb_priority : null
+
+  tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_lb_listener_rule" "blue" {
@@ -66,6 +73,13 @@ resource "aws_lb_listener_rule" "blue" {
   }
 
   priority = var.alb_priority != 0 ? var.alb_priority + 1 : null
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_lb_listener_rule" "redirects" {
@@ -88,6 +102,13 @@ resource "aws_lb_listener_rule" "redirects" {
       values = list(element(split(",", var.hostname_redirects), count.index))
     }
   }
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 # Generate a random string to add it to the name of the Target Group
@@ -117,6 +138,13 @@ resource "aws_lb_target_group" "green" {
   lifecycle {
     create_before_destroy = true
   }
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
 
 resource "aws_lb_target_group" "blue" {
@@ -139,4 +167,11 @@ resource "aws_lb_target_group" "blue" {
   lifecycle {
     create_before_destroy = true
   }
+
+    tags = merge(
+    var.tags,
+    {
+      "Terraform" = true
+    },
+  )
 }
