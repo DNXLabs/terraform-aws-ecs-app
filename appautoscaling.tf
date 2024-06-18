@@ -6,12 +6,6 @@ resource "aws_appautoscaling_target" "ecs" {
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
-    tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
 }
 
 resource "aws_appautoscaling_policy" "scale_cpu" {
