@@ -9,6 +9,6 @@ resource "aws_route53_record" "hostnames" {
   name    = var.hostnames[count.index]
   type    = "CNAME"
   ttl     = "300"
-  records = list(var.alb_dns_name)
+  records = tolist([var.alb_dns_name])
   
 }
