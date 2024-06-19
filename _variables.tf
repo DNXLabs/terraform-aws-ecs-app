@@ -530,3 +530,8 @@ variable "task_role_policies" {
   description = "Custom policies to be added on the task role."
 }
 
+variable "scheduling_strategy" {
+  type        = string
+  default     = "REPLICA"
+  description = "Scheduling strategy to use for the service. Valid values are REPLICA and DAEMON."
+}
