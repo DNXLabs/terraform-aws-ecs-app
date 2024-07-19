@@ -9,27 +9,21 @@ resource "aws_lb_listener_rule" "green" {
   dynamic "condition" {
     for_each = length(var.paths) > 0 ? [var.paths] : []
     content {
-      path_pattern {
-        values = toset(condition.value)
-      }
+      path_pattern { values = toset(condition.value) }
     }
   }
 
   dynamic "condition" {
     for_each = length(var.hostnames) > 0 ? [var.hostnames] : []
     content {
-      host_header {
-        values = toset(condition.value)
-      }
+      host_header { values = toset(condition.value) }
     }
   }
 
   dynamic "condition" {
     for_each = length(var.source_ips) > 0 ? [var.source_ips] : []
     content {
-      source_ip {
-        values = toset(condition.value)
-      }
+      source_ip { values = toset(condition.value) }
     }
   }
 
@@ -44,9 +38,8 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   lifecycle {
-    ignore_changes = [
-      action[0].target_group_arn
-    ]
+    ignore_changes       = [action[0].target_group_arn]
+    replace_triggered_by = [aws_lb_target_group.green]
   }
 
   priority = try(
@@ -56,55 +49,7 @@ resource "aws_lb_listener_rule" "green" {
     )
   )
 
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
-}
-
-resource "aws_lb_listener_rule" "blue" {
-  listener_arn = var.test_traffic_route_listener_arn
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.blue.arn
-  }
-
-  dynamic "condition" {
-    for_each = length(var.paths) > 0 ? [var.paths] : []
-    content {
-      path_pattern {
-        values = toset(condition.value)
-      }
-    }
-  }
-
-  dynamic "condition" {
-    for_each = length(var.hostnames) > 0 ? [var.hostnames] : []
-    content {
-      host_header {
-        values = toset(condition.value)
-      }
-    }
-  }
-
-  lifecycle {
-    ignore_changes = [
-      action[0].target_group_arn
-    ]
-  }
-
-  priority = var.alb_priority != 0 ? var.alb_priority + 1 : null
-
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
-
+  tags = merge(var.tags, { "Terraform" = true }, )
 }
 
 resource "aws_lb_listener_rule" "redirects" {
@@ -200,47 +145,5 @@ resource "aws_lb_target_group" "green" {
     }
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
-}
-
-resource "aws_lb_target_group" "blue" {
-  name                 = var.compat_keep_target_group_naming ? "${var.cluster_name}-${var.name}-bl" : format("%s-bl-%s", substr("${var.cluster_name}-${replace(var.name, "_", "-")}", 0, 24), random_string.alb_prefix.result)
-  port                 = var.port
-  protocol             = var.protocol
-  vpc_id               = var.vpc_id
-  deregistration_delay = 10
-  target_type          = var.launch_type == "FARGATE" ? "ip" : "instance"
-
-  health_check {
-    path                = var.healthcheck_path
-    interval            = var.healthcheck_interval
-    healthy_threshold   = var.healthy_threshold
-    unhealthy_threshold = var.unhealthy_threshold
-    timeout             = var.healthcheck_timeout
-    matcher             = var.healthcheck_matcher
-    protocol            = var.protocol
-  }
-
-  dynamic "stickiness" {
-    for_each = var.dynamic_stickiness
-    iterator = stickiness
-
-    content {
-      cookie_duration = stickiness.value.cookie_duration
-      cookie_name     = stickiness.value.cookie_name
-      type            = stickiness.value.type
-    }
-  }
-
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
+  tags = merge(var.tags, { "Terraform" = true }, )
 }

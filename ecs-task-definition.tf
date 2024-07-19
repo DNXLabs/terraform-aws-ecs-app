@@ -60,16 +60,10 @@ resource "aws_ecs_task_definition" "default" {
   }
 
   lifecycle {
-    ignore_changes = [
-      container_definitions
-    ]
+    ignore_changes       = [container_definitions]
+    replace_triggered_by = [aws_lb_target_group.green]
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = merge(var.tags, { "terraform" = "true" }, )
 
 }
