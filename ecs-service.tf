@@ -9,6 +9,11 @@ resource "aws_ecs_service" "default" {
   deployment_minimum_healthy_percent = var.service_deployment_minimum_healthy_percent
   enable_execute_command             = true
 
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
+
   dynamic "network_configuration" {
     for_each = var.launch_type == "FARGATE" ? [var.subnets] : []
     content {
@@ -39,10 +44,6 @@ resource "aws_ecs_service" "default" {
     container_port   = var.container_port
   }
 
-  deployment_controller {
-    type = var.deployment_controller # default "CODE_DEPLOY"
-  }
-
   dynamic "capacity_provider_strategy" {
     iterator = capacity_provider_strategy
 
@@ -55,19 +56,12 @@ resource "aws_ecs_service" "default" {
   }
 
   lifecycle {
-    ignore_changes = [load_balancer, task_definition, desired_count, capacity_provider_strategy]
+    ignore_changes       = [load_balancer, task_definition, desired_count, capacity_provider_strategy]
+    replace_triggered_by = [aws_lb_target_group.green] # This is to ensure that the service is replaced when the target group is replaced
   }
 
-  depends_on = [
-    aws_lb_listener_rule.green,
-    aws_lb_listener_rule.blue
-  ]
+  depends_on = [aws_lb_listener_rule.green]
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = merge(var.tags, { "terraform" = "true" }, )
 
 }

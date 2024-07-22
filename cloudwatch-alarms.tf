@@ -11,55 +11,18 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
   insufficient_data_actions = []
   treat_missing_data        = "ignore"
 
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
+  metric_name = "HealthyHostCount"
+  namespace   = "AWS/ApplicationELB"
+  period      = "60"
+  statistic   = "Maximum"
+  unit        = "Count"
 
-  metric_query {
-    id          = "e1"
-    expression  = "MAX(REMOVE_EMPTY([m1, m2]))"
-    label       = "HealthyHostCountCombined"
-    return_data = "true"
+  dimensions = {
+    LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+    TargetGroup  = aws_lb_target_group.green.arn_suffix
   }
 
-  metric_query {
-    id = "m1"
-
-    metric {
-      metric_name = "HealthyHostCount"
-      namespace   = "AWS/ApplicationELB"
-      period      = "60"
-      stat        = "Maximum"
-      unit        = "Count"
-
-      dimensions = {
-        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
-        TargetGroup  = aws_lb_target_group.blue.arn_suffix
-      }
-    }
-
-
-  }
-
-  metric_query {
-    id = "m2"
-
-    metric {
-      metric_name = "HealthyHostCount"
-      namespace   = "AWS/ApplicationELB"
-      period      = "60"
-      stat        = "Maximum"
-      unit        = "Count"
-
-      dimensions = {
-        LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
-        TargetGroup  = aws_lb_target_group.green.arn_suffix
-      }
-    }
-  }
+  tags = merge(var.tags, { "Terraform" = true }, )
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
@@ -81,43 +44,36 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
   statistic   = "Average"
   unit        = "Percent"
 
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
   dimensions = {
     ClusterName = var.cluster_name
     ServiceName = aws_ecs_service.default.name
   }
 
+  tags = merge(var.tags, { "Terraform" = true }, )
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_running_tasks" {
   count = length(var.alarm_sns_topics) > 0 && var.alarm_ecs_running_tasks_threshold > 0 ? 1 : 0
 
   alarm_name                = "${try(data.aws_iam_account_alias.current[0].account_alias, var.alarm_prefix)}-ecs-${var.name}-running-tasks"
+  alarm_description         = "Ecs service running tasks is lower than the threshold"
   comparison_operator       = "LessThanThreshold"
   evaluation_periods        = "1"
-  metric_name               = "RunningTaskCount"
-  namespace                 = "ECS/ContainerInsights"
-  period                    = "30"
-  statistic                 = "Average"
   threshold                 = var.alarm_ecs_running_tasks_threshold
-  alarm_description         = "Ecs service running tasks is lower than the threshold"
   alarm_actions             = var.alarm_sns_topics
   ok_actions                = var.alarm_sns_topics
   insufficient_data_actions = []
   treat_missing_data        = "ignore"
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
+
+  metric_name = "RunningTaskCount"
+  namespace   = "ECS/ContainerInsights"
+  period      = "30"
+  statistic   = "Average"
+
   dimensions = {
     ClusterName = var.cluster_name
     ServiceName = aws_ecs_service.default.name
   }
+
+  tags = merge(var.tags, { "Terraform" = true }, )
 }

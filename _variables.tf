@@ -92,11 +92,6 @@ variable "service_role_arn" {
   default     = null
 }
 
-variable "codedeploy_role_arn" {
-  default     = null
-  description = "Existing IAM CodeDeploy role ARN created by ECS cluster module"
-}
-
 variable "task_role_arn" {
   description = "Existing task role ARN created by ECS cluster module"
   default     = null
@@ -138,10 +133,6 @@ variable "vpc_id" {
 
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
-}
-
-variable "test_traffic_route_listener_arn" {
-  description = "ALB HTTPS Listener for Test Traffic created by ECS cluster module"
 }
 
 variable "alb_dns_name" {
@@ -244,21 +235,6 @@ variable "alb_only" {
   description = "Whether to deploy only an alb and no cloudFront or not with the cluster"
 }
 
-variable "codedeploy_wait_time_for_cutover" {
-  default     = 0
-  description = "Time in minutes to route the traffic to the new application deployment"
-}
-
-variable "codedeploy_wait_time_for_termination" {
-  default     = 0
-  description = "Time in minutes to terminate the new deployment"
-}
-
-variable "codedeploy_deployment_config_name" {
-  default     = "CodeDeployDefault.ECSAllAtOnce"
-  description = "Specifies the deployment configuration for CodeDeploy"
-}
-
 variable "cloudwatch_logs_create" {
   default     = true
   description = "Whether to create cloudwatch log resources or not"
@@ -354,12 +330,6 @@ variable "placement_constraints" {
     expression = string
   }))
   default = []
-}
-
-variable "create_iam_codedeployrole" {
-  type        = bool
-  default     = true
-  description = "Create Codedeploy IAM Role for ECS or not."
 }
 
 variable "alarm_prefix" {
@@ -479,11 +449,6 @@ variable "dynamic_stickiness" {
 variable "redirects" {
   description = "Map of path redirects to add to the listener"
   default     = {}
-}
-
-variable "deployment_controller" {
-  default     = "CODE_DEPLOY"
-  description = "Type of deployment controller. Valid values: CODE_DEPLOY, ECS, EXTERNAL."
 }
 
 variable "ecs_service_capacity_provider_strategy" {
