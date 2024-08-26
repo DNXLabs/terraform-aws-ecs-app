@@ -78,7 +78,7 @@ resource "aws_appautoscaling_policy" "scale_custom" {
 }
 
 resource "aws_appautoscaling_scheduled_action" "scale_in_schedules" {
-  for_each           = var.scale_in_schedules
+  for_each           = { for schedule in var.scale_in_schedules : schedule.name => schedule }
   count              = var.enable_schedule ? 1 : 0
   name               = "${var.name}-${each.value}-scale-in"
   service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace

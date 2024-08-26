@@ -520,7 +520,7 @@ variable "enable_schedule" {
 variable "scale_in_schedules" {
   type = list(object({
     cron = string
-    name = ""
+    name = string
   }))
   default = null
 }
