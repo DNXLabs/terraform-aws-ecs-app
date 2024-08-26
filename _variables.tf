@@ -513,11 +513,16 @@ variable "alarm_ecs_running_tasks_threshold" {
 
 variable "enable_schedule" {
   default     = false
+  type        = bool
   description = "Enables schedule to shut down and start up instances outside business hours."
 }
 
-variable "schedules_stop" {
-
+variable "scale_in_schedules" {
+  type = list(object({
+    cron = string
+    name = ""
+  }))
+  default = null
 }
 
 variable "schedule_cron_start" {

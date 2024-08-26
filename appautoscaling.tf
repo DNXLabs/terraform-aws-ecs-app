@@ -77,13 +77,14 @@ resource "aws_appautoscaling_policy" "scale_custom" {
   }
 }
 
-resource "aws_appautoscaling_scheduled_action" "scale_service_out" {
+resource "aws_appautoscaling_scheduled_action" "scale_in_schedules" {
+  for_each           = var.scale_in_schedules
   count              = var.enable_schedule ? 1 : 0
-  name               = "${var.name}-scale-out"
+  name               = "${var.name}-${each.value}-scale-in"
   service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
   resource_id        = aws_appautoscaling_target.ecs[0].resource_id
   scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
-  schedule           = var.schedule_cron_stop
+  schedule           = each.value.cron
   timezone           = var.timezone
 
   scalable_target_action {
@@ -92,18 +93,18 @@ resource "aws_appautoscaling_scheduled_action" "scale_service_out" {
   }
 }
 
-resource "aws_appautoscaling_scheduled_action" "scale_service_in" {
-  count              = var.enable_schedule ? 1 : 0
-  name               = "${var.name}-scale-in"
-  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
-  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
-  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
-  schedule           = var.schedule_cron_start
-  timezone           = var.timezone
-
-  scalable_target_action {
-    min_capacity = var.autoscaling_min
-    max_capacity = var.autoscaling_max
-  }
-}
-
+#resource "aws_appautoscaling_scheduled_action" "scale_service_in" {
+#  count              = var.enable_schedule ? 1 : 0
+#  name               = "${var.name}-scale-in"
+#  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+#  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+#  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+#  schedule           = var.schedule_cron_start
+#  timezone           = var.timezone
+#
+#  scalable_target_action {
+#    min_capacity = var.autoscaling_min
+#    max_capacity = var.autoscaling_max
+#  }
+#}
+#
