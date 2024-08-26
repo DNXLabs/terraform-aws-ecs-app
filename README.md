@@ -100,7 +100,7 @@ In addition you have the option to create or not :
 | codedeploy\_wait\_time\_for\_termination | Time in minutes to terminate the new deployment | `number` | `0` | no |
 | command | Command to run on container | `list(string)` | `null` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
-| container\_port | Port your container listens (used in the placeholder task definition) | `number` | `8080` | no |
+| container\_port | Port your container listens (used in the placeholder task definition) | `string` | `8080` | no |
 | cpu | Hard limit for CPU for the container | `number` | `0` | no |
 | create\_iam\_codedeployrole | Create Codedeploy IAM Role for ECS or not. | `bool` | `true` | no |
 | deployment\_controller | Type of deployment controller. Valid values: CODE\_DEPLOY, ECS, EXTERNAL. | `string` | `"CODE_DEPLOY"` | no |
@@ -116,10 +116,10 @@ In addition you have the option to create or not :
 | healthy\_threshold | The number of consecutive health checks successes required before considering an unhealthy target healthy | `number` | `3` | no |
 | hosted\_zone | Hosted Zone to create DNS record for this app | `string` | `""` | no |
 | hosted\_zone\_id | Hosted Zone ID to create DNS record for this app (use this to avoid data lookup when using `hosted_zone`) | `string` | `""` | no |
-| hosted\_zone\_is\_internal | Set true in case the hosted zone is in an internal VPC, otherwise false | `string` | `"false"` | no |
-| hostname\_create | Optional parameter to create or not a Route53 record | `string` | `"false"` | no |
+| hosted\_zone\_is\_internal | Set true in case the hosted zone is in an internal VPC, otherwise false | `bool` | `false` | no |
+| hostname\_create | Optional parameter to create or not a Route53 record | `bool` | `false` | no |
 | hostname\_redirects | List of hostnames to redirect to the main one, comma-separated | `string` | `""` | no |
-| hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list` | `[]` | no |
+| hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list(string)` | `[]` | no |
 | http\_header | Header to use on listerner rule with name e values | `list(any)` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
@@ -128,7 +128,7 @@ In addition you have the option to create or not :
 | log\_subscription\_filter\_filter\_pattern | n/a | `string` | `""` | no |
 | log\_subscription\_filter\_role\_arn | n/a | `string` | `""` | no |
 | memory | Hard memory of the container | `number` | `512` | no |
-| name | Name of your ECS service | `any` | n/a | yes |
+| name | Name of your ECS service | `string` | n/a | yes |
 | network\_mode | The Docker networking mode to use for the containers in the task. The valid values are none, bridge, awsvpc, and host. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | ordered\_placement\_strategy | Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. | <pre>list(object({<br>    field = string<br>    type  = string<br>  }))</pre> | `[]` | no |
 | paths | List of paths to use on listener rule (example: ['/\*']) | `list(string)` | `[]` | no |
@@ -139,22 +139,24 @@ In addition you have the option to create or not :
 | redirects | Map of path redirects to add to the listener | `map` | `{}` | no |
 | schedule\_cron\_start | Cron expression to define when to trigger a start of the auto-scaling group. E.g. 'cron(00 21 ? \* SUN-THU \*)' to start at 8am UTC time. | `string` | `""` | no |
 | schedule\_cron\_stop | Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? \* MON-FRI \*)' to start at 8am UTC time | `string` | `""` | no |
+| schedules\_stop | n/a | `any` | n/a | yes |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
 | service\_desired\_count | Desired count for this service (for use when auto scaling is disabled) | `number` | `1` | no |
 | service\_health\_check\_grace\_period\_seconds | Time until your container starts serving requests | `number` | `0` | no |
 | service\_role\_arn | Existing service role ARN created by ECS cluster module | `any` | `null` | no |
-| source\_ips | List of source ip to use on listerner rule | `list` | `[]` | no |
+| source\_ips | List of source ip to use on listerner rule | `list(string)` | `[]` | no |
 | ssm\_variables | Map of variables and SSM locations to add to the task definition | `map(string)` | `{}` | no |
 | static\_variables | Map of variables and static values to add to the task definition | `map(string)` | `{}` | no |
 | subnets | The subnets associated with the task or service. (REQUIRED IF 'LAUCH\_TYPE' IS FARGATE) | `any` | `null` | no |
 | tags | Map of tags that will be added to created resources. By default resources will be tagged with terraform=true. | `map(string)` | `{}` | no |
 | task\_definition\_arn | Task definition to use for this service (optional) | `string` | `""` | no |
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | `null` | no |
-| task\_role\_policies | Custom policies to be added on the task role. | `list` | `[]` | no |
-| task\_role\_policies\_managed | AWS Managed policies to be added on the task role. | `list` | `[]` | no |
+| task\_role\_policies | Custom policies to be added on the task role. | `list(string)` | `[]` | no |
+| task\_role\_policies\_managed | AWS Managed policies to be added on the task role. | `list(string)` | `[]` | no |
 | test\_traffic\_route\_listener\_arn | ALB HTTPS Listener for Test Traffic created by ECS cluster module | `any` | n/a | yes |
+| timezone | n/a | `string` | `"UTC"` | no |
 | ulimits | Container ulimit settings. This is a list of maps, where each map should contain "name", "hardLimit" and "softLimit" | <pre>list(object({<br>    name      = string<br>    hardLimit = number<br>    softLimit = number<br>  }))</pre> | `null` | no |
 | unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy | `number` | `3` | no |
 | vpc\_id | VPC ID to deploy this app to | `any` | n/a | yes |
