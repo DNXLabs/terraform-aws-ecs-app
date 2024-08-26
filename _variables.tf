@@ -502,6 +502,10 @@ variable "enable_schedule" {
   description = "Enables schedule to shut down and start up instances outside business hours."
 }
 
+variable "schedules_stop" {
+
+}
+
 variable "schedule_cron_start" {
   type        = string
   default     = ""
@@ -530,3 +534,7 @@ variable "task_role_policies" {
   description = "Custom policies to be added on the task role."
 }
 
+variable "timezone" {
+  type    = string
+  default = "UTC"
+}
