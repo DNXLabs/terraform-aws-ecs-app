@@ -5,7 +5,7 @@ variable "name" {
 
 variable "container_port" {
   default     = 8080
-  type        = string
+  type        = number
   description = "Port your container listens (used in the placeholder task definition)"
 }
 
