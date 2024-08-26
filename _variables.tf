@@ -511,30 +511,22 @@ variable "alarm_ecs_running_tasks_threshold" {
   description = "Alarm when the number of ecs service running tasks is lower than a certain value. CloudWatch Container Insights must be enabled for the cluster."
 }
 
-variable "enable_schedule" {
-  default     = false
-  type        = bool
-  description = "Enables schedule to shut down and start up instances outside business hours."
-}
-
 variable "scale_in_schedules" {
   type = list(object({
     cron = string
     name = string
   }))
-  default = null
+  default     = null
+  description = "Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 21 ? * SUN-THU *)' to start at 8am UTC time."
 }
 
-variable "schedule_cron_start" {
-  type        = string
-  default     = ""
+variable "scale_out_schedules" {
+  type = list(object({
+    cron = string
+    name = string
+  }))
+  default     = null
   description = "Cron expression to define when to trigger a start of the auto-scaling group. E.g. 'cron(00 21 ? * SUN-THU *)' to start at 8am UTC time."
-}
-
-variable "schedule_cron_stop" {
-  type        = string
-  default     = ""
-  description = "Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? * MON-FRI *)' to start at 8am UTC time"
 }
 
 variable "command" {

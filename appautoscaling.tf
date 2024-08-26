@@ -91,6 +91,20 @@ resource "aws_appautoscaling_scheduled_action" "scale_in_schedules" {
   }
 }
 
+resource "aws_appautoscaling_scheduled_action" "scale_out_schedules" {
+  for_each           = { for schedule in var.scale_out_schedules : schedule.name => schedule }
+  name               = "${var.name}-${each.key}-scale-out"
+  service_namespace  = aws_appautoscaling_target.ecs[0].service_namespace
+  resource_id        = aws_appautoscaling_target.ecs[0].resource_id
+  scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
+  schedule           = each.value.cron
+  timezone           = var.schedule_timezone
+  scalable_target_action {
+    min_capacity = var.autoscaling_min
+    max_capacity = var.autoscaling_max
+  }
+}
+
 #resource "aws_appautoscaling_scheduled_action" "scale_service_in" {
 #  count              = var.enable_schedule ? 1 : 0
 #  name               = "${var.name}-scale-in"
