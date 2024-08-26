@@ -106,3 +106,4 @@ resource "aws_appautoscaling_scheduled_action" "scale_service_in" {
     max_capacity = var.autoscaling_max
   }
 }
+

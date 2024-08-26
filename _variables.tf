@@ -1,29 +1,35 @@
 variable "name" {
+  type        = string
   description = "Name of your ECS service"
 }
 
 variable "container_port" {
   default     = 8080
+  type        = string
   description = "Port your container listens (used in the placeholder task definition)"
 }
 
 variable "port" {
   default     = 80
+  type        = number
   description = "Port for target group to listen"
 }
 
 variable "protocol" {
   default     = "HTTP"
+  type        = string
   description = "Protocol to use (HTTP or HTTPS)"
 }
 
 variable "memory" {
   default     = 512
+  type        = number
   description = "Hard memory of the container"
 }
 
 variable "cpu" {
   default     = 0
+  type        = number
   description = "Hard limit for CPU for the container"
 }
 
@@ -34,32 +40,38 @@ variable "paths" {
 }
 
 variable "hosted_zone_is_internal" {
-  default     = "false"
+  default     = false
+  type        = bool
   description = "Set true in case the hosted zone is in an internal VPC, otherwise false"
 }
 
 variable "hosted_zone" {
   default     = ""
+  type        = string
   description = "Hosted Zone to create DNS record for this app"
 }
 
 variable "hosted_zone_id" {
   default     = ""
+  type        = string
   description = "Hosted Zone ID to create DNS record for this app (use this to avoid data lookup when using `hosted_zone`)"
 }
 
 variable "hostname_create" {
-  default     = "false"
+  default     = false
+  type        = bool
   description = "Optional parameter to create or not a Route53 record"
 }
 
 variable "hostnames" {
   default     = []
+  type        = list(string)
   description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
 }
 
 variable "source_ips" {
   default     = []
+  type        = list(string)
   description = "List of source ip to use on listerner rule"
 }
 
@@ -72,11 +84,13 @@ variable "http_header" {
 variable "hostname_redirects" {
   description = "List of hostnames to redirect to the main one, comma-separated"
   default     = ""
+  type        = string
 }
 
 
 variable "healthcheck_path" {
   default = "/"
+  type    = string
 }
 
 variable "healthcheck_interval" {
@@ -487,11 +501,13 @@ variable "command" {
 
 variable "task_role_policies_managed" {
   default     = []
+  type        = list(string)
   description = "AWS Managed policies to be added on the task role."
 }
 
 variable "task_role_policies" {
   default     = []
+  type        = list(string)
   description = "Custom policies to be added on the task role."
 }
 
