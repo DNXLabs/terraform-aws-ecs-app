@@ -133,6 +133,7 @@ In addition you have the option to create or not :
 | redirects | Map of path redirects to add to the listener | `map` | `{}` | no |
 | schedule\_cron\_start | Cron expression to define when to trigger a start of the auto-scaling group. E.g. 'cron(00 21 ? \* SUN-THU \*)' to start at 8am UTC time. | `string` | `""` | no |
 | schedule\_cron\_stop | Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? \* MON-FRI \*)' to start at 8am UTC time | `string` | `""` | no |
+| schedules\_stop | n/a | `any` | n/a | yes |
 | security\_groups | The security groups associated with the task or service | `any` | `null` | no |
 | service\_deployment\_maximum\_percent | Maximum percentage of tasks to run during deployments | `number` | `200` | no |
 | service\_deployment\_minimum\_healthy\_percent | Minimum healthy percentage during deployments | `number` | `100` | no |
@@ -148,6 +149,7 @@ In addition you have the option to create or not :
 | task\_role\_arn | Existing task role ARN created by ECS cluster module | `any` | `null` | no |
 | task\_role\_policies | Custom policies to be added on the task role. | `list(string)` | `[]` | no |
 | task\_role\_policies\_managed | AWS Managed policies to be added on the task role. | `list(string)` | `[]` | no |
+| timezone | n/a | `string` | `"UTC"` | no |
 | ulimits | Container ulimit settings. This is a list of maps, where each map should contain "name", "hardLimit" and "softLimit" | <pre>list(object({<br>    name      = string<br>    hardLimit = number<br>    softLimit = number<br>  }))</pre> | `null` | no |
 | unhealthy\_threshold | The number of consecutive health check failures required before considering the target unhealthy | `number` | `3` | no |
 | vpc\_id | VPC ID to deploy this app to | `any` | n/a | yes |
