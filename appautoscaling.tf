@@ -85,8 +85,7 @@ resource "aws_appautoscaling_scheduled_action" "scale_in_schedules" {
   resource_id        = aws_appautoscaling_target.ecs[0].resource_id
   scalable_dimension = aws_appautoscaling_target.ecs[0].scalable_dimension
   schedule           = each.value.cron
-  timezone           = var.timezone
-
+  timezone           = var.schedule_timezone
   scalable_target_action {
     min_capacity = 0
     max_capacity = 0

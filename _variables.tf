@@ -555,7 +555,7 @@ variable "task_role_policies" {
   description = "Custom policies to be added on the task role."
 }
 
-variable "timezone" {
+variable "schedule_timezone" {
   type    = string
   default = "UTC"
 }
