@@ -56,6 +56,7 @@ variable "hostname_create" {
 variable "hostnames" {
   default     = []
   description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
+  type        = list(string)
 }
 
 variable "source_ips" {
