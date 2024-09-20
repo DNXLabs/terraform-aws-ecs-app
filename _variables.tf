@@ -56,6 +56,7 @@ variable "hostname_create" {
 variable "hostnames" {
   default     = []
   description = "List of hostnames to create listerner rule and optionally, DNS records for this app"
+  type        = list(string)
 }
 
 variable "source_ips" {
@@ -290,6 +291,7 @@ variable "platform_version" {
 variable "subnets" {
   default     = null
   description = "The subnets associated with the task or service. (REQUIRED IF 'LAUCH_TYPE' IS FARGATE)"
+  type        = list(string)
 }
 
 variable "network_mode" {
@@ -300,6 +302,7 @@ variable "network_mode" {
 variable "security_groups" {
   default     = null
   description = "The security groups associated with the task or service"
+  type        = list(string)
 }
 
 variable "log_subscription_filter_enabled" {
