@@ -87,6 +87,10 @@ variable "cluster_name" {
   default = "Name of existing ECS Cluster to deploy this app to"
 }
 
+variable "cluster_arn" {
+  default = "ARN of existing ECS Cluster to deploy this app to"
+}
+
 variable "service_role_arn" {
   description = "Existing service role ARN created by ECS cluster module"
   default     = null
@@ -133,6 +137,10 @@ variable "vpc_id" {
 
 variable "alb_listener_https_arn" {
   description = "ALB HTTPS Listener created by ECS cluster module"
+}
+
+variable "alb_arn" {
+  description = "ALB ARN created by ECS cluster module"
 }
 
 variable "alb_dns_name" {

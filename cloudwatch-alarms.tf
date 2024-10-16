@@ -18,7 +18,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
   unit        = "Count"
 
   dimensions = {
-    LoadBalancer = join("/", slice(split("/", data.aws_lb_listener.ecs.load_balancer_arn), 1, 4))
+    LoadBalancer = join("/", slice(split("/", var.alb_arn), 1, 4))
     TargetGroup  = aws_lb_target_group.green.arn_suffix
   }
 
