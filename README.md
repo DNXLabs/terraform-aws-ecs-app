@@ -66,6 +66,7 @@ In addition you have the option to create or not :
 | alarm\_min\_healthy\_tasks | Alarm when the number of healthy tasks is less than this number (use 0 to disable this alarm) | `number` | `2` | no |
 | alarm\_prefix | String prefix for cloudwatch alarms. (Optional) | `string` | `"alarm"` | no |
 | alarm\_sns\_topics | Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms. | `list` | `[]` | no |
+| alb\_arn | ALB ARN created by ECS cluster module | `any` | n/a | yes |
 | alb\_dns\_name | ALB DNS Name | `string` | `""` | no |
 | alb\_listener\_https\_arn | ALB HTTPS Listener created by ECS cluster module | `any` | n/a | yes |
 | alb\_name | ALB name - Required if it is an internal one | `string` | `""` | no |
@@ -93,6 +94,7 @@ In addition you have the option to create or not :
 | cloudwatch\_logs\_create | Whether to create cloudwatch log resources or not | `bool` | `true` | no |
 | cloudwatch\_logs\_export | Whether to mark the log group to export to an S3 bucket (needs terraform-aws-log-exporter to be deployed in the account/region) | `bool` | `false` | no |
 | cloudwatch\_logs\_retention | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, and 3653. | `number` | `120` | no |
+| cluster\_arn | n/a | `string` | `"ARN of existing ECS Cluster to deploy this app to"` | no |
 | cluster\_name | n/a | `string` | `"Name of existing ECS Cluster to deploy this app to"` | no |
 | command | Command to run on container | `list(string)` | `null` | no |
 | compat\_keep\_target\_group\_naming | Keeps old naming convention for target groups to avoid recreation of resource in production environments | `bool` | `false` | no |
