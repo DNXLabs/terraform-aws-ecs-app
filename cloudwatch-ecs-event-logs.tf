@@ -17,7 +17,7 @@ resource "aws_cloudwatch_event_rule" "ecs_events" {
   "source": ["aws.ecs"],
   "detail-type": ["ECS Task State Change", "ECS Container Instance State Change"],
   "detail": {
-    "clusterArn": ["${data.aws_ecs_cluster.ecs_cluster.arn}"],
+    "clusterArn": ["${var.cluster_arn}"],
     "group": ["service:${var.name}"]
   }
 }
