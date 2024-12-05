@@ -503,3 +503,8 @@ variable "task_role_policies" {
   description = "Custom policies to be added on the task role."
 }
 
+variable "readonlyrootfilesystem" {
+  type        = bool
+  default     = false
+  description = "Enable ready only access to root File ssystem."
+}

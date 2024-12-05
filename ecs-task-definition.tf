@@ -20,6 +20,7 @@ resource "aws_ecs_task_definition" "default" {
       memory    = var.memory
       essential = true
       command   = var.command
+      readonlyRootFilesystem = var.readonlyrootfilesystem
       portMappings = [
         {
           containerPort = var.container_port
@@ -40,6 +41,7 @@ resource "aws_ecs_task_definition" "default" {
       secrets     = [for k, v in var.ssm_variables : { name : k, valueFrom : v }]
       environment = [for k, v in var.static_variables : { name : k, value : v }]
       ulimits     = var.ulimits
+      
     }
   ])
 
