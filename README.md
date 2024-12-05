@@ -132,6 +132,7 @@ In addition you have the option to create or not :
 | platform\_version | The platform version on which to run your service. Only applicable for launch\_type set to FARGATE. Defaults to LATEST. | `string` | `"LATEST"` | no |
 | port | Port for target group to listen | `number` | `80` | no |
 | protocol | Protocol to use (HTTP or HTTPS) | `string` | `"HTTP"` | no |
+| readonlyrootfilesystem | Enable ready only access to root File ssystem. | `bool` | `false` | no |
 | redirects | Map of path redirects to add to the listener | `map` | `{}` | no |
 | schedule\_cron\_start | Cron expression to define when to trigger a start of the auto-scaling group. E.g. 'cron(00 21 ? \* SUN-THU \*)' to start at 8am UTC time. | `string` | `""` | no |
 | schedule\_cron\_stop | Cron expression to define when to trigger a stop of the auto-scaling group. E.g. 'cron(00 09 ? \* MON-FRI \*)' to start at 8am UTC time | `string` | `""` | no |
