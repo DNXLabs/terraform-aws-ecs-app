@@ -46,7 +46,7 @@ In addition you have the option to create or not :
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.13 |
+| terraform | >= 1.3 |
 | aws | >= 4.0.0 |
 
 ## Providers
@@ -67,6 +67,7 @@ In addition you have the option to create or not :
 | alarm\_prefix | String prefix for cloudwatch alarms. (Optional) | `string` | `"alarm"` | no |
 | alarm\_sns\_topics | Alarm topics to create and alert on ECS service metrics. Leaving empty disables all alarms. | `list` | `[]` | no |
 | alb\_arn | ALB ARN created by ECS cluster module | `any` | n/a | yes |
+| alb\_custom\_rules | n/a | <pre>list(object({<br>    name        = optional(string)<br>    paths       = optional(list(string), [])<br>    hostnames   = optional(list(string), [])<br>    source_ips  = optional(list(string), [])<br>    http_header = optional(list(string), [])<br>    priority    = optional(number)<br>  }))</pre> | `[]` | no |
 | alb\_dns\_name | ALB DNS Name | `string` | `""` | no |
 | alb\_listener\_https\_arn | ALB HTTPS Listener created by ECS cluster module | `any` | n/a | yes |
 | alb\_name | ALB name - Required if it is an internal one | `string` | `""` | no |
