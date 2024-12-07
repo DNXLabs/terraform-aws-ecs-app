@@ -519,5 +519,5 @@ variable "alb_custom_rules" {
     priority    = optional(number)
   }))
   default     = []
-  description = ""
+  description = "Custom loadbalance listener rule to be added with this application target group"
 }
