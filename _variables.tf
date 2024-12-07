@@ -512,10 +512,10 @@ variable "readonlyrootfilesystem" {
 variable "alb_custom_rules" {
   type = list(object({
     name        = optional(string)
-    paths       = optional(list(string))
-    hostnames   = optional(list(string))
-    source_ips  = optional(list(string))
-    http_header = optional(list(string))
+    paths       = optional(list(string), [])
+    hostnames   = optional(list(string), [])
+    source_ips  = optional(list(string), [])
+    http_header = optional(list(string), [])
     priority    = optional(number)
   }))
   default     = []
