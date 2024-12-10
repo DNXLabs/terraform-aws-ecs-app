@@ -508,3 +508,16 @@ variable "readonlyrootfilesystem" {
   default     = false
   description = "Enable ready only access to root File ssystem."
 }
+
+variable "alb_custom_rules" {
+  type = list(object({
+    name        = optional(string)
+    paths       = optional(list(string), [])
+    hostnames   = optional(list(string), [])
+    source_ips  = optional(list(string), [])
+    http_header = optional(list(string), [])
+    priority    = optional(number)
+  }))
+  default     = []
+  description = "Custom loadbalance listener rule to be added with this application target group"
+}
