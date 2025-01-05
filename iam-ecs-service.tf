@@ -18,12 +18,7 @@ resource "aws_iam_role" "ecs_service" {
 }
 EOF
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = var.tags
 
 }
 

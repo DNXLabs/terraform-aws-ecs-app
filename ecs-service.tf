@@ -62,6 +62,6 @@ resource "aws_ecs_service" "default" {
 
   depends_on = [aws_lb_listener_rule.green]
 
-  tags = merge(var.tags, { "terraform" = "true" }, )
+  tags = var.tags
 
 }
