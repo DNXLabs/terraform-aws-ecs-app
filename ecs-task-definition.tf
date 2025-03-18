@@ -65,11 +65,6 @@ resource "aws_ecs_task_definition" "default" {
     ]
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = var.tags
 
 }

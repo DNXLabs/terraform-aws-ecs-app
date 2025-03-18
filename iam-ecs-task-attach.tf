@@ -35,12 +35,7 @@ resource "aws_iam_policy" "task_role_policy_custom" {
   description = try(each.value.description, "")
   policy      = data.aws_iam_policy_document.task_role_policy_custom[each.value.name].json
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "task_role_attach_policy_custom" {

@@ -10,11 +10,6 @@ resource "aws_efs_access_point" "default" {
     path = "/${var.name}"
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = var.tags
 
 }

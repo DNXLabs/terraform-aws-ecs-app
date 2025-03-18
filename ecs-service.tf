@@ -63,11 +63,6 @@ resource "aws_ecs_service" "default" {
     aws_lb_listener_rule.blue
   ]
 
-  tags = merge(
-    var.tags,
-    {
-      "terraform" = "true"
-    },
-  )
+  tags = var.tags
 
 }
