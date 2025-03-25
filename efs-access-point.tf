@@ -13,7 +13,6 @@ resource "aws_efs_access_point" "default" {
   tags = merge(
     var.tags,
     {
-      "terraform" = "true"
     },
   )
 

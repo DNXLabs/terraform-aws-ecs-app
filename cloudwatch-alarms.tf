@@ -22,7 +22,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
     TargetGroup  = aws_lb_target_group.green.arn_suffix
   }
 
-  tags = merge(var.tags, { "Terraform" = true }, )
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
@@ -49,7 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
     ServiceName = aws_ecs_service.default.name
   }
 
-  tags = merge(var.tags, { "Terraform" = true }, )
+  tags = var.tags
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_running_tasks" {
@@ -75,5 +75,5 @@ resource "aws_cloudwatch_metric_alarm" "ecs_running_tasks" {
     ServiceName = aws_ecs_service.default.name
   }
 
-  tags = merge(var.tags, { "Terraform" = true }, )
+  tags = var.tags
 }

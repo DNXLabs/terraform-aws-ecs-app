@@ -22,12 +22,7 @@ resource "aws_cloudwatch_event_rule" "ecs_events" {
   }
 }
 EOF
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
+  tags          = var.tags
 }
 
 resource "aws_cloudwatch_event_target" "ecs_events" {

@@ -39,7 +39,7 @@ resource "aws_lb_listener_rule" "green" {
 
   lifecycle {
     ignore_changes       = [action[0].target_group_arn]
-    replace_triggered_by = [aws_lb_target_group.green]
+    # replace_triggered_by = [aws_lb_target_group.green]
   }
 
   priority = try(
@@ -49,7 +49,7 @@ resource "aws_lb_listener_rule" "green" {
     )
   )
 
-  tags = merge(var.tags, { "Terraform" = true }, )
+  tags = var.tags
 }
 
 resource "aws_lb_listener_rule" "redirects" {
@@ -99,12 +99,7 @@ resource "aws_lb_listener_rule" "path_redirects" {
     var.alb_priority != 0 ? var.alb_priority : null
   )
 
-  tags = merge(
-    var.tags,
-    {
-      "Terraform" = true
-    },
-  )
+  tags = var.tags
 }
 
 
@@ -145,5 +140,5 @@ resource "aws_lb_target_group" "green" {
     }
   }
 
-  tags = merge(var.tags, { "Terraform" = true }, )
+  tags = var.tags
 }

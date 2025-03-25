@@ -57,11 +57,11 @@ resource "aws_ecs_service" "default" {
 
   lifecycle {
     ignore_changes       = [load_balancer, task_definition, desired_count, capacity_provider_strategy]
-    replace_triggered_by = [aws_lb_target_group.green] # This is to ensure that the service is replaced when the target group is replaced
+    # replace_triggered_by = [aws_lb_target_group.green] # This is to ensure that the service is replaced when the target group is replaced
   }
 
   depends_on = [aws_lb_listener_rule.green]
 
-  tags = merge(var.tags, { "terraform" = "true" }, )
+  tags = var.tags
 
 }

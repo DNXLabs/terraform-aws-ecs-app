@@ -14,12 +14,12 @@ resource "aws_ecs_task_definition" "default" {
 
   container_definitions = jsonencode([
     {
-      name      = var.name
-      image     = var.image
-      cpu       = var.cpu
-      memory    = var.memory
-      essential = true
-      command   = var.command
+      name                   = var.name
+      image                  = var.image
+      cpu                    = var.cpu
+      memory                 = var.memory
+      essential              = true
+      command                = var.command
       readonlyRootFilesystem = var.readonlyrootfilesystem
       portMappings = [
         {
@@ -41,7 +41,7 @@ resource "aws_ecs_task_definition" "default" {
       secrets     = [for k, v in var.ssm_variables : { name : k, valueFrom : v }]
       environment = [for k, v in var.static_variables : { name : k, value : v }]
       ulimits     = var.ulimits
-      
+
     }
   ])
 
@@ -66,6 +66,6 @@ resource "aws_ecs_task_definition" "default" {
     replace_triggered_by = [aws_lb_target_group.green]
   }
 
-  tags = merge(var.tags, { "terraform" = "true" }, )
+  tags = var.tags
 
 }
