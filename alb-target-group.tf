@@ -139,6 +139,7 @@ resource "aws_lb_target_group" "green" {
     iterator = stickiness
 
     content {
+      enabled         = stickiness.value.enabled
       cookie_duration = stickiness.value.cookie_duration
       cookie_name     = stickiness.value.cookie_name
       type            = stickiness.value.type
@@ -169,6 +170,7 @@ resource "aws_lb_target_group" "blue" {
     iterator = stickiness
 
     content {
+      enabled         = stickiness.value.enabled
       cookie_duration = stickiness.value.cookie_duration
       cookie_name     = stickiness.value.cookie_name
       type            = stickiness.value.type
