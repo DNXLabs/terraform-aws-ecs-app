@@ -123,6 +123,7 @@ resource "aws_lb_target_group" "green" {
   vpc_id               = var.vpc_id
   deregistration_delay = 10
   target_type          = var.launch_type == "FARGATE" ? "ip" : "instance"
+  load_balancing_algorithm_type = var.load_balancing_algorithm_type
 
   health_check {
     path                = var.healthcheck_path
@@ -154,6 +155,7 @@ resource "aws_lb_target_group" "blue" {
   vpc_id               = var.vpc_id
   deregistration_delay = 10
   target_type          = var.launch_type == "FARGATE" ? "ip" : "instance"
+  load_balancing_algorithm_type = var.load_balancing_algorithm_type
 
   health_check {
     path                = var.healthcheck_path

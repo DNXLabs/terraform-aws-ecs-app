@@ -460,3 +460,9 @@ variable "dynamic_stickiness" {
   default     = []
   description = "Target Group stickiness. Used in dynamic block."
 }
+
+variable "load_balancing_algorithm_type" {
+  type = string
+  default = ""
+  description = "Determines how the load balancer selects targets when routing requests"
+}
