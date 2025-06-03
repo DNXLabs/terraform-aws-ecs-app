@@ -21,7 +21,7 @@ EOF
   tags = merge(
     var.tags,
     {
-      "terraform" = "true"
+      "Terraform" = "true"
     },
   )
 

@@ -66,6 +66,6 @@ resource "aws_ecs_task_definition" "default" {
     replace_triggered_by = [aws_lb_target_group.green]
   }
 
-  tags = merge(var.tags, { "terraform" = "true" }, )
+  tags = merge(var.tags, { "Terraform" = "true" }, )
 
 }
