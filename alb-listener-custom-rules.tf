@@ -44,7 +44,7 @@ resource "aws_lb_listener_rule" "custom" {
 
   lifecycle {
     ignore_changes       = [action[0].target_group_arn]
-    replace_triggered_by = [aws_lb_target_group.green]
+    replace_triggered_by = [aws_lb_target_group.green.id]
   }
 
   priority = try(
