@@ -38,10 +38,13 @@ resource "aws_ecs_service" "default" {
     }
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.green.arn
-    container_name   = var.name
-    container_port   = var.container_port
+  dynamic "load_balancer" {
+    for_each = {for t in local.target_group_types : t => t}
+    content {
+      target_group_arn = aws_lb_target_group.green[load_balancer.key].arn
+      container_name   = var.name
+      container_port   = var.container_port
+    }
   }
 
   dynamic "capacity_provider_strategy" {
@@ -56,8 +59,8 @@ resource "aws_ecs_service" "default" {
   }
 
   lifecycle {
-    ignore_changes       = [load_balancer, task_definition, desired_count, capacity_provider_strategy]
-    replace_triggered_by = [aws_lb_target_group.green.id] # This is to ensure that the service is replaced when the target group is replaced
+    ignore_changes       = [task_definition, desired_count, capacity_provider_strategy]
+    replace_triggered_by = [aws_lb_target_group.green["external"].id]
   }
 
   depends_on = [aws_lb_listener_rule.green]

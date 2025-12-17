@@ -578,3 +578,13 @@ variable "alb_custom_rules" {
   default     = []
   description = "Custom loadbalance listener rule to be added with this application target group"
 }
+
+variable "enable_internal_loadbalancer" {
+  type = bool
+  default = false
+}
+
+variable "internal_alb_listener_arn" {
+  type = string
+  default = ""
+}

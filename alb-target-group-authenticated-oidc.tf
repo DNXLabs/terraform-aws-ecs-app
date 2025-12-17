@@ -18,7 +18,7 @@ resource "aws_lb_listener_rule" "green_auth_oidc" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.green.arn
+    target_group_arn = aws_lb_target_group.green["external"].arn
   }
 
   dynamic "condition" {

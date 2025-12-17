@@ -8,7 +8,7 @@ resource "aws_lb_listener_rule" "custom" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.green.arn
+    target_group_arn = try(aws_lb_target_group.green["external"].id, null)
   }
 
   dynamic "condition" {
@@ -44,7 +44,7 @@ resource "aws_lb_listener_rule" "custom" {
 
   lifecycle {
     ignore_changes       = [action[0].target_group_arn]
-    replace_triggered_by = [aws_lb_target_group.green.id]
+    replace_triggered_by = [aws_lb_target_group.green["external"].id]
   }
 
   priority = try(
