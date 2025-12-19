@@ -38,16 +38,6 @@ resource "aws_lb_listener_rule" "green" {
     }
   }
 
-  # Fallback: ALB listener_rule requires at least one condition. If none of the
-  # configured condition sources are provided, create a catch-all path pattern
-  # so Terraform/AWS accepts the rule.
-  dynamic "condition" {
-    for_each = (length(local.selected_paths[each.key]) == 0 && length(local.selected_hostnames[each.key]) == 0 && length(var.source_ips) == 0 && length(var.http_header) == 0) ? [["/*"]] : []
-    content {
-      path_pattern { values = toset(condition.value) }
-    }
-  }
-
   lifecycle {
     ignore_changes       = [action[0].target_group_arn]
     replace_triggered_by = [aws_lb_target_group.green[each.key].id]
