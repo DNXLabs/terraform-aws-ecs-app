@@ -578,3 +578,25 @@ variable "alb_custom_rules" {
   default     = []
   description = "Custom loadbalance listener rule to be added with this application target group"
 }
+
+variable "enable_internal_loadbalancer" {
+  type = bool
+  default = false
+}
+
+variable "internal_alb_listener_arn" {
+  type = string
+  default = ""
+}
+
+variable "internal_paths" {
+  default     = []
+  description = "List of internal paths to use on listener rule (example: ['/*'])"
+  type        = list(string)
+}
+
+variable "internal_hostnames" {
+  default     = []
+  description = "List of internal hostnames to use as a condition to authenticate with OIDC"
+  type        = list(string)
+}

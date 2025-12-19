@@ -19,7 +19,7 @@ resource "aws_cloudwatch_metric_alarm" "min_healthy_tasks" {
 
   dimensions = {
     LoadBalancer = join("/", slice(split("/", var.alb_arn), 1, 4))
-    TargetGroup  = aws_lb_target_group.green.arn_suffix
+    TargetGroup  = aws_lb_target_group.green["external"].arn_suffix
   }
 
   tags = merge(var.tags, { "Terraform" = true }, )

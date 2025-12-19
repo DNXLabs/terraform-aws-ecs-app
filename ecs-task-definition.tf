@@ -63,7 +63,7 @@ resource "aws_ecs_task_definition" "default" {
 
   lifecycle {
     ignore_changes       = [container_definitions]
-    replace_triggered_by = [aws_lb_target_group.green.id]
+    replace_triggered_by = [aws_lb_target_group.green["external"].id]
   }
 
   tags = merge(var.tags, { "terraform" = "true" }, )
