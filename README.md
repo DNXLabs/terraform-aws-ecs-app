@@ -119,6 +119,10 @@ In addition you have the option to create or not :
 | hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list(string)` | `[]` | no |
 | http\_header | Header to use on listerner rule with name e values | `list(any)` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
+| enable_internal_loadbalancer | Whether to use a second internal ALB for private/internal APIs | `bool` | `false` | no |
+| internal_alb_listener_arn | ALB HTTPS Listener ARN for the internal ALB (used when `enable_internal_loadbalancer` is true) | `string` | `""` | no |
+| internal_paths | List of paths to use on the internal listener rule (example: ['/*']) | `list(string)` | `[]` | no |
+| internal_hostnames | List of hostnames to use on the internal listener rule | `list(string)` | `[]` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
 | log\_subscription\_filter\_destination\_arn | n/a | `string` | `""` | no |
 | log\_subscription\_filter\_enabled | n/a | `bool` | `false` | no |
