@@ -588,3 +588,15 @@ variable "internal_alb_listener_arn" {
   type = string
   default = ""
 }
+
+variable "internal_paths" {
+  default     = []
+  description = "List of internal paths to use on listener rule (example: ['/*'])"
+  type        = list(string)
+}
+
+variable "internal_hostnames" {
+  default     = []
+  description = "List of internal hostnames to use as a condition to authenticate with OIDC"
+  type        = list(string)
+}

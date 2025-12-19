@@ -8,14 +8,14 @@ resource "aws_lb_listener_rule" "green" {
   }
 
   dynamic "condition" {
-    for_each = length(var.paths) > 0 ? [var.paths] : []
+    for_each = length(local.selected_paths[each.key]) > 0 ? [local.selected_paths[each.key]] : []
     content {
       path_pattern { values = toset(condition.value) }
     }
   }
 
   dynamic "condition" {
-    for_each = length(var.hostnames) > 0 ? [var.hostnames] : []
+    for_each = length(local.selected_hostnames[each.key]) > 0 ? [local.selected_hostnames[each.key]] : []
     content {
       host_header { values = toset(condition.value) }
     }
@@ -35,6 +35,16 @@ resource "aws_lb_listener_rule" "green" {
         http_header_name = condition.value.name
         values           = condition.value.values
       }
+    }
+  }
+
+  # Fallback: ALB listener_rule requires at least one condition. If none of the
+  # configured condition sources are provided, create a catch-all path pattern
+  # so Terraform/AWS accepts the rule.
+  dynamic "condition" {
+    for_each = (length(local.selected_paths[each.key]) == 0 && length(local.selected_hostnames[each.key]) == 0 && length(var.source_ips) == 0 && length(var.http_header) == 0) ? [["/*"]] : []
+    content {
+      path_pattern { values = toset(condition.value) }
     }
   }
 
