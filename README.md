@@ -104,6 +104,7 @@ In addition you have the option to create or not :
 | dynamic\_stickiness | Target Group stickiness. Used in dynamic block. | `any` | `[]` | no |
 | ecs\_service\_capacity\_provider\_strategy | (Optional) The capacity provider strategy to use for the service. Can be one or more. These can be updated without destroying and recreating the service only if set to [] and not changing from 0 capacity\_provider\_strategy blocks to greater than 0, or vice versa. | `list` | <pre>[<br>  {}<br>]</pre> | no |
 | efs\_mapping | A map of efs volume ids and paths to mount into the default task definition | `map(string)` | `{}` | no |
+| enable\_internal\_loadbalancer | n/a | `bool` | `false` | no |
 | enable\_schedule | Enables schedule to shut down and start up instances outside business hours. | `bool` | `false` | no |
 | fargate\_spot | Set true to use FARGATE\_SPOT capacity provider by default (only when launch\_type=FARGATE) | `bool` | `false` | no |
 | healthcheck\_interval | n/a | `number` | `10` | no |
@@ -119,10 +120,9 @@ In addition you have the option to create or not :
 | hostnames | List of hostnames to create listerner rule and optionally, DNS records for this app | `list(string)` | `[]` | no |
 | http\_header | Header to use on listerner rule with name e values | `list(any)` | `[]` | no |
 | image | Docker image to deploy (can be a placeholder) | `string` | `""` | no |
-| enable_internal_loadbalancer | Whether to use a second internal ALB for private/internal APIs | `bool` | `false` | no |
-| internal_alb_listener_arn | ALB HTTPS Listener ARN for the internal ALB (used when `enable_internal_loadbalancer` is true) | `string` | `""` | no |
-| internal_paths | List of paths to use on the internal listener rule (example: ['/*']) | `list(string)` | `[]` | no |
-| internal_hostnames | List of hostnames to use on the internal listener rule | `list(string)` | `[]` | no |
+| internal\_alb\_listener\_arn | n/a | `string` | `""` | no |
+| internal\_hostnames | List of internal hostnames to use as a condition to authenticate with OIDC | `list(string)` | `[]` | no |
+| internal\_paths | List of internal paths to use on listener rule (example: ['/\*']) | `list(string)` | `[]` | no |
 | launch\_type | The launch type on which to run your service. The valid values are EC2 and FARGATE. Defaults to EC2. | `string` | `"EC2"` | no |
 | log\_subscription\_filter\_destination\_arn | n/a | `string` | `""` | no |
 | log\_subscription\_filter\_enabled | n/a | `bool` | `false` | no |
